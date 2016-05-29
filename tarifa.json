@@ -1,0 +1,120 @@
+{
+  "name": "oyunkeyf",
+  "id": "net.oyunkeyf.mobileapp",
+  "description": "oyunkeyf.net mobile application",
+  "version": "1.0.0",
+  "platforms": [
+    "browser@4.1.0"
+  ],
+  "configurations": {
+    "browser": {
+      "default": {
+        "id": "net.oyunkeyf.mobileapp.init",
+        "product_name": "oyunkeyf_init",
+        "product_file_name": "oyunkeyf_init"
+      },
+      "dev": {
+        "id": "net.oyunkeyf.mobileapp.dev",
+        "product_name": "oyunkeyf_dev",
+        "product_file_name": "oyunkeyf_dev"
+      },
+      "stage": {
+        "id": "net.oyunkeyf.mobileapp.stage",
+        "product_name": "oyunkeyf_stage",
+        "product_file_name": "oyunkeyf_stage",
+        "release": true
+      },
+      "prod": {
+        "id": "net.oyunkeyf.mobileapp.prod",
+        "product_name": "oyunkeyf_prod",
+        "product_file_name": "oyunkeyf_prod",
+        "release": true
+      }
+    }
+  },
+  "cordova": {
+    "preferences": {
+      "Orientation": "default",
+      "DisallowOverscroll": true,
+      "EnableViewportScale": false,
+      "KeyboardDisplayRequiresUserAction": false,
+      "ShowSplashScreenSpinner": false,
+      "AutoHideSplashScreen": false,
+      "SplashScreen": "screen",
+      "BackgroundColor": "0xff2a77b3",
+      "KeepRunning": true,
+      "windows-target-version": "10.0"
+    },
+    "settings": {
+      "ios": {
+        "UILaunchStoryboardName": "MainViewController"
+      }
+    },
+    "whitelist": {
+      "shared": [
+        {
+          "type": "access-origin",
+          "origin": [
+            "*"
+          ]
+        },
+        {
+          "type": "allow-intent",
+          "origin": [
+            "https://*/*"
+          ]
+        }
+      ],
+      "android": [
+        {
+          "type": "allow-intent",
+          "origin": [
+            "market:*",
+            "http://*/*",
+            "tel:*",
+            "sms:*",
+            "mailto:*",
+            "geo:*"
+          ]
+        },
+        {
+          "type": "allow-navigation",
+          "origin": [
+            "*"
+          ]
+        }
+      ],
+      "ios": [
+        {
+          "type": "allow-intent",
+          "origin": [
+            "itms:*",
+            "itms-apps:*",
+            "http://*/*",
+            "tel:*",
+            "sms:*",
+            "mailto:*",
+            "geo:*"
+          ]
+        }
+      ]
+    }
+  },
+  "author": {
+    "name": "Emre Guneyler",
+    "email": "eguneys@hotmail.com",
+    "href": "oyunkeyf.net"
+  },
+  "hockeyapp": {
+    "api_url": "https://rink.hockeyapp.net/api/2",
+    "versions_notify": "0",
+    "versions_status": "1"
+  },
+  "check": {
+    "browser": "./project/bin/check_browser.js"
+  },
+  "plugins": {
+    "cordova-plugin-splashscreen": "cordova-plugin-splashscreen@3.2.0",
+    "cordova-plugin-whitelist": "cordova-plugin-whitelist@1.2.1"
+  }
+}

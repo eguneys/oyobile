@@ -1,0 +1,14 @@
+bin/*.mobileprovision
+bin/*.keystore
+
+/app
+
+project/www/app.js
+project/www/index.html
+project/www/css/compiled
+project/node_modules
+project/env.json
+
+private.json
+
+.DS_Store
