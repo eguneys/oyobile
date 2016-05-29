@@ -2,6 +2,7 @@ bin/*.mobileprovision
 bin/*.keystore
 
 /app
+/node_modules
 
 project/www/app.js
 project/www/index.html

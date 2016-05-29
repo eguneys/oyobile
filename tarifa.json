@@ -39,6 +39,7 @@
       "EnableViewportScale": false,
       "KeyboardDisplayRequiresUserAction": false,
       "ShowSplashScreenSpinner": false,
+      "SplashScreenDelay": 0,
       "AutoHideSplashScreen": false,
       "SplashScreen": "screen",
       "BackgroundColor": "0xff2a77b3",
