@@ -8,6 +8,12 @@ const menu = {};
 menu.isOpen = false;
 menu.headerOpen = m.prop(false);
 
+menu.route = function(route) {
+  return function() {
+    return menu.close().then(m.route.bind(null, route));
+  };
+};
+
 menu.toggle = function() {
   if (menu.isOpen) menu.close();
   else menu.open();

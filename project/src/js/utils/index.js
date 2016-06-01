@@ -1,3 +1,16 @@
+import m from 'mithril';
+
+export const oyunkeyfSri = Math.random().toString(36).substring(2);
+
+export function autoredraw(action) {
+  m.startComputation();
+  try {
+    return action();
+  } finally {
+    m.endComputation();
+  }
+}
+
 export function hasNetwork() {
   return window.navigator.connection.type !== window.Connection.NONE;
 }

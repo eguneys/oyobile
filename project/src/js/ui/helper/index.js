@@ -1,3 +1,4 @@
+import Zanimo from 'zanimo';
 import * as utils from '../../utils';
 import ButtonHandler from './button';
 import animator from './animator';
@@ -60,6 +61,22 @@ function viewFadesOut(el, callback) {
   tId = setTimeout(after, 250);
 }
 
+function collectionHas(coll, el) {
+  for (var i = 0, len = coll.length; i < len; i++) {
+    if (coll[i] === el) return true;
+  }
+  return false;
+}
+
+function findParentBySelector(el, selector) {
+  var matches = document.querySelectorAll(selector);
+  var cur = el.parentNode;
+  while (cur && !collectionHas(matches, cur)) {
+    cur = cur.parentNode;
+  }
+  return cur;
+}
+
 function ontouch(tapHandler, holdHandler, repeatHandler, scrollX, scrollY, touchEndFeedback) {
   return function(el, isUpdate) {
     if (!isUpdate) {
@@ -113,8 +130,25 @@ export default {
     return cachedTransformProp;
   },
 
+  fadesOut: function(callback, selector, time = 150) {
+    return function(e) {
+      e.stopPropagation();
+      var el = selector ? findParentBySelector(e.target, selector) : e.target;
+      m.redraw.strategy('none');
+      return Zanimo(el, 'opacity', 0, time)
+        .then(() => utils.autoredraw(callback))
+        .catch(console.log.bind(console));
+    };
+  },
+
   ontouch: function(tapHandler, holdHandler, repeatHandler, touchEndFeedback = true) {
     return ontouch(tapHandler, holdHandler, repeatHandler, false, false, touchEndFeedback);
+  },
+  ontouchX: function(tapHandler, holdHandler, touchEndFeedback = true) {
+    return ontouch(tapHandler, holdHandler, null, true, false, touchEndFeedback);
+  },
+  ontouchY: function(tapHandler, holdHandler, touchEndFeedback = true) {
+    return ontouch(tapHandler, holdHandler, null, false, true, touchEndFeedback);
   },
   classSet: function(classes) {
     var arr = [];

@@ -1,6 +1,7 @@
 import i18n from '../../i18n';
 import menu from '.';
 import { hasNetwork } from '../../utils';
+import helper from '../helper';
 import Zanimo from 'zanimo';
 
 
@@ -34,11 +35,11 @@ function renderLinks(user) {
 
   return (
     <ul className="side_links">
-      <li className="side_link" key="home">
+      <li className="side_link" key="home" config={helper.ontouchY(menu.route('/'))}>
         <span className="fa fa-home" />Home
     </li>
     {hasNetwork() ? <li className="sep_link" key="sep_link_online">{i18n('playOnline')}</li> : null }
-    {hasNetwork() ? <li className="side_link" key="play_real_time">
+    {hasNetwork() ? <li className="side_link" key="play_real_time" config={helper.ontouchY(menu.route('/'))}>
       <span className="fa fa-plus-circle"/>{i18n('createAGame')}
     </li> : null }
     {hasNetwork() ? <li className="side_link" key="masalar">

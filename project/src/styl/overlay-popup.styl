@@ -1,0 +1,58 @@
+.overlay_popup_wrapper
+  width 100%
+  height 100%
+  background-color rgba(0,0,0,0.5)
+  color #ffffff
+  z-index 10
+  position absolute
+  top 0
+  left 0
+
+.popup_overlay_close
+  position absolute
+  width 100%
+  height 100%
+  z-index 11
+
+.overlay_popup
+  position absolute
+  border-radius 5px
+  top 10%
+  left 7.5%
+  width 85%
+  max-height 80%
+  z-index 12
+  background-color #fff
+  color textDarkGray
+  box-shadow 0 0 35px 10px rgba(0,0,0,0.5)
+  button
+    min-height 45px
+    color textDarkGray
+  > header
+    text-align center
+    position relative
+    min-height 45px
+    line-height 45px
+    width 100%
+    border-bottom solid 1px #E1E1E1
+    > h2
+      text-align center
+      line-height 45px
+    + .popup_content
+      height calc(100% - 45px)
+  @media only screen and (min-width 500px)
+    width 60%
+    left 20%
+  @media only screen and (min-width 600px)
+    width 55%
+    left 22.5%
+  @media only screen and (min-width 700px)
+    width 50%
+    left 25%
+    right 25%
+  @media only screen and (min-width 400px)
+    max-height 85%
+    top 10%
+
+.popup_content
+  height 100%

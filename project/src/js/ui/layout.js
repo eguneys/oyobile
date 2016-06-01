@@ -1,5 +1,6 @@
 import menu from './menu';
 import menuView from './menu/menuView';
+import newGameForm from './newGameForm';
 import helper from './helper';
 import settings from '../settings';
 
@@ -35,8 +36,10 @@ export default {
             <div className={'content' + (footer ? ' withFooter': '')}>
               {content()}
             </div>
+            {menu.isOpen ? <div className="menu-close-overlay" config={helper.ontouch(menu.close)} /> : null }
           </main>
           {menuView()}
+          {newGameForm.view()}
         </div>
     );
   }
