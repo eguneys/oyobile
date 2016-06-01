@@ -36,6 +36,9 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
-    "mithril": "^0.2.5"
+    "lodash": "^4.13.1",
+    "mithril": "^0.2.5",
+    "okeyground-mobile": "file:///home/ubuntu/webdev2/okeyground-mobile",
+    "zanimo": "github:veloce/zanimo"
   }
 }

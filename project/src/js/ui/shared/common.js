@@ -1,9 +1,11 @@
 import ViewOnlyBoard from './ViewOnlyBoard';
+import menu from '../menu';
+import helper from '../helper';
 import m from 'mithril';
 
 export function menuButton() {
   return (
-    <button key="main-menu" className="fa fa-navicon main_header_button menu_button">
+      <button key="main-menu" className="fa fa-navicon main_header_button menu_button" config={helper.ontouch(menu.toggle)}>
     </button>
   );
 }

@@ -35,6 +35,20 @@ main
       text-overflow ellipsis
       white-space nowrap
 
+.main_header_button
+  flex 0 0 auto
+  background transparent
+  padding 10px 0.9rem
+  margin 0
+  color gold
+  font-size 20px
+  line-height 20px
+  &.fa-bell
+    position relative
+    top -2px
+  &.active
+    background lighten(bgdark, 8%)
+
 .content
   width 100%
   height calc(100% - 50px)

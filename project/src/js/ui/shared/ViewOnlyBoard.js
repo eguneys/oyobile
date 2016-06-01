@@ -1,4 +1,4 @@
-import okeyground from 'okeyground';
+import okeyground from 'okeyground-mobile';
 
 export default {
   view(_, args) {

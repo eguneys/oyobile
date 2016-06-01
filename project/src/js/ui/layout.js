@@ -1,3 +1,6 @@
+import menu from './menu';
+import menuView from './menu/menuView';
+import helper from './helper';
 import settings from '../settings';
 
 var background;
@@ -9,11 +12,13 @@ export default {
     return (
         <div className={'view-container ' + background}>
           <main id="page" className={side}>
-            <header className="main_header board">
-              {header()}
-            </header>
+            {/* <header className="main_header board">
+            {header()}
+            </header> */}
             <div className="content_round">{content()}</div>
+            {menu.isOpen ? <div className="menu-close-overlay" config={helper.ontouch(menu.close)} /> : null }
           </main>
+          {menuView()}
         </div>
     );
   },
@@ -31,6 +36,7 @@ export default {
               {content()}
             </div>
           </main>
+          {menuView()}
         </div>
     );
   }

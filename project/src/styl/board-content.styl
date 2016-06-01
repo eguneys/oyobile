@@ -1,0 +1,43 @@
+/* SIZES */
+topRows = 16
+topCols = 20
+topPieceWidth = 4%
+topPieceHeight = 10%
+
+topCenterLeft = 45%
+
+.game_board_wrapper
+  position relative
+
+.display_player
+.display_board
+  width 100%
+  height 100%
+  
+.display_player
+  position absolute
+  top 0
+
+.og-top
+  .display_menu
+    position absolute
+  
+  .player
+    background gold
+    position absolute
+    height topPieceHeight
+    width 10%
+
+    &.bottom
+      left topCenterLeft
+      bottom  0%
+
+    &.top
+      left topCenterLeft
+
+    &.left
+      top 50%
+
+    &.right
+      top 50%
+      right 0%

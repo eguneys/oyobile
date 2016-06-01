@@ -7,6 +7,10 @@ import m from 'mithril';
 // TODO find a better way cause this is ugly
 let lastRoute;
 
+// this must be cached because of the access to document.body.style
+let cachedTransformProp;
+let cachedViewportDim = null;
+
 function viewFadesIn(el, callback) {
   var tId;
 
@@ -78,9 +82,55 @@ function ontouch(tapHandler, holdHandler, repeatHandler, scrollX, scrollY, touch
   };
 }
 
+function computeTransformProp() {
+  return 'transform' in document.body.style ?
+    'transform' : 'webkitTransform' in document.body.style ?
+    'webkitTransform' : 'mozTransform' in document.body.style ?
+    'mozTransform' : 'oTransform' in document.body.style ?
+    'oTransform' : 'msTransform';
+}
+
+function viewportDim() {
+  if (cachedViewportDim) return cachedViewportDim;
+
+  let e = document.documentElement;
+  let vpd = cachedViewportDim = {
+    vw: e.clientWidth,
+    vh: e.clientHeight
+  };
+  return vpd;
+}
+
 export default {
   fadingPage: animator(viewFadesIn, viewFadesOut),
+  viewportDim,
+  clearCachedViewportDim() {
+    cachedViewportDim = null;
+  },
+
+  transformProp: function() {
+    if (!cachedTransformProp) cachedTransformProp = computeTransformProp();
+    return cachedTransformProp;
+  },
+
   ontouch: function(tapHandler, holdHandler, repeatHandler, touchEndFeedback = true) {
     return ontouch(tapHandler, holdHandler, repeatHandler, false, false, touchEndFeedback);
+  },
+  classSet: function(classes) {
+    var arr = [];
+    for (var i in classes) {
+      if (classes[i]) arr.push(i);
+    }
+    return arr.join(' ');
+  },
+  isIpadLike: function() {
+    const { vh, vw } = viewportDim();
+    return vh >= 700 && vw <= 1050;
+  },
+  isPortrait: function() {
+    return window.matchMedia('(orientation: portrait)').matches;
+  },
+  isLandscape: function() {
+    return window.matchMedia('(orientation: landscape)').matches;
   }
-}
+};

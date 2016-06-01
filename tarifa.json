@@ -116,6 +116,7 @@
   },
   "plugins": {
     "cordova-plugin-splashscreen": "cordova-plugin-splashscreen@3.2.0",
-    "cordova-plugin-whitelist": "cordova-plugin-whitelist@1.2.1"
+    "cordova-plugin-whitelist": "cordova-plugin-whitelist@1.2.1",
+    "cordova-plugin-network-information": "cordova-plugin-network-information"
   }
 }
