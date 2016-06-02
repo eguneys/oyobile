@@ -1,6 +1,7 @@
 import helper from './ui/helper';
 import home from './ui/home';
-import otb from './ui/otb';
+import masaDetail from './ui/masa/detail';
+
 import m from 'mithril';
 
 const fadingPage = helper.fadingPage;
@@ -9,7 +10,7 @@ export default {
   init() {
     m.route(document.body, '/', {
       '/': fadingPage(home),
-      '/otb': otb
+      '/masa/:id': fadingPage(masaDetail)
     });
   }
 }

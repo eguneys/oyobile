@@ -10,6 +10,20 @@
     <link rel="stylesheet" type="text/css" href="css/fonts.css"/>
     <link rel="stylesheet" type="text/css" href="css/compiled/app.css"/>
     <script>
+     window.oyunkeyf = {
+       apiEndPoint: "<!-- @echo API_END_POINT -->",
+       socketEndPoint: "<!-- @echo SOCKET_END_POINT -->",
+       mode: "<!-- @echo MODE -->",
+       <!-- @ifdef APP_VERSION -->
+       version: "<!-- @echo APP_VERSION -->",
+       <!-- @endif -->
+       <!-- @ifdef GA_ID -->
+       gaId: "<!-- @echo GA_ID -->",
+       <!-- @endif -->
+       <!-- @ifdef GCM_senderId -->
+       gcmSenderId: "<!-- @echo GCM_senderId -->"
+       <!-- @endif -->
+     }
     </script>
   </head>
   <body>

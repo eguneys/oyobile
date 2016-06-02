@@ -6,29 +6,41 @@
   "platforms": [
     "browser@4.1.0"
   ],
+  "configurations_mixins": {
+    "default": {
+      "id": "net.oyunkeyf.mobileapp.init",
+      "product_name": "oyunkeyf_init",
+      "product_file_name": "oyunkeyf_init",
+      "API_END_POINT": "en.oyunkeyf.net",
+      "SOCKET_END_POINT": "socket.en.oyunkeyf.net"
+    },
+    "dev": {
+      "id": "net.oyunkeyf.mobileapp.dev",
+      "product_name": "oyunkeyf_dev",
+      "product_file_name": "oyunkeyf_dev",
+      "API_END_POINT": "en.oyunkeyf.net",
+      "SOCKET_END_POINT": "socket.en.oyunkeyf.net"
+    },
+    "stage": {
+      "id": "net.oyunkeyf.mobileapp.stage",
+      "product_name": "oyunkeyf_stage",
+      "product_file_name": "oyunkeyf_stage",
+      "release": true
+    },
+    "prod": {
+      "id": "net.oyunkeyf.mobileapp.prod",
+      "product_name": "oyunkeyf_prod",
+      "product_file_name": "oyunkeyf_prod",
+      "release": true
+    }
+  },
   "configurations": {
     "browser": {
       "default": {
-        "id": "net.oyunkeyf.mobileapp.init",
-        "product_name": "oyunkeyf_init",
-        "product_file_name": "oyunkeyf_init"
+        "extend": "default"
       },
       "dev": {
-        "id": "net.oyunkeyf.mobileapp.dev",
-        "product_name": "oyunkeyf_dev",
-        "product_file_name": "oyunkeyf_dev"
-      },
-      "stage": {
-        "id": "net.oyunkeyf.mobileapp.stage",
-        "product_name": "oyunkeyf_stage",
-        "product_file_name": "oyunkeyf_stage",
-        "release": true
-      },
-      "prod": {
-        "id": "net.oyunkeyf.mobileapp.prod",
-        "product_name": "oyunkeyf_prod",
-        "product_file_name": "oyunkeyf_prod",
-        "release": true
+        "extend": "dev"
       }
     }
   },
@@ -117,6 +129,7 @@
   "plugins": {
     "cordova-plugin-splashscreen": "cordova-plugin-splashscreen@3.2.0",
     "cordova-plugin-whitelist": "cordova-plugin-whitelist@1.2.1",
-    "cordova-plugin-network-information": "cordova-plugin-network-information"
+    "cordova-plugin-network-information": "cordova-plugin-network-information",
+    "cordova-plugin-globalization": "cordova-plugin-globalization"
   }
 }

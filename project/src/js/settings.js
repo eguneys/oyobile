@@ -15,11 +15,16 @@ function tupleOf(x) {
 
 export default {
   general: {
+    lang: localstorageprop('settings.lang'),
     theme: {
       background: localstorageprop('settings.bgTheme', 'dark')
     }
   },
   gameSetup: {
+    availableRounds: [1, 5, 10, 15, 20, 25, 30].map(tupleOf),
+    isRoundValid: function(gameSettings) {
+      return gameSettings.rounds() !== '0';
+    },
     human: {
       availableVariants: [
         ['101 Okey', '1'],

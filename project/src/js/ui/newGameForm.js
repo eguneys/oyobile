@@ -60,13 +60,24 @@ function renderForm(formName, action, settingsObj, variants) {
   }
 
   // both human
-  // var roundFieldset = [
-  //   m('div.select_input', {
-  //     key: formName
-  //   }, [
-  //     formWidgets.renderSelect('round', formName, roundModes, settingsObj.roundMode)
-  //   ])
-  // ];
+  var roundFieldset = [
+    // m('div.select_input', {
+    //   key: formName + 'rounds'
+    // }, [
+    //   formWidgets.renderSelect('round', formName + 'rounds', roundModes, settingsObj.roundMode)
+    // ])
+  ];
+
+  if (true) {
+    roundFieldset.push(
+      m('div.select_input', {
+        key: formName + 'rounds'
+      }, [
+        formWidgets.renderSelect('round', formName + 'round',
+                                 settings.gameSetup.availableRounds, settingsObj.rounds, false)
+      ])
+    );
+  }
 
   return m('form#new_game_form.game_form', {
     onsubmit: function(e) {
@@ -79,7 +90,7 @@ function renderForm(formName, action, settingsObj, variants) {
     m('fieldset', [
     ]),
     m('fieldset', generalFieldset),
-    // m('fieldset#round', roundFieldset),
+    m('fieldset#round', roundFieldset),
     m('button[data-icon=E][type=submit].newGameButton', i18n('createAGame'))
   ]);
 }

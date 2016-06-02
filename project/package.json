@@ -38,6 +38,7 @@
   "dependencies": {
     "lodash": "^4.13.1",
     "mithril": "^0.2.5",
+    "moment": "^2.13.0",
     "okeyground-mobile": "file:///home/ubuntu/webdev2/okeyground-mobile",
     "zanimo": "github:veloce/zanimo"
   }
