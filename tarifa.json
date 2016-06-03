@@ -12,14 +12,14 @@
       "product_name": "oyunkeyf_init",
       "product_file_name": "oyunkeyf_init",
       "API_END_POINT": "en.oyunkeyf.net",
-      "SOCKET_END_POINT": "socket.en.oyunkeyf.net"
+      "SOCKET_END_POINT": "en.oyunkeyf.net:9021"
     },
     "dev": {
       "id": "net.oyunkeyf.mobileapp.dev",
       "product_name": "oyunkeyf_dev",
       "product_file_name": "oyunkeyf_dev",
-      "API_END_POINT": "en.oyunkeyf.net",
-      "SOCKET_END_POINT": "socket.en.oyunkeyf.net"
+      "API_END_POINT": "tr.oyunkeyf.net",
+      "SOCKET_END_POINT": "tr.oyunkeyf.net:9021"
     },
     "stage": {
       "id": "net.oyunkeyf.mobileapp.stage",
@@ -130,6 +130,8 @@
     "cordova-plugin-splashscreen": "cordova-plugin-splashscreen@3.2.0",
     "cordova-plugin-whitelist": "cordova-plugin-whitelist@1.2.1",
     "cordova-plugin-network-information": "cordova-plugin-network-information",
-    "cordova-plugin-globalization": "cordova-plugin-globalization"
+    "cordova-plugin-globalization": "cordova-plugin-globalization",
+    "cordova-plugin-x-toast": "cordova-plugin-x-toast",
+    "cordova-plugin-dialogs": "cordova-plugin-dialogs"
   }
 }

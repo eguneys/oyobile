@@ -44,6 +44,21 @@ button
     &::before
       opacity 0.4
 
+input, textarea
+  -webkit-appearance none
+
+textarea
+  resize none
+
+span.fa
+  margin-right 10px
+  
+.disabled
+  opacity 0.5
+
+.hide
+  display none
+
 .native_scroller
   overflow-y auto
   -webkit-overflow-scrolling touch
@@ -65,3 +80,28 @@ button
   border-radius 2px
   &.active
     background linear-gradient(to bottom,rgba(44,44,44,1), rgba(40, 40, 40,1) 100%);
+
+/* lists */
+
+.list_item
+  position relative
+  line-height 20px
+  padding 15px
+  border-bottom 1px solid borderColor
+  > td
+    padding 15px 0
+    line-height 20px
+    &:first-child
+      padding-left 10px
+    &:last-child
+      padding-right 10px
+  &:before
+    margin-right 10px
+  &:last-child
+    border-bottom none
+  &.active
+    background lighten(bgdark, 5%)
+  &.bglight
+    border-bottom-color darken(bglight, 15%)
+    &.active
+      background-color darken(bglight, 5%)

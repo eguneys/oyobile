@@ -1,11 +1,21 @@
-import ViewOnlyBoard from './ViewOnlyBoard';
 import menu from '../menu';
+import * as utils from '../../utils';
 import helper from '../helper';
 import m from 'mithril';
+import ViewOnlyBoard from './ViewOnlyBoard';
 
 export function menuButton() {
   return (
       <button key="main-menu" className="fa fa-navicon main_header_button menu_button" config={helper.ontouch(menu.toggle)}>
+    </button>
+  );
+}
+
+export function backButton(title) {
+  return (
+      <button key="default-history-backbutton" className="back_button main_header_button" config={helper.ontouch(utils.backHistory)}>
+      <span className="fa fa-arrow-left"/>
+      {title ? <div className="title">{title}</div> : null }
     </button>
   );
 }

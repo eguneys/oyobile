@@ -1,0 +1,93 @@
+.masaContainer
+  & a.pov
+    display block
+    margin 0 25px 1em
+    text-align center
+    font-size 1.5em
+    position relative
+    border-radius 100px
+    transition box-shadow 1.5s
+    > span
+      display block
+      font-weight 700
+
+.masaHeader
+  padding 10px
+  
+.masaInfoRounds
+  padding-bottom 5px
+  border-bottom 1px solid #2c2c2c
+
+.masaCreatorInfo
+  font-size 0.85em
+  padding-top 5px
+
+.masaInfo
+  &:before
+    content: attr(data-icon)
+
+.masaSeats
+  display flex
+  flex-direction column
+  align-items center
+  > .middle
+    display flex
+    align-items center
+    height 80px
+    > .table
+      height 100px
+      width 100px
+
+.masaSeat
+  margin 5px
+  height 36px
+  width 100px
+  background #fff
+  border-radius 2px
+  transition .13s
+  text-align center
+  display flex
+  align-items center
+  justify-content center
+  &.empty
+    background gold
+    color #fff
+  &:not(.empty)
+    background #fff
+    color gold
+    &.me
+      color #d59120
+  
+.masaLeaderboard
+  display flex
+  flex-flow column nowrap
+
+p.masaTitle
+  text-align left
+  font-weight bold
+  color gold
+  padding-left 10px
+  margin 10px 0 5px
+
+table.masaStandings
+  width 100%
+
+td.masaPlayer
+  padding 10px
+  text-align left
+  text-overflow ellipsis
+  white-space nowrap
+  overflow hidden
+  max-width 0
+  width 80%
+
+.list_item.me
+  >td.masaPlayer
+    border-left 10px solid #d59120
+    padding-left 5px
+
+td.masaPoints
+  padding 10px
+  text-align right
+  max-width 0
+  width 20%

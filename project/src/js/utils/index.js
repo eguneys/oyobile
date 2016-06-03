@@ -1,21 +1,100 @@
+import i18n from '../i18n';
 import m from 'mithril';
 
 export const oyunkeyfSri = Math.random().toString(36).substring(2);
 
-export function autoredraw(action) {
-  m.startComputation();
-  try {
-    return action();
-  } finally {
-    m.endComputation();
+export function tellWorker(worker, topic, payload) {
+  if (payload !== undefined) {
+    worker.postMessage({ topic, payload });
+  } else {
+    worker.postMessage({ topic });
   }
+}
+
+export function askWorker(worker, msg, callback) {
+  return new Promise(function(resolve) {
+    function listen(e) {
+      if (e.data.topic === msg.topic) {
+        worker.removeEventListener('message', listen);
+        if (callback) {
+          callback(e.data.payload);
+        } else {
+          resolve(e.data.payload);
+        }
+      }
+    }
+    worker.addEventListener('message', listen);
+    worker.postMessage(msg);
+  });
 }
 
 export function hasNetwork() {
   return window.navigator.connection.type !== window.Connection.NONE;
 }
 
+export function handleXhrError(error) {
+  var {response: data, status} = error;
+  if (!hasNetwork()) {
+    window.plugins.toast.show(i18n('noInternetConnection'), 'short', 'center');
+  } else {
+    let message;
+    if (!status || status === 0) {
+      message = 'oyunkeyfIsUnreachable';
+    } else if (status === 401) {
+      message = 'unauthorizedError';
+    } else if (status === 404) {
+      message = 'resourceNotFoundError';
+    } else if (status === 503) {
+      message = 'oyunkeyfIsUnavailableError';
+    } else if (status >= 500) {
+      message = 'serverError';
+    } else {
+      message = 'Error.';
+    }
+
+    message = i18n(message);
+
+    if (typeof data === 'string') {
+      message += ` ${data}`;
+    } else if (data.global && data.global.constructor === Array) {
+      message += ` ${data.global[0]}`;
+    } else if (typeof data.error === 'string') {
+      message += ` ${data.error}`;
+    }
+
+    window.plugins.toast.show(message, 'short', 'center');
+  }
+}
+
+
 export function noop() {}
+
+export function backHistory() {
+  setViewSlideDirection('bwd');
+  if (window.navigator.app && window.navigator.app.backHistory) {
+    window.navigator.app.backHistory();
+  }
+  else
+    window.history.go(-1);
+}
+
+// simple way to determine views animation direction
+var viewSlideDirection = 'fwd';
+export function setViewSlideDirection(d) {
+  viewSlideDirection = d;
+}
+export function getViewSlideDirection() {
+  return viewSlideDirection;
+}
+
+const perfIconsMap = {
+  yuzbir: 'T',
+  duzokey: '+'
+};
+
+export function gameIcon(perf) {
+  return perfIconsMap[perf] || '8';
+}
 
 export function getBoardBounds(viewportDim, isPortrait, isIpadLike, mode) {
   const { vh, vw } = viewportDim;
@@ -47,5 +126,14 @@ export function getBoardBounds(viewportDim, isPortrait, isIpadLike, mode) {
       width: lWidth,
       height: lSide
     };
+  }
+}
+
+export function autoredraw(action) {
+  m.startComputation();
+  try {
+    return action();
+  } finally {
+    m.endComputation();
   }
 }

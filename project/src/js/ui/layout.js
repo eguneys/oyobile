@@ -36,6 +36,7 @@ export default {
             <div className={'content' + (footer ? ' withFooter': '')}>
               {content()}
             </div>
+            { footer ? <footer className="main_footer">{footer()}</footer> : null }
             {menu.isOpen ? <div className="menu-close-overlay" config={helper.ontouch(menu.close)} /> : null }
           </main>
           {menuView()}

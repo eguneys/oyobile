@@ -4,6 +4,11 @@ function isConnected() {
   return !!session;
 }
 
+function getSession() {
+  return session;
+}
+
 export default {
-  isConnected
+  isConnected,
+  get: getSession
 };
