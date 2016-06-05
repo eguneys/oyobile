@@ -15,3 +15,8 @@ export function newGame() {
     data
   }, true);
 }
+
+export function game(id, background) {
+  var url = '/' + id;
+  return request(url, { background }, true);
+}

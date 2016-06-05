@@ -16,6 +16,43 @@ const proxyFailMsg = "Oyunkeyf sunucularına bağlantı koptu. Problem sürekli 
 const defaultHandlers = {
 };
 
+function createGame(url, version, handlers, gameUrl) {
+  errorDetected = false;
+  socketHandlers = {
+    onError: function() {
+      // we can't get socket error, so we send an xhr to test whether the
+      // rejection is an authorization issue
+      if (!errorDetected) {
+        // just to be sure that we don't send an xhr every second when the
+        // websocket is trying to reconnect
+        errorDetected = true;
+        xhr.game(gameUrl.substring(1)).then(function() {}, function(err) {
+          if (err.status === 401) {
+            window.plugins.toast.show(i18n('unauthorizedError'), 'short', 'center');
+            m.route('/');
+          }
+        });
+      }
+    },
+    events: Object.assign({}, defaultHandlers, handlers)
+  };
+
+  const opts = {
+    options: {
+      name: 'game',
+      debug: false,
+      registeredEvents: Object.keys(socketHandlers.events)
+    }
+  };
+  tellWorker(worker, 'create', {
+    clientId: oyunkeyfSri,
+    socketEndPoint: window.oyunkeyf.socketEndPoint,
+    url,
+    version,
+    opts
+  });
+}
+
 function createMasa(masaId, version, handlers) {
   let url = '/masa/' + masaId + '/socket/v1';
 
@@ -88,6 +125,7 @@ worker.addEventListener('message', function(msg) {
 
 export default {
   createMasa,
+  createGame,
   setVersion(version) {
     tellWorker(worker, 'setVersion', version);
   }

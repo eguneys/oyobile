@@ -28,6 +28,7 @@ export function askWorker(worker, msg, callback) {
   });
 }
 
+
 export function hasNetwork() {
   return window.navigator.connection.type !== window.Connection.NONE;
 }
@@ -68,6 +69,21 @@ export function handleXhrError(error) {
 
 
 export function noop() {}
+
+export function playerName(player, withRating) {
+  if (player.username || player.user) {
+    var name = player.username || player.user.username;
+    return name;
+  }
+  if (player.ai) {
+    return aiName(player.ai);
+  }
+  return i18n('anonymous');
+}
+
+export function aiName(level) {
+  return i18n('aiBot', level);
+}
 
 export function backHistory() {
   setViewSlideDirection('bwd');

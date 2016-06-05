@@ -4,3 +4,52 @@
   justify-content center
   @media only screen and (orientation: landscape)
     display flex
+
+  
+.og-top
+  .display_menu
+    position absolute
+  
+  .playerInfos
+    position absolute
+    height topPieceHeight
+    width 10%
+
+    &.bottom
+      left topCenterLeft
+      bottom  0%
+
+    &.top
+      left topCenterLeft
+
+    &.left
+      top 50%
+
+    &.right
+      top 50%
+      right 0%
+
+.playerUser
+  display flex
+  align-items center
+  justify-content center
+  height 100%
+  width 100%
+  overflow hidden
+  text-overflow ellipsis
+  font-weight bold
+  font-size 1.1em
+  white-space nowrap
+  > .status
+    margin-right 5px
+    vertical-align middle
+    &.online
+      color green
+    &.offline
+      opacity 0.6
+  > .ongame
+    margin-left 5px
+    &.yes
+      color green
+    &.no
+      color red
