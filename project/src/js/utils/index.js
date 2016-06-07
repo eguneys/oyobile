@@ -103,14 +103,6 @@ export function getViewSlideDirection() {
   return viewSlideDirection;
 }
 
-const perfIconsMap = {
-  yuzbir: 'T',
-  duzokey: '+'
-};
-
-export function gameIcon(perf) {
-  return perfIconsMap[perf] || '8';
-}
 
 export function getBoardBounds(viewportDim, isPortrait, isIpadLike, mode) {
   const { vh, vw } = viewportDim;
@@ -152,4 +144,27 @@ export function autoredraw(action) {
   } finally {
     m.endComputation();
   }
+}
+
+const perfIconsMap = {
+  yuzbir: 'T',
+  duzokey: '+'
+};
+
+export function gameIcon(perf) {
+  return perfIconsMap[perf] || '8';
+}
+
+export function formatMasaDuration(rounds, scores) {
+  return rounds ? rounds + i18n('hands') : scores + i18n('scores');
+}
+
+export function pad(num, size) {
+  var s = num + '';
+  while (s.length < size) s = '0' + s;
+  return s;
+}
+
+export function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }

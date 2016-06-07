@@ -1,3 +1,4 @@
+import i18n from '../../i18n';
 import * as utils from '../../utils';
 import helper from '../helper';
 import okeyground from 'okeyground-mobile';
@@ -12,12 +13,31 @@ function renderTopMenu() {
   );
 }
 
-function renderPlayerInfo(ctrl, player, position) {
-  const playerName = utils.playerName(player);
+function renderAIInfo(ctrl, player, position) {
   const wrapperClass = [
     'playerInfos',
     position
   ].join(' ');
+
+  return (
+    <div className={wrapperClass}>
+      <h2 className="playerUser">
+        {i18n('aiBot', player.ai)}
+        <span className="ongame yes" data-icon="3"/>
+      </h2>
+    </div>
+  );  
+}
+
+function renderPlayerInfo(ctrl, player, position) {
+  if (player.ai) return renderAIInfo(ctrl, player, position);
+  const wrapperClass = [
+    'playerInfos',
+    position
+  ].join(' ');
+
+  const playerName = utils.playerName(player);
+
   const togglePopup = ctrl.toggleUserPopup.bind(ctrl, position, player.user);
   const vConf = helper.ontouch(togglePopup)
 
@@ -73,7 +93,7 @@ export default function(
     }
 
     okeygroundCtrl.data.topHooks = [
-      renderTopMenu(),
+      // renderTopMenu(),
       renderPlayerInfo(ctrl, data.opponentUp, 'top'),
       renderPlayerInfo(ctrl, data.opponentLeft, 'left'),
       renderPlayerInfo(ctrl, data.player, 'bottom'),

@@ -42,8 +42,8 @@ function renderLinks(user) {
     {hasNetwork() ? <li className="side_link" key="play_real_time" config={helper.ontouchY(menu.route('/'))}>
       <span className="fa fa-plus-circle"/>{i18n('createAGame')}
     </li> : null }
-    {hasNetwork() ? <li className="side_link" key="masalar">
-      <span className="fa fa-trophy"/>{i18n('masalar')}
+    {hasNetwork() ? <li className="side_link" key="masas" config={helper.ontouchY(menu.route('/masa'))}>
+      <span className="fa fa-trophy"/>{i18n('masas')}
     </li> : null }
     {hasNetwork() ? <li className="sep_link" key="sep_link_community">
       {i18n('community')}

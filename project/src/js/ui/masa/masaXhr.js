@@ -1,5 +1,9 @@
 import { request } from '../../http';
 
+export function currentMasas() {
+  return request('/masa', {}, true);
+}
+
 export function masa(id) {
   return request('/masa/' + id, { data: {socketVersion: 1}}, true);
 }

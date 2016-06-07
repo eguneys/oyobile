@@ -76,6 +76,30 @@ function createMasa(masaId, version, handlers) {
   });
 }
 
+function createDefault() {
+  // default socket is useless when anon.?
+  if (hasNetwork()) {
+    socketHandlers = {
+      events: defaultHandlers
+    };
+    const opts = {
+      options: {
+        name: 'default',
+        debug: false,
+        pingDelay: 2000,
+        registeredEvents: Object.keys(socketHandlers.events)
+      }
+    };
+    tellWorker(worker, 'create', {
+      clientId: oyunkeyfSri,
+      socketEndPoint: window.oyunkeyf.socketEndPoint,
+      url: '/socket',
+      version: 0,
+      opts
+    });
+  }
+}
+
 function onConnected() {
   const wasOff = !connectedWS;
   connectedWS = true;
@@ -128,5 +152,8 @@ export default {
   createGame,
   setVersion(version) {
     tellWorker(worker, 'setVersion', version);
+  },
+  send(type, data, opts) {
+    tellWorker(worker, 'send', [type, data, opts]);
   }
 };

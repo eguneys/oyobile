@@ -4,7 +4,8 @@
   "description": "oyunkeyf.net mobile application",
   "version": "1.0.0",
   "platforms": [
-    "browser@4.1.0"
+    "browser@4.1.0",
+    "android@5.1.1"
   ],
   "configurations_mixins": {
     "default": {
@@ -25,7 +26,18 @@
       "id": "net.oyunkeyf.mobileapp.stage",
       "product_name": "oyunkeyf_stage",
       "product_file_name": "oyunkeyf_stage",
-      "release": true
+      "API_END_POINT": "tr.oyunkeyf.net",
+      "SOCKET_END_POINT": "tr.oyunkeyf.net:9021",
+      "cordova": {
+        "whitelist": [
+          {
+            "type": "access-origin",
+            "origin": [
+              "http://tr.oyunkeyf.net"
+            ]
+          }
+        ]
+      }
     },
     "prod": {
       "id": "net.oyunkeyf.mobileapp.prod",
@@ -42,11 +54,25 @@
       "dev": {
         "extend": "dev"
       }
+    },
+    "android": {
+      "default": {
+        "extend": "default"
+      },
+      "dev": {
+        "extend": "dev"
+      },
+      "stage": {
+        "extend": "stage"
+      },
+      "prod": {
+        "extend": "prod"
+      }
     }
   },
   "cordova": {
     "preferences": {
-      "Orientation": "default",
+      "Orientation": "landscape",
       "DisallowOverscroll": true,
       "EnableViewportScale": false,
       "KeyboardDisplayRequiresUserAction": false,
@@ -132,6 +158,7 @@
     "cordova-plugin-network-information": "cordova-plugin-network-information",
     "cordova-plugin-globalization": "cordova-plugin-globalization",
     "cordova-plugin-x-toast": "cordova-plugin-x-toast",
-    "cordova-plugin-dialogs": "cordova-plugin-dialogs"
+    "cordova-plugin-dialogs": "cordova-plugin-dialogs",
+    "cordova-plugin-crosswalk-webview": "cordova-plugin-crosswalk-webview"
   }
 }

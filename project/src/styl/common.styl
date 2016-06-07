@@ -59,6 +59,9 @@ span.fa
 .hide
   display none
 
+.module-tabs
+  height 100%
+
 .native_scroller
   overflow-y auto
   -webkit-overflow-scrolling touch
@@ -67,6 +70,13 @@ span.fa
   &.tab-content
     height calc(100% - 40px)
 
+.withIcon
+  &[data-icon]:before
+    margin-right 5px
+    position relative
+  &[data-icon]:before
+    top 2px
+  
 .fatButton
   display block
   width 80%

@@ -1,9 +1,15 @@
 import okeyground from 'okeyground-mobile';
+import gameApi from '../../oyunkeyf/game';
 
 function makeConfig(data, fen) {
   return {
     fen: fen,
+    turnSide: data.game.player,
+    povSide: data.player.side,
     movable: {
+      free: false,
+      board: gameApi.isPlayerPlaying(data),
+      dests: gameApi.isPlayerPlaying(data) ? data.possibleMoves : []
     }
   };
 }

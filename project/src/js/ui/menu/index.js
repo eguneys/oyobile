@@ -24,19 +24,32 @@ menu.open = function() {
   menu.isOpen = true;
 };
 
+menu.willClose = false;
 menu.close = function(fromBB) {
+  const sideMenu = document.getElementById('side_menu');
+
+  if (menu.willClose || !sideMenu) return null;
+
+  menu.willClose = true;
   if (fromBB !== 'backbutton' && menu.isOpen) backbutton.stack.pop();
   m.redraw.strategy('none');
   return Zanimo(
-    document.getElementById('side_menu'),
+    sideMenu,
     'transform',
     'translate3d(-100%,0,0', 250, 'ease-out'
   ).then(() => {
     menu.headerOpen(false);
     menu.isOpen = false;
+    menu.willClose = false;
     m.redraw();
   })
-    .catch(console.error.bind(console));
+    .catch((err) => {
+      console.error(err);
+      menu.headerOpen(false);
+      menu.isOpen = false;
+      menu.willClose = false;
+      m.redraw();
+    });
 };
 
 export default menu;
