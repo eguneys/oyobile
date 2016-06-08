@@ -12,9 +12,9 @@ export default function view(ctrl) {
   return layout.free(header.bind(null, i18n('masas')), bodyCtrl);
 }
 
-const TABS = [{
+const TABS = (i18n) => [{
   key: 'started',
-  label: i18n('inProgress')
+  label: i18n('inProgressTables')
 }, {
   key: 'created',
   label: i18n('openTables')
@@ -25,7 +25,7 @@ const TABS = [{
 
 function tabNavigation(currentTabFn) {
   return m('.nav-header', m.component(tabs, {
-    buttons: TABS,
+    buttons: TABS(i18n),
     selectedTab: currentTabFn(),
     onTabChange: k => {
       const loc = window.location.search.replace(/\?tab\=\w+$/, '');

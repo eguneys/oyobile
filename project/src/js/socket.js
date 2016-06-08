@@ -76,6 +76,30 @@ function createMasa(masaId, version, handlers) {
   });
 }
 
+function createMasaHome(handlers) {
+  let url = '/socket';
+
+  socketHandlers = {
+    events: Object.assign({}, defaultHandlers, handlers)
+  };
+  const opts = {
+    params: { flag: 'masa' },
+    options: {
+      name: 'masaHome',
+      debug: false,
+      pingDelay: 2000,
+      registeredEvents: Object.keys(socketHandlers.events)
+    }
+  };
+  tellWorker(worker, 'create', {
+    clientId: oyunkeyfSri,
+    socketEndPoint: window.oyunkeyf.socketEndPoint,
+    url,
+    version: 0,
+    opts
+  });  
+}
+
 function createDefault() {
   // default socket is useless when anon.?
   if (hasNetwork()) {
@@ -148,7 +172,9 @@ worker.addEventListener('message', function(msg) {
 });
 
 export default {
+  createDefault,
   createMasa,
+  createMasaHome,
   createGame,
   setVersion(version) {
     tellWorker(worker, 'setVersion', version);

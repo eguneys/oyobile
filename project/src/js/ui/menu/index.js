@@ -14,6 +14,15 @@ menu.route = function(route) {
   };
 };
 
+menu.popup = function(action) {
+  return function() {
+    return menu.close().then(() => {
+      action();
+      m.redraw();
+    });
+  };
+};
+
 menu.toggle = function() {
   if (menu.isOpen) menu.close();
   else menu.open();
@@ -28,7 +37,7 @@ menu.willClose = false;
 menu.close = function(fromBB) {
   const sideMenu = document.getElementById('side_menu');
 
-  if (menu.willClose || !sideMenu) return null;
+  if (menu.willClose || !sideMenu) return Promise.resolve(null);
 
   menu.willClose = true;
   if (fromBB !== 'backbutton' && menu.isOpen) backbutton.stack.pop();

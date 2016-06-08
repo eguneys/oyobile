@@ -3,6 +3,7 @@ import { header as headerWidget, backButton } from '../../shared/common';
 import session from '../../../session';
 import layout from '../../layout';
 import i18n from '../../../i18n';
+import faq from '../faq';
 import helper from '../../helper';
 import { gameIcon } from '../../../utils';
 import m from 'mithril';
@@ -14,9 +15,17 @@ export default function view(ctrl) {
   
   const body = masaBody.bind(null, ctrl);
   const footer = renderFooter.bind(null, ctrl);
+  const faqOverlay = renderFAQOverlay.bind(null, ctrl);
+  const overlay = () => [faqOverlay()];
 
-  return layout.free(headerCtrl, body, footer);
+  return layout.free(headerCtrl, body, footer, overlay);
 };
+
+function renderFAQOverlay(ctrl) {
+  return [
+    faq.view(ctrl.faqCtrl)
+  ];
+}
 
 function masaBody(ctrl) {
   const data = ctrl.masa();
@@ -226,13 +235,13 @@ function withdrawButton(ctrl) {
 
 function variantDisplay(data) {
   let variant = variantKey(data);
-  variant = variant.split(' ')[0]; // Cut off names to first word
+  // variant = variant.split(' ')[0]; // Cut off names to first word
 
-  if (variant.length > 0) {
-    variant = variant.charAt(0).toUpperCase() + variant.substring(1);
-  }
+  // if (variant.length > 0) {
+  //   variant = variant.charAt(0).toUpperCase() + variant.substring(1);
+  // }
 
-  return variant;
+  return i18n(variant);
 }
 
 function variantKey(data) {

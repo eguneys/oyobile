@@ -156,7 +156,7 @@ export function gameIcon(perf) {
 }
 
 export function formatMasaDuration(rounds, scores) {
-  return rounds ? rounds + i18n('hands') : scores + i18n('scores');
+  return rounds ? rounds + i18n('hands') : scores + i18n('scores')[0];
 }
 
 export function pad(num, size) {

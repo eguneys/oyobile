@@ -41,6 +41,7 @@ export default {
           </main>
           {menuView()}
           {newGameForm.view()}
+          { overlay ? overlay() : null }
         </div>
     );
   }

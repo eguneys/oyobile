@@ -1,5 +1,6 @@
 import i18n from '../../i18n';
 import menu from '.';
+import newGameForm from '../newGameForm';
 import { hasNetwork } from '../../utils';
 import helper from '../helper';
 import Zanimo from 'zanimo';
@@ -20,11 +21,11 @@ function renderHeader(user) {
     <header className="side_menu_header">
     { <div className="logo">oyunkeyf</div> }
     <h2 className="username">
-      { hasNetwork() ? user ? user.username : 'Anonymous' : 'i18noffline' }
+      { hasNetwork() ? user ? user.username : i18n('anonymous') : i18n('offline') }
     </h2>
     { hasNetwork() && !user ?
       <button className="login">
-      {'i18nsignIn'}
+      {i18n('signIn')}
       </button> : null
     }
     </header>
@@ -36,10 +37,10 @@ function renderLinks(user) {
   return (
     <ul className="side_links">
       <li className="side_link" key="home" config={helper.ontouchY(menu.route('/'))}>
-        <span className="fa fa-home" />Home
+        <span className="fa fa-home" />{i18n('home')}
     </li>
     {hasNetwork() ? <li className="sep_link" key="sep_link_online">{i18n('playOnline')}</li> : null }
-    {hasNetwork() ? <li className="side_link" key="play_real_time" config={helper.ontouchY(menu.route('/'))}>
+    {hasNetwork() ? <li className="side_link" key="play_real_time" config={helper.ontouchY(menu.popup(newGameForm.openRealtime))}>
       <span className="fa fa-plus-circle"/>{i18n('createAGame')}
     </li> : null }
     {hasNetwork() ? <li className="side_link" key="masas" config={helper.ontouchY(menu.route('/masa'))}>

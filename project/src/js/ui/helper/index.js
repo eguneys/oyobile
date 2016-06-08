@@ -130,6 +130,25 @@ export default {
     return cachedTransformProp;
   },
 
+  slidesInUp: function(el, isUpdate, context) {
+    if (!isUpdate) {
+      el.style.transform = 'translateY(100%)';
+      // force reflow back
+      context.lol = el.offsetHeight;
+      Zanimo(el, 'transform', 'translateY(0)', 250, 'ease-out')
+        .catch(console.log.bind(console));
+    }
+  },
+  slidesOutDown: function(callback, elID) {
+    return function() {
+      const el = document.getElementById(elID);
+      m.redraw.strategy('none');
+      return Zanimo(el, 'transform', 'translateY(100%)', 250, 'ease-out')
+        .then(utils.autoredraw.bind(null, callback))
+        .catch(callback);
+    };
+  },
+
   fadesOut: function(callback, selector, time = 150) {
     return function(e) {
       e.stopPropagation();

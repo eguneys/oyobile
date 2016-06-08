@@ -28,7 +28,7 @@ export default {
     human: {
       availableVariants: [
         ['101 Okey', '1'],
-        ['Duz Okey', '3']
+        ['Düz Okey', '3']
       ],
       variant: localstorageprop('settings.game.human.variant', '1'),
       rounds: localstorageprop('settings.game.human.rounds', '1'),

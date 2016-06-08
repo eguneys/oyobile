@@ -73,7 +73,7 @@ function renderForm(formName, action, settingsObj, variants) {
       m('div.select_input', {
         key: formName + 'rounds'
       }, [
-        formWidgets.renderSelect('round', formName + 'round',
+        formWidgets.renderSelect('rounds', formName + 'round',
                                  settings.gameSetup.availableRounds, settingsObj.rounds, false)
       ])
     );

@@ -5,7 +5,14 @@ import helper from '../helper';
 import m from 'mithril';
 
 export default function controller() {
-  socket.createDefault();
+  const handlers = {
+    reload: function(data) {
+      masas(data);
+      m.redraw();
+    }
+  };
+
+  socket.createMasaHome(handlers);
 
   const masas = m.prop();
   const currentTab = m.prop(m.route.param('tab') || 'created');
