@@ -30,6 +30,16 @@ function setOnGame(data, side, onGame) {
   player.onGame = onGame;
 }
 
+// function roundsOrScores(game) {
+//   if (game.rounds) {
+//     return data.
+//   } else if (data.scores) {
+    
+//   } else {
+//     return '';
+//   }
+// }
+
 function title(data) {
   var text;
   if (isPlayerTurn(data)) {
@@ -42,12 +52,12 @@ function title(data) {
   return text;
 }
 
-module.exports = {
-  isPlayerPlaying: isPlayerPlaying,
-  isPlayerTurn: isPlayerTurn,
-  getPlayer: getPlayer,
-  sideByPly: sideByPly,
-  playable: playable,
-  setOnGame: setOnGame,
+export default {
+  isPlayerPlaying,
+  isPlayerTurn,
+  getPlayer,
+  sideByPly,
+  playable,
+  setOnGame,
   title: title
 };

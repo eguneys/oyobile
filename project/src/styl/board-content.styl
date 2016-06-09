@@ -8,6 +8,8 @@ topCenterLeft = 45%
 
 .game_board_wrapper
   position relative
+  flex 0 0 auto
+  margin 0 4%
 
 .display_board
   width 100%
@@ -24,6 +26,20 @@ topCenterLeft = 45%
   @media only screen and (orientation: landscape) and (min-height 700px) and (max-width 1050px)
     width calc(100vw - (100vh - 50px - 12vh) - 10px)
 
+.actions_bar_vertical
+  > .action_bar_button
+    width 100%
+    background-color gold
+    color #fff
+    border-radius 15px 0 0 15px
+    line-height 1rem
+    font-size 1rem
+    padding 0
+    height 30px
+    margin 4px 0
+    box-shadow 0px 1px 2px 0px rgba(0,0,0,0.1)
+    white-space nowrap
+  
 .action_bar_button
   flex 1 1 25%
   text-align center
@@ -54,5 +70,18 @@ topCenterLeft = 45%
   &:before
     font-size 18px
     line-height 18px
-  &.fa
-    padding 7px 10px 10px
+
+.table
+  width 100%
+  display flex
+  flex-flow column nowrap
+  margin 1rem 0
+  @media only screen and (max-height 400px) and (orientation landscape)
+    font-size 0.7rem
+    > .tableHeader
+      > .icon-game
+        font-size 20px
+        vertical-align bottom
+      > .game-title
+        font-size 0.6rem
+        line-height 14px
