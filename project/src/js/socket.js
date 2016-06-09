@@ -181,5 +181,20 @@ export default {
   },
   send(type, data, opts) {
     tellWorker(worker, 'send', [type, data, opts]);
+  },
+  connect() {
+    tellWorker(worker, 'connect');
+  },
+  disconnect() {
+    tellWorker(worker, 'disconnect');
+  },
+  isConnected() {
+    return connectedWS;
+  },
+  destroy() {
+    tellWorker(worker, 'destroy');
+  },
+  terminate() {
+    if (worker) worker.terminate();
   }
 };

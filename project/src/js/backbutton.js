@@ -1,4 +1,5 @@
 import isFunction from 'lodash/isFunction';
+import { backHistory } from './utils';
 import m from 'mithril';
 
 const stack = [];
@@ -8,7 +9,9 @@ export default function backbutton() {
   if (isFunction(b)) {
     b('backbutton');
     m.redraw();
-  } else {
+  } else if (!/^\/$/.test(m.route())) {
+    backHistory();
+  }else {
     window.navigator.app.exitApp();
   }
   

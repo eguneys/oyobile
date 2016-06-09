@@ -2,7 +2,7 @@ var timeoutId;
 
 export default {
   spin() {
-    if (timeoutId || document.getElementsByClassName('globalSpinner')) {
+    if (timeoutId || document.getElementsByClassName('globalSpinner').length > 0) {
       return false;
     }
 
