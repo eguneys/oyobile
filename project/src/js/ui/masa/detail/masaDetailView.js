@@ -109,7 +109,7 @@ function masaHeader(data, rounds, roundsText) {
         </strong>
       </div>
       <div className="masaCreatorInfo">
-        { i18n('by', data.createdBy) }
+        { i18n('by', formatCreatedBy(data)) }
         &nbsp;•&nbsp;
         {window.moment(data.createdAt).calendar() }
       </div>
@@ -247,4 +247,10 @@ function variantDisplay(data) {
 function variantKey(data) {
   let variant = data.variant;
   return variant;
+}
+
+function formatCreatedBy(data) {
+  const player = data.players[data.createdBy];
+
+  return player ? (player.name ? player.name : i18n('anonymous')) : data.createdBy;
 }

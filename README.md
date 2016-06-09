@@ -2,6 +2,10 @@
 
 ### Website
 
+* add membersOnly to scheudulejsonview masa
+* display membersOnly on casual masa
+* fix translation players tr
+
 * Hand is not aborted on middle end on 101
 ? add rated to schedulejsonview
 + persist fen on collect open

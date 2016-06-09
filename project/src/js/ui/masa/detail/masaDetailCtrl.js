@@ -22,6 +22,15 @@ export default function controller() {
     if (data.socketVersion) {
       socket.setVersion(data.socketVersion);
     }
+
+    console.log(oldData.playerId, data.playerId);
+
+    if (oldData.playerId !== data.playerId) {
+      // reconnect with new playerId
+      // TODO might miss redirect
+      socket.connect();
+    }
+    
     m.redraw();
   }
 
