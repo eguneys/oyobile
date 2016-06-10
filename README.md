@@ -17,3 +17,4 @@
   fix startup splash
   masa Add join spinner
   loading spinner
+  fix gameaction buttons text nowrap

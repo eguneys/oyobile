@@ -1,44 +1,48 @@
 import i18n from '../../../i18n';
 import helper from '../../helper';
+import Zanimo from 'zanimo';
 
-function makeActionBarButton(key, icon, name) {
-  return function(ctrl) {
+function makeActionBarButton(key, icon, name, action) {
+  return function(ctrl, config) {
     const className = helper.classSet({
-      'action_bar_button': true
+      'action_bar_vbutton': true
     });
 
+    if (!ctrl.vm[action]) return null;
+
     return (
-      <button className={className} key={key} data-icon={icon}>
+        <button id={name} className={className} key={key} data-icon={icon} config={both(slidesInUp, helper.ontouch(gameActionHandler(ctrl, action)))}>
         {i18n(name)}
       </button>
     );
-  }
+  };
 }
 
 export default {
+  openSeries: makeActionBarButton('openSeries', 'L', 'openSeries', 'openSeries'),
+  openPairs: makeActionBarButton('openPairs', 'L', 'openPairs', 'openPairs'),
+  leaveTaken: makeActionBarButton('leaveTaken', 'L', 'leaveTaken', 'leaveTaken'),
+  collectOpen: makeActionBarButton('collectOpen', 'L', 'collectOpen', 'collectOpen')
+};
 
-  openSeries: function(ctrl) {
-    const className = helper.classSet({
-      'action_bar_button': true
-    });
+function gameActionHandler(ctrl, action) {
+  return function() {
+    if (ctrl[action]) ctrl[action].call();
+  };
+}
 
-    return (
-        <button className={className} key="openseries" data-icon="L">
-          {i18n('openSeries')}
-        </button>
-    );
-  },
-  openPairs: function(ctrl) {
-    const className = helper.classSet({
-      'action_bar_button': true
-    });
+function slidesInUp(el, isUpdate, context) {
+  if (!isUpdate) {
+    el.style.transform = 'translate3d(100%, 0, 0)';
+    // force reflow hack
+    context.lol = el.offsetHeight;
+    Zanimo(el, 'transform', 'translate3d(0,0,0)', 250, 'ease-out');
+  }
+}
 
-    return (
-        <button className={className} key="openpairs" data-icon="L">
-          {i18n('openPairs')}
-        </button>
-    );
-  },
-  leaveTaken: makeActionBarButton('leaveTaken', 'L', 'leaveTaken'),
-  collectOpen: makeActionBarButton('collectOpen', 'L', 'collectOpen')
+function both(config1, config2) {
+  return function() {
+    config1.apply(null, arguments);
+    config2.apply(null, arguments);
+  };
 }

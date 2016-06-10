@@ -2,6 +2,7 @@ import m from 'mithril';
 import okeyground from 'okeyground-mobile';
 import makeData from './data';
 import i18n from '../../i18n';
+import forIn from 'lodash/forIn';
 import * as utils from '../../utils';
 import socket from '../../socket';
 import socketHandler from './socketHandler';
@@ -9,6 +10,7 @@ import ground from './ground';
 import mutil from './util';
 import gameApi from '../../oyunkeyf/game';
 import gameStatus from '../../oyunkeyf/status';
+import Zanimo from 'zanimo';
 
 const { util } = okeyground;
 const { wrapGroup, wrapPiece, wrapDrop, partial } = util;
@@ -16,8 +18,9 @@ const { wrapGroup, wrapPiece, wrapDrop, partial } = util;
 export default function(cfg) {
   this.data = makeData(cfg);
 
-  this.vm = {
-  };
+  this.chat = true;
+
+  this.vm = {};
 
   this.setTitle = (text) => {
     if (!text) {
@@ -116,10 +119,15 @@ export default function(cfg) {
       var c = o.clock;
       if (this.clock) this.clock.update(c);
     }
+    this.updateGameActions();
   };
 
   this.restoreFen = (fen) => {
-    var oldFen = this.okeyground.getFen();
+    var oldBoard = this.okeyground.getFen();
+
+    // make a hack fen to split
+    var oldFen = "//" + oldBoard + "/";
+
     this.okeyground.set({
       fen: mutil.persistentFen(fen, oldFen)
     });
@@ -131,6 +139,47 @@ export default function(cfg) {
   };
 
   this.okeyground = ground.make(this.data, cfg.game.fen, userMove, onMove);
+
+  this.openSeries = () => {
+    this.okeyground.playOpenSeries();
+  };
+  this.openPairs = () => {
+    this.okeyground.playOpenPairs();
+  };
+  this.collectOpen = () => {
+    this.sendMove(okeyground.move.collectOpen);
+  };  
+  this.leaveTaken = () => {
+    this.sendMove(okeyground.move.leaveTaken);
+  };
+
+  this.removeGameAction = (id, f) => {
+    const el = document.getElementById(id);
+    if (!el) return null;
+    return Zanimo(
+      el,
+      'transform',
+      'translate3d(100%,0,0)', 250, 'ease-out'
+    ).then(() => {
+      this.vm[id] = false;
+      m.redraw();
+    })
+      .catch(console.log.bind(console));
+  };
+
+  this.updateGameActions = () => {
+    forIn({
+      'openPairs': this.okeyground.canOpenPairs(),
+      'openSeries': this.okeyground.canOpenSeries(),
+      'collectOpen': this.okeyground.canCollectOpen(),
+      'leaveTaken': this.okeyground.canLeaveTaken()
+    }, (value, key) => {
+      if (value) {
+        this.vm[key] = true;
+      } else this.removeGameAction(key);
+    });
+  };
+  this.updateGameActions();
 
   this.reload = (rCfg) => {
     this.data = makeData(rCfg);

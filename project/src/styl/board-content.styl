@@ -27,7 +27,7 @@ topCenterLeft = 45%
     width calc(100vw - (100vh - 50px - 12vh) - 10px)
 
 .actions_bar_vertical
-  > .action_bar_button
+  > .action_bar_vbutton
     width 100%
     background-color gold
     color #fff
@@ -36,9 +36,8 @@ topCenterLeft = 45%
     font-size 1rem
     padding 0
     height 30px
-    margin 4px 0
+    margin 2px 0
     box-shadow 0px 1px 2px 0px rgba(0,0,0,0.1)
-    white-space nowrap
   
 .action_bar_button
   flex 1 1 25%
@@ -71,14 +70,19 @@ topCenterLeft = 45%
     font-size 18px
     line-height 18px
 
+.replay
+  flex 1 1 auto
+
 .table
   width 100%
   display flex
   flex-flow column nowrap
-  margin 1rem 0
+  overflow hidden
   @media only screen and (max-height 400px) and (orientation landscape)
     font-size 0.7rem
     > .tableHeader
+      > .menu_button
+        display block
       > .icon-game
         font-size 20px
         vertical-align bottom

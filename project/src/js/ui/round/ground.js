@@ -6,6 +6,7 @@ function makeConfig(data, fen) {
     fen: fen,
     turnSide: data.game.player,
     povSide: data.player.side,
+    withTore: !!data.game.variant.key.match(/duzokey/),
     movable: {
       free: false,
       board: gameApi.isPlayerPlaying(data),

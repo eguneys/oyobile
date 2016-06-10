@@ -4,8 +4,10 @@ import i18n from '../../../i18n';
 import * as utils from '../../../utils';
 import layout from '../../layout';
 import helper from '../../helper';
+import { menuButton } from '../../shared/common';
 import button from './button';
 import Board from '../../shared/Board';
+import Zanimo from 'zanimo';
 
 
 export default function view(ctrl) {
@@ -32,12 +34,20 @@ function renderContent(ctrl, isPortrait) {
   return [
     <section key="table" className="table">
       <header key="table-header" className="tableHeader">
+        {menuButton()}
         {gameInfos(ctrl)}
       </header>
+      {renderReplay(ctrl)}
       {renderGameActionsBar(ctrl)}
     </section>,
     board
   ];
+}
+
+function renderReplay(ctrl) {
+  return (
+    <div class="replay"/>
+  );
 }
 
 function gameInfos(ctrl) {
@@ -58,12 +68,27 @@ function gameInfos(ctrl) {
 }
 
 function renderGameActionsBar(ctrl) {
+  const gmClass = (['fa',
+                    'fa-ellipsis-h']).concat([
+                      'action_bar_vbutton'
+                    ]).join(' ');
+  const gmButton =
+  <button className={gmClass} key="gameMenu" />;
+
+  const chatClass = [
+    'action_bar_vbutton'
+  ].join(' ');
+  const chatButton = ctrl.chat ?
+                     <button className={chatClass} data-icon="c" key="chat"/> : null 
+
   return (
     <section className="actions_bar_vertical" key="game-actions-bar">
-      {button.openSeries(ctrl)}
-      {button.openPairs(ctrl)}
       {button.leaveTaken(ctrl)}
       {button.collectOpen(ctrl)}
+      {button.openPairs(ctrl)}
+      {button.openSeries(ctrl)}
+      {chatButton}
+      {gmButton}
     </section>
   );
 }
