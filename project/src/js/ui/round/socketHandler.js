@@ -22,6 +22,9 @@ export default function(ctrl) {
       // ctrl.setLoading(true);
       xhr.reload(ctrl).then(ctrl.reload);
     },
+    message: function(msg) {
+      if (ctrl.chat) ctrl.chat.append(msg);
+    },
     crowd: function(o) {
       ['east', 'west', 'north', 'south'].forEach(function(side) {
         gameApi.setOnGame(ctrl.data, side, o[side]);

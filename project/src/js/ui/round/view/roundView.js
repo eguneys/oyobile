@@ -107,7 +107,8 @@ function renderGameActionsBar(ctrl) {
   <button className={gmClass} key="gameMenu" />;
 
   const chatClass = [
-    'action_bar_vbutton'
+    'action_bar_vbutton',
+    ctrl.chat && ctrl.chat.unread ? 'glow' : ''
   ].join(' ');
   const chatButton = ctrl.chat ?
                      <button className={chatClass} data-icon="c"
