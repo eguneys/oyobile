@@ -1,6 +1,6 @@
 // scalaokey/src/main/scala/Status.scala
 
-var ids = {
+const ids = {
   created: 10,
   started: 20,
   aborted: 25,
@@ -26,10 +26,10 @@ function playing(data) {
   return started(data) && !finished(data) && !aborted(data);
 }
 
-module.exports = {
-  ids: ids,
-  started: started,
-  finished: finished,
-  aborted: aborted,
-  playing: playing
+export default {
+  ids,
+  started,
+  finished,
+  aborted,
+  playing
 };

@@ -5,7 +5,10 @@ import * as utils from '../../../utils';
 import layout from '../../layout';
 import helper from '../../helper';
 import { menuButton } from '../../shared/common';
+import chat from '../chat';
 import button from './button';
+import gameApi from '../../../oyunkeyf/game';
+import gameStatus from '../../../oyunkeyf/status';
 import Board from '../../shared/Board';
 import Zanimo from 'zanimo';
 
@@ -15,8 +18,15 @@ export default function view(ctrl) {
 
   return layout.board(
     () => renderHeader(ctrl),
-    () => renderContent(ctrl, isPortrait)
+    () => renderContent(ctrl, isPortrait),
+    () => overlay(ctrl)
   );
+}
+
+function overlay(ctrl) {
+  return [
+    ctrl.chat ? chat.view(ctrl.chat) : null
+  ];
 }
 
 function renderHeader(ctrl) { return null; }
@@ -46,8 +56,29 @@ function renderContent(ctrl, isPortrait) {
 
 function renderReplay(ctrl) {
   return (
-    <div class="replay"/>
+    <div class="replay">
+      {renderResult(ctrl)}
+    </div>
   );
+}
+
+function renderResult(ctrl) {
+  var result;
+  if (gameStatus.finished(ctrl.data)) switch(ctrl.data.game.winner) {
+      default:
+      result = i18n('gameEnded');
+      break;
+  }
+
+  if (result || gameStatus.aborted(ctrl.data)) {
+    var winner = gameApi.getPlayer(ctrl.data, ctrl.data.game.winner);
+    return [
+      m('p.result', result),
+      m('p.status', [
+        winner ? ', ' + i18n('isVictorous'): null
+      ])
+    ];
+  }
 }
 
 function gameInfos(ctrl) {
@@ -79,7 +110,9 @@ function renderGameActionsBar(ctrl) {
     'action_bar_vbutton'
   ].join(' ');
   const chatButton = ctrl.chat ?
-                     <button className={chatClass} data-icon="c" key="chat"/> : null 
+                     <button className={chatClass} data-icon="c"
+                             key="chat"
+  config={helper.ontouch(ctrl.chat.open)}/> : null;
 
   return (
     <section className="actions_bar_vertical" key="game-actions-bar">
@@ -87,6 +120,7 @@ function renderGameActionsBar(ctrl) {
       {button.collectOpen(ctrl)}
       {button.openPairs(ctrl)}
       {button.openSeries(ctrl)}
+      {button.followUp(ctrl)}
       {chatButton}
       {gmButton}
     </section>

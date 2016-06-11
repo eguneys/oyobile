@@ -13,7 +13,8 @@ export default function(ctrl) {
     reload: function() {
       xhr.reload(ctrl).then(ctrl.reload);
     },
-    end: function(winner) {
+    end: function(scores) {
+      console.log(scores);
       ctrl.data.game.scores = scores.result;
       ground.end(ctrl.okeyground);
       // allow sleep again

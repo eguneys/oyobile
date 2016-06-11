@@ -20,6 +20,7 @@ export default {
             {menu.isOpen ? <div className="menu-close-overlay" config={helper.ontouch(menu.close)} /> : null }
           </main>
           {menuView()}
+          { overlay ? overlay() : null }
         </div>
     );
   },

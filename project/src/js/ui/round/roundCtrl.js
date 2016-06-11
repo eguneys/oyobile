@@ -8,6 +8,7 @@ import socket from '../../socket';
 import socketHandler from './socketHandler';
 import ground from './ground';
 import mutil from './util';
+import chat from './chat';
 import gameApi from '../../oyunkeyf/game';
 import gameStatus from '../../oyunkeyf/status';
 import Zanimo from 'zanimo';
@@ -18,7 +19,7 @@ const { wrapGroup, wrapPiece, wrapDrop, partial } = util;
 export default function(cfg) {
   this.data = makeData(cfg);
 
-  this.chat = true;
+  this.chat = new chat.controller(this);
 
   this.vm = {};
 
@@ -151,6 +152,10 @@ export default function(cfg) {
   };  
   this.leaveTaken = () => {
     this.sendMove(okeyground.move.leaveTaken);
+  };
+
+  this.followUp = () => {
+    m.route('/masa/' + this.data.masa.id);
   };
 
   this.removeGameAction = (id, f) => {

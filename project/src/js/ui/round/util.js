@@ -1,3 +1,5 @@
+import storage from '../../storage';
+
 const sk = 'round.' + 'board';
 
 function assertEqual(a1, a2) {
@@ -149,7 +151,7 @@ module.exports = {
   persistentFen: persistentFen,
   fenStore: {
     get: function(fen) {
-      var oldBoard = oyunkeyf.storage.get(sk);
+      var oldBoard = storage.get(sk);
 
       // make a hack fen to split
       var oldFen = "//" + oldBoard + "/";
@@ -159,7 +161,7 @@ module.exports = {
     set: function(fen) {
       //var board = fen.split('/')[iBoard];
       var board = fen;
-      oyunkeyf.storage.set(sk, board);
+      storage.set(sk, board);
     }
   }
 }

@@ -59,5 +59,5 @@ export default {
   sideByPly,
   playable,
   setOnGame,
-  title: title
+  title
 };

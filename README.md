@@ -18,3 +18,8 @@
   masa Add join spinner
   loading spinner
   fix gameaction buttons text nowrap
+  fix game replay status text
+  fix button icons
+  add round ...
+  add round end scores
+  add timers
