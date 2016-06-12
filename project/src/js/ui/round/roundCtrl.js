@@ -1,3 +1,4 @@
+import throttle from 'lodash/throttle';
 import m from 'mithril';
 import okeyground from 'okeyground-mobile';
 import makeData from './data';
@@ -7,6 +8,7 @@ import * as utils from '../../utils';
 import socket from '../../socket';
 import socketHandler from './socketHandler';
 import ground from './ground';
+import clockCtrl from './clock/clockCtrl';
 import mutil from './util';
 import chat from './chat';
 import gameApi from '../../oyunkeyf/game';
@@ -141,6 +143,31 @@ export default function(cfg) {
 
   this.okeyground = ground.make(this.data, cfg.game.fen, userMove, onMove);
 
+  this.redrawBoard = () => {
+    m.redraw();
+    this.okeyground.data.renderRAF();
+  };
+
+  this.clock = this.data.clock ? new clockCtrl(
+    this.data.clock,
+    this.data.player.spectator ? utils.noop :
+      throttle(() => socket.send('outoftime', 1000)),
+    this.data.player.spectator ? null : this.data.player.side,
+    this.redrawBoard
+  ) : false;
+
+  this.isClockRunning = () => {
+    return this.data.clock && gameApi.playable(this.data) &&
+      (this.data.game.turns > 0 || this.data.clock.running);
+  };
+
+  this.clockTick = () => {
+    if (this.isClockRunning()) this.clock.tick(this.data.game.player);
+  };
+
+  var clockIntervalId;
+  if (this.clock) clockIntervalId = setInterval(this.clockTick, 100);
+
   this.openSeries = () => {
     this.okeyground.playOpenSeries();
   };
@@ -149,7 +176,7 @@ export default function(cfg) {
   };
   this.collectOpen = () => {
     this.sendMove(okeyground.move.collectOpen);
-  };  
+  };
   this.leaveTaken = () => {
     this.sendMove(okeyground.move.leaveTaken);
   };

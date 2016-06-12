@@ -4,6 +4,7 @@ import helper from '../helper';
 import okeyground from 'okeyground-mobile';
 import { menuButton } from './common';
 import { renderPlayer } from './Players';
+import { view as renderClock } from '../round/clock/clockView';
 
 function renderTopMenu() {
   return (
@@ -19,14 +20,19 @@ function renderAIInfo(ctrl, player, position) {
     position
   ].join(' ');
 
+  const runningSide = ctrl.isClockRunning() ? ctrl.data.game.player : null;
+
   return (
     <div className={wrapperClass}>
       <h2 className="playerUser">
         {i18n('aiBot', player.ai)}
         <span className="ongame yes" data-icon="3"/>
       </h2>
+      { (ctrl.clock && player.side === runningSide) ?
+        renderClock(ctrl.clock, player.side, runningSide, position) : null
+      }
     </div>
-  );  
+  );
 }
 
 function renderPlayerInfo(ctrl, player, position) {
@@ -41,6 +47,9 @@ function renderPlayerInfo(ctrl, player, position) {
   const togglePopup = ctrl.toggleUserPopup.bind(ctrl, position, player.user);
   const vConf = helper.ontouch(togglePopup)
 
+  const runningSide = ctrl.isClockRunning() ? ctrl.data.game.player : null;
+  const running = ctrl.data.game.player === player.side;
+
   return (
     <div className={wrapperClass} config={vConf}>
       <h2 className="playerUser">
@@ -50,6 +59,9 @@ function renderPlayerInfo(ctrl, player, position) {
          <span className="ongame no" data-icon="0"/>
         }
       </h2>
+      { (ctrl.clock && running) ?
+        renderClock(ctrl.clock, player.side, runningSide, position) : null
+      }
     </div>
   );
 }

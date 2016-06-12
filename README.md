@@ -20,6 +20,6 @@
   fix gameaction buttons text nowrap
   fix game replay status text
   fix button icons
-  add round ...
+  add round ... more game settings
   add round end scores
   add timers
