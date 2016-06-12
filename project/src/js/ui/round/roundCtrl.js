@@ -11,6 +11,8 @@ import ground from './ground';
 import clockCtrl from './clock/clockCtrl';
 import mutil from './util';
 import chat from './chat';
+import backbutton from '../../backbutton';
+import * as xhr from './roundXhr';
 import gameApi from '../../oyunkeyf/game';
 import gameStatus from '../../oyunkeyf/status';
 import Zanimo from 'zanimo';
@@ -23,7 +25,9 @@ export default function(cfg) {
 
   this.chat = new chat.controller(this);
 
-  this.vm = {};
+  this.vm = {
+    showingActions: false
+  };
 
   this.setTitle = (text) => {
     if (!text) {
@@ -54,6 +58,17 @@ export default function(cfg) {
 
   this.toggleUserPopup = (position, userId) => {
     console.log('user', userId);
+  };
+
+
+  this.showActions = () => {
+    backbutton.stack.push(this.hideActions);
+    this.vm.showingActions = true;
+  };
+
+  this.hideActions = (fromBB) => {
+    if (fromBB !== 'backbutton' && this.vm.showingActions) backbutton.stack.pop();
+    this.vm.showingActions = false;
   };
 
   var userMove = (key, move) => {
@@ -219,5 +234,23 @@ export default function(cfg) {
 
     // ground.reload(this.okeyground, this.data, rCfg.game.fen);
     m.redraw();
+  };
+
+  const reloadGameData = () => {
+    xhr.reload(this).then(this.reload);
+  };
+
+  document.addEventListener('resume', reloadGameData);
+  window.plugins.insomnia.keepAwake();
+
+  this.onunload = function() {
+    socket.destroy();
+    clearInterval(clockIntervalId);
+    document.removeEventListener('resume', reloadGameData);
+    window.plugins.insomnia.allowSleepAgain();
+    if (this.chat) this.chat.onunload();
+    if (this.okeyground) {
+      this.okeyground.onunload();
+    }
   };
 }

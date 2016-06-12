@@ -10,6 +10,7 @@ import button from './button';
 import gameApi from '../../../oyunkeyf/game';
 import gameStatus from '../../../oyunkeyf/status';
 import Board from '../../shared/Board';
+import popupWidget from '../../shared/popup';
 import Zanimo from 'zanimo';
 
 
@@ -25,7 +26,8 @@ export default function view(ctrl) {
 
 function overlay(ctrl) {
   return [
-    ctrl.chat ? chat.view(ctrl.chat) : null
+    ctrl.chat ? chat.view(ctrl.chat) : null,
+    renderGamePopup(ctrl)
   ];
 }
 
@@ -104,7 +106,7 @@ function renderGameActionsBar(ctrl) {
                       'action_bar_vbutton'
                     ]).join(' ');
   const gmButton =
-  <button className={gmClass} key="gameMenu" />;
+  <button className={gmClass} key="gameMenu" config={helper.ontouch(ctrl.showActions)}/>;
 
   const chatClass = [
     'action_bar_vbutton',
@@ -125,5 +127,53 @@ function renderGameActionsBar(ctrl) {
       {chatButton}
       {gmButton}
     </section>
+  );
+}
+
+
+function renderGamePopup(ctrl) {
+  return popupWidget(
+    'player_controls',
+    () => gameInfos(ctrl),
+    gameApi.playable(ctrl.data) ?
+      () => renderGameRunningActions(ctrl) :
+          () => renderGameEndedActions(ctrl),
+    ctrl.vm.showingActions,
+    ctrl.hideActions
+  );
+}
+
+function renderGameRunningActions(ctrl) {
+  const gameControls = [];
+
+  return (
+    <div className="game_controls">
+      {gameControls}
+    </div>
+  );
+}
+
+function renderGameEndedActions(ctrl) {
+  const result = gameApi.result(ctrl.data);
+  const winner = gameApi.getPlayer(ctrl.data, ctrl.data.game.winner);
+  const status = gameStatus.toLabel(ctrl.data.game.status.name, ctrl.data.game.winner, ctrl.data.game.variant.key);
+  const resultDOM = gameStatus.aborted(ctrl.data) ? [] : [
+    m('strong', result), m('br')
+  ];
+
+  resultDOM.push(m('em.resultStatus', status));
+  let buttons = null;
+  if (ctrl.data.game.masaId) {
+    buttons = [
+      button.returnToMasa(ctrl),
+      button.withdrawFromMasa(ctrl)
+    ];
+  }
+
+  return (
+    <div className="game_controls">
+      <div className="result">{resultDOM}</div>
+      <div className="control buttons">{buttons}</div>
+    </div>
   );
 }

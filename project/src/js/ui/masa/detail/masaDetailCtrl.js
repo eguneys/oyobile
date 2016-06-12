@@ -28,7 +28,6 @@ export default function controller() {
       // TODO might miss redirect
       socket.connect();
     }
-    
     m.redraw();
   }
 
@@ -43,7 +42,7 @@ export default function controller() {
     xhr.withdraw(id).then(() => {
       hasJoined(false);
       m.redraw();
-    }).catch(utils.handleXhrError);    
+    }).catch(utils.handleXhrError);
   }
 
   const id = m.route.param('id');
@@ -77,6 +76,9 @@ export default function controller() {
     playerInfoCtrl,
     join: throttle(join, 1000),
     withdraw: throttle(withdraw, 1000),
-    isLoading
+    isLoading,
+    onunload: () => {
+      socket.destroy();
+    }
   };
 }

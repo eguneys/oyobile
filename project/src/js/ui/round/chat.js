@@ -3,6 +3,7 @@ import helper from '../helper';
 import storage from '../../storage';
 import socket from '../../socket';
 import backbutton from '../../backbutton';
+import gameApi from '../../oyunkeyf/game';
 import m from 'mithril';
 
 export default {
@@ -49,6 +50,21 @@ export default {
       storage.set(storageId, this.messages.length);
       if (msg.u !== 'oyunkeyf') this.unread = true;
       m.redraw();
+    };
+
+    // function onKeyboardShow(e) {
+    // }
+
+    // function onKeyboardHide(e) {
+    // }
+
+    // window.addEventListener('native.keyboardhide', onKeyboardHide);
+    // window.addEventListener('native.keyboardshow', onKeyboardShow);
+
+    this.onunload = () => {
+      if (gameApi.playable(this.root.data)) storage.remove(storageId);
+      // document.removeEventListener('native.keyboardhide', onKeyboardHide);
+      // document.removeEventListener('native.keyboardshow', onKeyboardShow);
     };
   },
   view: function(ctrl) {

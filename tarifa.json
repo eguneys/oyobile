@@ -160,6 +160,7 @@
     "cordova-plugin-x-toast": "cordova-plugin-x-toast",
     "cordova-plugin-dialogs": "cordova-plugin-dialogs",
     "cordova-plugin-crosswalk-webview": "cordova-plugin-crosswalk-webview",
-    "ionic-plugin-keyboard": "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard": "ionic-plugin-keyboard",
+    "cordova-plugin-insomnia": "cordova-plugin-insomnia"
   }
 }

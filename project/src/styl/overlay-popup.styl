@@ -56,3 +56,20 @@
 
 .popup_content
   height 100%
+
+.player_controls
+  button
+    display block
+    width 100%
+    margin 0
+    padding 0
+    min-height 45px
+    background #fff
+    color textDarkGray
+    &.active
+      background darken(#fff, 10%)
+    &:before
+      margin-right 10px
+    &:last-child
+      border-bottom none
+      border-radius 0 0 5px 5px

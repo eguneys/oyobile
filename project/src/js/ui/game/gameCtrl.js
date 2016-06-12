@@ -10,9 +10,7 @@ export default function controller() {
   if (hasNetwork()) {
     gameXhr(m.route.param('id')).then(function(data) {
       gameData = data;
-      
       round = new roundCtrl(data);
-      
     }, function(error) {
       handleXhrError(error);
       m.route('/');
@@ -20,6 +18,12 @@ export default function controller() {
   }
 
   return {
+    onunload: function() {
+      if (round) {
+        round.onunload();
+        round = null;
+      }
+    },
     getRound: function() {
       return round;
     }

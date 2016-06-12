@@ -15,7 +15,7 @@ export default function controller() {
     data.created = data.created.filter(supported);
     data.finished = data.finished.filter(supported);
     masas(data);
-    return data;    
+    return data;
   }
 
   const handlers = {

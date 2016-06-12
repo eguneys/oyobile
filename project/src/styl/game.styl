@@ -73,7 +73,7 @@
       height 4px
       background #759900
 
-.tableHeader
+.tableHeader, .player_controls
   .icon-game
     display inline-block
     font-size 33px
@@ -89,3 +89,18 @@
     text-decoration underline
     &.active
       background-color darken(#fff, 5%)
+
+  
+.player_controls
+  &.overlay_popup > header
+    line-height 1
+    padding 10px
+
+
+.player_controls
+  .result
+    padding 0 10px
+    text-align center
+    margin 1em 0
+  .resultStatus
+    font-size 0.9em

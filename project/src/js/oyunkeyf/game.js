@@ -19,6 +19,14 @@ function getPlayer(data, side) {
     .filter(player => player.side === side)[0];
 }
 
+function result(data) {
+  if (status.aborted(data)) {
+    return i18n('gameAborted');
+  } else if (status.finished(data)) {
+    return i18n('gameFinished');
+  }
+};
+
 const sides = ["east", "north", "west", "south"];
 
 function sideByPly(ply) {
@@ -59,5 +67,6 @@ export default {
   sideByPly,
   playable,
   setOnGame,
-  title
+  title,
+  result
 };

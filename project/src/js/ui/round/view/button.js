@@ -2,6 +2,7 @@ import gameApi from '../../../oyunkeyf/game';
 import i18n from '../../../i18n';
 import helper from '../../helper';
 import Zanimo from 'zanimo';
+import m from 'mithril';
 
 function makeActionBarButton(key, icon, name, action) {
   return function(ctrl, config) {
@@ -34,7 +35,32 @@ export default {
 
     return (
         <button id="followUp" className={className} key="followUp" data-icon="G" config={both(slidesInUp, helper.ontouch(() => ctrl.followUp()))}>
-        {i18n('viewMasa')}
+        {i18n('backToMasa')}
+      </button>
+    );
+  },
+  returnToMasa: function(ctrl) {
+    function handler() {
+      ctrl.hideActions();
+      m.route('/masa/' + ctrl.data.game.masaId, null, true);
+    }
+    return (
+      <button key="returnToMasa" config={helper.ontouch(handler)}>
+        <span className="fa fa-trophy"/>
+        {i18n('backToMasa')}
+      </button>
+    );
+  },
+  withdrawFromMasa: function(ctrl) {
+    function handler() {
+      ctrl.hideActions();
+      masaXhr.withdraw(ctrl.data.game.masaId);
+      m.route('/masa/' + ctrl.data.game.masaId);
+    }
+    return (
+      <button key="withdrawFromMasa" config={helper.ontouch(handler)}>
+        <span className="fa fa-flag"/>
+        {i18n('withdraw')}
       </button>
     );
   }

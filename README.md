@@ -4,7 +4,7 @@
 
 * add membersOnly to scheudulejsonview masa
 * display membersOnly on casual masa
-* fix translation players tr
+* fix translation Players chat
 
 * Hand is not aborted on middle end on 101
 ? add rated to schedulejsonview
@@ -14,12 +14,18 @@
 + add translations
 
 ### Mobile
-  fix startup splash
-  masa Add join spinner
-  loading spinner
-  fix gameaction buttons text nowrap
-  fix game replay status text
-  fix button icons
-  add round ... more game settings
-  add round end scores
-  add timers
+  #### Functional
+  * add round ... more game settings
+  * add round end scores
+  * add round open scores
+  * add now playing games
+  * add masa pairings
+  * add masa join spinner
+  * fix startup splash
+  + loading spinner
+  + add timers
+
+  #### Responsive
+  * fix game replay status text
+  * fix gameaction buttons text nowrap
+  * fix button icons
