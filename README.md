@@ -6,6 +6,7 @@
 * display membersOnly on casual masa
 * fix translation Players chat
 
+* [bug] dont group fake with same color replace
 * Hand is not aborted on middle end on 101
 ? add rated to schedulejsonview
 + persist fen on collect open

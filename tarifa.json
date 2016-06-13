@@ -72,7 +72,7 @@
   },
   "cordova": {
     "preferences": {
-      "Orientation": "landscape",
+      "Orientation": "sensorLandscape",
       "DisallowOverscroll": true,
       "EnableViewportScale": false,
       "KeyboardDisplayRequiresUserAction": false,
@@ -80,9 +80,13 @@
       "SplashScreenDelay": 0,
       "AutoHideSplashScreen": false,
       "SplashScreen": "screen",
-      "BackgroundColor": "0xff2a77b3",
       "KeepRunning": true,
-      "windows-target-version": "10.0"
+      "StatusBarOverlaysWebView": false,
+      "StatusBarBackgroundColor": "#151A1E",
+      "BackgroundColor": "0xff2a77b3",
+      "windows-target-version": "10.0",
+      "xwalkVersion": "18",
+      "xwalkCommandLine": "--enable-viewport-meta --disable-pull-to-refresh-effect"
     },
     "settings": {
       "ios": {
@@ -161,6 +165,7 @@
     "cordova-plugin-dialogs": "cordova-plugin-dialogs",
     "cordova-plugin-crosswalk-webview": "cordova-plugin-crosswalk-webview",
     "ionic-plugin-keyboard": "ionic-plugin-keyboard",
-    "cordova-plugin-insomnia": "cordova-plugin-insomnia"
+    "cordova-plugin-insomnia": "cordova-plugin-insomnia",
+    "cordova-plugin-statusbar": "cordova-plugin-statusbar"
   }
 }
