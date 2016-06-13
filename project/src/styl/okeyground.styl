@@ -18,7 +18,7 @@
     position absolute
   .piece-holder
     position absolute
-    box-shadow 0 0 2px rgba(0, 0, 0, 0.6)
+    box-shadow inset 0 0 4px rgba(0, 0, 0, 0.6)
   .mgosterge
     bottom -1%
     left 81.25%
@@ -27,7 +27,7 @@
       cursor pointer
       bottom -1%
       left 74%
-      box-shadow 0 0 2px rgba(0, 0, 0, 0.6)
+      box-shadow 0 5px 5px -5px rgba(0, 0, 0, 0.6)
       &:not(.dragging)::before
         position absolute
         top calc(50%)
@@ -76,7 +76,7 @@
   border-radius 2px
   box-shadow 0 0 5px rgba(0, 0, 0, 0.6)
   margin auto
-  bottom 0px
+  bottom 0
   top 0
   left 0
   right 0
@@ -121,7 +121,7 @@ piece
   &.dragging
     z-index 9
     cursor move
-    box-shadow 0 0 5px rgba(0, 0, 0, 0.6)
+    box-shadow 0 5px 5px -5px rgba(0, 0, 0, 0.6)
 
 .og-board .drag-over,
 .og-board piece
