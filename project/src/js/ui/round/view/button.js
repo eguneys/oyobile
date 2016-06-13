@@ -7,13 +7,13 @@ import m from 'mithril';
 function makeActionBarButton(key, icon, name, action) {
   return function(ctrl, config) {
     const className = helper.classSet({
-      'action_bar_vbutton': true
+      'action_bar_button': true
     });
 
     if (!ctrl.vm[action]) return null;
 
     return (
-        <button id={name} className={className} key={key} data-icon={icon} config={both(slidesInUp, helper.ontouch(gameActionHandler(ctrl, action)))}>
+        <button id={name} className={className} key={key} data-icon={icon} config={both(fadesIn, helper.ontouch(gameActionHandler(ctrl, action)))}>
         {i18n(name)}
       </button>
     );
@@ -27,14 +27,14 @@ export default {
   collectOpen: makeActionBarButton('collectOpen', 'L', 'collectOpen', 'collectOpen'),
   followUp: function(ctrl) {
     const className = helper.classSet({
-      'action_bar_vbutton': true,
+      'action_bar_button': true,
       'glow': true
     });
 
     if(gameApi.playable(ctrl.data)) return null;
 
     return (
-        <button id="followUp" className={className} key="followUp" data-icon="G" config={both(slidesInUp, helper.ontouch(() => ctrl.followUp()))}>
+        <button id="followUp" className={className} key="followUp" data-icon="G" config={both(fadesIn, helper.ontouch(() => ctrl.followUp()))}>
         {i18n('backToMasa')}
       </button>
     );
@@ -78,6 +78,15 @@ function slidesInUp(el, isUpdate, context) {
     // force reflow hack
     context.lol = el.offsetHeight;
     Zanimo(el, 'transform', 'translate3d(0,0,0)', 250, 'ease-out');
+  }
+}
+
+function fadesIn(el, isUpdate, context) {
+  if (!isUpdate) {
+    el.style.opacity = 0;
+    // force reflow hack
+    context.lol = el.offsetHeight;
+    Zanimo(el, 'opacity', 1, 250, 'ease-out');
   }
 }
 

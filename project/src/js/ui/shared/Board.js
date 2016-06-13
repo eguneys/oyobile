@@ -119,5 +119,4 @@ export default function(
         <div className={boardClass} config={boardConfig} />
       </section>
     );
-    
 }

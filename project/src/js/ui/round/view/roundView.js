@@ -44,6 +44,7 @@ function renderContent(ctrl, isPortrait) {
   );
 
   return [
+    board,
     <section key="table" className="table">
       <header key="table-header" className="tableHeader">
         {menuButton()}
@@ -51,8 +52,7 @@ function renderContent(ctrl, isPortrait) {
       </header>
       {renderReplay(ctrl)}
       {renderGameActionsBar(ctrl)}
-    </section>,
-    board
+    </section>
   ];
 }
 
@@ -103,13 +103,13 @@ function gameInfos(ctrl) {
 function renderGameActionsBar(ctrl) {
   const gmClass = (['fa',
                     'fa-ellipsis-h']).concat([
-                      'action_bar_vbutton'
+                      'action_bar_button'
                     ]).join(' ');
   const gmButton =
   <button className={gmClass} key="gameMenu" config={helper.ontouch(ctrl.showActions)}/>;
 
   const chatClass = [
-    'action_bar_vbutton',
+    'action_bar_button',
     ctrl.chat && ctrl.chat.unread ? 'glow' : ''
   ].join(' ');
   const chatButton = ctrl.chat ?
@@ -118,7 +118,7 @@ function renderGameActionsBar(ctrl) {
   config={helper.ontouch(ctrl.chat.open)}/> : null;
 
   return (
-    <section className="actions_bar_vertical" key="game-actions-bar">
+    <section className="actions_bar" key="game-actions-bar">
       {button.leaveTaken(ctrl)}
       {button.collectOpen(ctrl)}
       {button.openPairs(ctrl)}
@@ -144,7 +144,9 @@ function renderGamePopup(ctrl) {
 }
 
 function renderGameRunningActions(ctrl) {
-  const gameControls = [];
+  const gameControls = [
+      button.returnToMasa(ctrl)
+  ];
 
   return (
     <div className="game_controls">

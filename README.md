@@ -12,10 +12,12 @@
 + duz variant, withTore, no end scores
 + Open scores doesn't link data-hint
 + add translations
+  side east
+  aiBot level
 
 ### Mobile
   #### Functional
-  * add round ... more game settings
+  + add round ... more game settings
   * add round end scores
   * add round open scores
   * add now playing games

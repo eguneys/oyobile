@@ -78,6 +78,11 @@ export function playerName(player, withRating) {
   if (player.ai) {
     return aiName(player.ai);
   }
+
+  if (player.side) {
+    return i18n('side' + player.side);
+  }
+
   return i18n('anonymous');
 }
 
@@ -123,8 +128,8 @@ export function getBoardBounds(viewportDim, isPortrait, isIpadLike, mode) {
     };
   } else {
     // const lSide = vh - top;
-    const lSide = vh;
-    const lWidth = lSide * (4/3);
+    const lSide = vh - 5;
+    const lWidth = vw - 5; // lSide * (4/3);
     const spaceCenter = vw - lWidth;
     return {
       top,
