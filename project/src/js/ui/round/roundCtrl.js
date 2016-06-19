@@ -205,8 +205,8 @@ export default function(cfg) {
     if (!el) return null;
     return Zanimo(
       el,
-      'opacity',
-      0, 250, 'ease-out'
+      // 'opacity', 0, 250, 'ease-out'
+      'transform', 'translate3d(0, -100%, 0)', 250, 'ease-out'
     ).then(() => {
       this.vm[id] = false;
       m.redraw();

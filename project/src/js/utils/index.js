@@ -80,7 +80,7 @@ export function playerName(player, withRating) {
   }
 
   if (player.side) {
-    return i18n('side' + player.side);
+    return i18n(player.side);
   }
 
   return i18n('anonymous');

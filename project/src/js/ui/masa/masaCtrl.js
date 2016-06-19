@@ -33,5 +33,5 @@ export default function controller() {
 }
 
 function supported(t) {
-  return session.isConnected() || !t.rated || !t.membersOnly;
+  return session.isConnected() || (!t.rated && !t.mOnly);
 }

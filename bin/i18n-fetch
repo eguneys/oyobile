@@ -1,0 +1,17 @@
+#!/bin/sh
+
+dir=project/www/i18n
+mkdir -p $dir
+
+HOST=${1:-oyunkeyf.net}
+
+for lang in en tr; do
+  url="http://en.$HOST/assets/trans/$lang.all.json"
+  echo $url;
+  curl -s -o "$dir/$lang.json" $url
+done
+
+echo "References"
+curl -s -o "$dir/refs.json" "http://en.$HOST/assets/trans/refs.json"
+
+echo "Done"

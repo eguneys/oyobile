@@ -67,8 +67,9 @@ topCenterLeft = 45%
 
 .replay
   flex 1 1 auto
+  display flex
 
-.table
+.content_round .table
   position absolute
   top 0
   width 100%
@@ -86,3 +87,36 @@ topCenterLeft = 45%
       > .game-title
         font-size 0.6rem
         line-height 14px
+
+.game_actions_bar
+  display flex
+  justify-content space-around
+  padding 0 2px
+  height 100%
+  width 40%
+  overflow hidden
+
+.game_action_bar_button
+  flex 1 1 25%
+  margin 0 2px
+  text-align center
+  background gold
+  color #fff
+  border-radius 0 0 15px 15px
+  box-shadow 0px 1px 2px 0px rgba(0,0,0,0.1)
+  &.active
+    background lighten(#fff, 8%)
+    color lighten(gold, 40%)
+  &.glow
+    animation answer_glow 5s infinite
+  &.empty
+    visibility hidden
+
+.game_bar_button
+  background transparent
+  color gold
+  border-radius 50%
+  margin 0 2px
+  padding 0 12px
+  &.glow
+    animation answer_glow 5s infinite

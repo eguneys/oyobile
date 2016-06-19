@@ -37,6 +37,7 @@ function main() {
 
   setTimeout(function() {
     window.navigator.splashscreen.hide();
+    window.StatusBar.hide();
     // xhrStatus();
   }, 500);
 }

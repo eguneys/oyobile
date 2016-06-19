@@ -57,9 +57,27 @@ function renderContent(ctrl, isPortrait) {
 }
 
 function renderReplay(ctrl) {
+  const gmClass = (['fa',
+                    'fa-ellipsis-h']).concat([
+                      'game_bar_button'
+                    ]).join(' ');
+  const gmButton =
+  <button className={gmClass} key="gameMenu" config={helper.ontouch(ctrl.showActions)}/>;
+
+  const chatClass = [
+    'game_bar_button',
+    ctrl.chat && ctrl.chat.unread ? 'glow' : ''
+  ].join(' ');
+  const chatButton = ctrl.chat ?
+                     <button className={chatClass} data-icon="c"
+  key="chat"
+                             config={helper.ontouch(ctrl.chat.open)}/> : null;
+
+
   return (
     <div class="replay">
-      {renderResult(ctrl)}
+      {gmButton}
+      {chatButton}
     </div>
   );
 }
@@ -101,31 +119,13 @@ function gameInfos(ctrl) {
 }
 
 function renderGameActionsBar(ctrl) {
-  const gmClass = (['fa',
-                    'fa-ellipsis-h']).concat([
-                      'action_bar_button'
-                    ]).join(' ');
-  const gmButton =
-  <button className={gmClass} key="gameMenu" config={helper.ontouch(ctrl.showActions)}/>;
-
-  const chatClass = [
-    'action_bar_button',
-    ctrl.chat && ctrl.chat.unread ? 'glow' : ''
-  ].join(' ');
-  const chatButton = ctrl.chat ?
-                     <button className={chatClass} data-icon="c"
-                             key="chat"
-  config={helper.ontouch(ctrl.chat.open)}/> : null;
-
   return (
-    <section className="actions_bar" key="game-actions-bar">
+    <section className="game_actions_bar" key="game-actions-bar">
       {button.leaveTaken(ctrl)}
       {button.collectOpen(ctrl)}
       {button.openPairs(ctrl)}
       {button.openSeries(ctrl)}
       {button.followUp(ctrl)}
-      {chatButton}
-      {gmButton}
     </section>
   );
 }
