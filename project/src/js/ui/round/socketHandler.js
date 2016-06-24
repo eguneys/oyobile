@@ -1,6 +1,8 @@
 import gameApi from '../../oyunkeyf/game';
 import ground from './ground';
 import * as xhr from './roundXhr';
+import { handleXhrError } from '../../utils';
+import socket from '../../socket';
 import m from 'mithril';
 
 export default function(ctrl) {
@@ -13,6 +15,15 @@ export default function(ctrl) {
     reload: function() {
       xhr.reload(ctrl).then(ctrl.reload);
     },
+    resync: function() {
+      console.log('resync');
+      xhr.reload(ctrl).then(function(data) {
+        socket.setVersion(data.player.version);
+        ctrl.reload(data);
+      }, function(err) {
+        handleXhrError(err);
+      });
+    },
     end: function(scores) {
       console.log(scores);
       ctrl.data.game.scores = scores.result;
@@ -21,6 +32,11 @@ export default function(ctrl) {
       ctrl.saveBoard();
       // ctrl.setLoading(true);
       xhr.reload(ctrl).then(ctrl.reload);
+      window.plugins.insomnia.allowSleepAgain();
+      setTimeout(function() {
+        ctrl.showActions();
+        m.redraw();
+      }, 500);
     },
     message: function(msg) {
       if (ctrl.chat) ctrl.chat.append(msg);

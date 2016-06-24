@@ -10,24 +10,44 @@
   
   .playerInfos
     position absolute
-    height topPieceHeight
-    width 14%
+    display: flex
+
+    &.bottom,
+    &.top
+      width (topPieceWidth * 6)
+      height (topPieceHeight * 1.4)
+
+    &.left
+    &.right
+      flex-flow column nowrap
+      width (topPieceWidth * 3)
+      height (topPieceHeight * 3)
 
     &.bottom
-      left topCenterLeft
+      left 35%
       bottom  0%
 
     &.top
-      left topCenterLeft
+      left 35%
 
     &.left
-      top 50%
-      left 0%
+      top 40%
+      left 1%
 
     &.right
-      top 50%
-      right 0%
+      top 40%
+      right 1%
 
+.wrap_info,
+.wrap_user
+  flex 1 1 50%
+
+.wrap_info
+  display flex
+  align-items center
+  justify-content center
+  font-size 0.7em
+  
 .playerUser
   display flex
   align-items center

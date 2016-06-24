@@ -14,54 +14,48 @@ function renderTopMenu() {
   );
 }
 
-function renderAIInfo(ctrl, player, position) {
-  const wrapperClass = [
-    'playerInfos',
-    position
-  ].join(' ');
-
-  const runningSide = ctrl.isClockRunning() ? ctrl.data.game.player : null;
-
-  return (
-    <div className={wrapperClass}>
-      <h2 className="playerUser">
-        {i18n('aiBot', player.ai)}
-        <span className="ongame yes" data-icon="3"/>
-      </h2>
-      { (ctrl.clock && player.side === runningSide) ?
-        renderClock(ctrl.clock, player.side, runningSide, position) : null
-      }
-    </div>
-  );
-}
-
 function renderPlayerInfo(ctrl, player, position) {
-  if (player.ai) return renderAIInfo(ctrl, player, position);
-  const wrapperClass = [
-    'playerInfos',
-    position
-  ].join(' ');
+  const wrapperClass = helper.classSet({
+    'playerInfos': true,
+  }) + ` ${position}`;
 
-  const playerName = utils.playerName(player);
+  const playerName = player.ai ?
+                     i18n('aiBot', player.ai) :
+                     utils.playerName(player);
+  const playerOnGame = (player.onGame || player.ai ?
+                        <span className="ongame yes" data-icon="3"/> :
+                        <span className="ongame no" data-icon="0"/>
+  );
 
   const togglePopup = ctrl.toggleUserPopup.bind(ctrl, position, player.user);
-  const vConf = helper.ontouch(togglePopup)
+  const vConf = helper.ontouch(togglePopup);
 
   const runningSide = ctrl.isClockRunning() ? ctrl.data.game.player : null;
   const running = ctrl.data.game.player === player.side;
 
+  const opens = ctrl.data.game.oscores ? ctrl.data.game.oscores[player.side] : null;
+  const opensHint = opens ? (opens.series ? 'openedSeries' : 'openedPairs') : null;
+
   return (
     <div className={wrapperClass} config={vConf}>
-      <h2 className="playerUser">
-        {playerName}
-        {player.onGame ?
-         <span className="ongame yes" data-icon="3"/> :
-         <span className="ongame no" data-icon="0"/>
+      <div class="wrap_info">
+        {opens ?
+         <div class="opens">
+           {(opens.series ? opens.series : opens.pairs)}
+           {' '}
+           {i18n(opensHint)}
+         </div>: null
         }
-      </h2>
-      { (ctrl.clock && running) ?
-        renderClock(ctrl.clock, player.side, runningSide, position) : null
-      }
+      </div>
+      <div class="wrap_user">
+        <h2 className="playerUser">
+          {playerName}
+          {playerOnGame}
+        </h2>
+        { (ctrl.clock && running) ?
+          renderClock(ctrl.clock, player.side, runningSide, position) : null
+        }
+      </div>
     </div>
   );
 }

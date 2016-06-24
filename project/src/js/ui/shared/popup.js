@@ -4,7 +4,7 @@ function styleConf(el) {
   const vh = helper.viewportDim().vh;
   const h = el.getBoundingClientRect().height;
   const top = (vh - h) / 2;
-  el.style.top = top + 'px';
+  // el.style.top = top + 'px';
 }
 
 export default function(classes, headerF, contentF, isShowing, closeF) {

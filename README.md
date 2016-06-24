@@ -1,9 +1,12 @@
 ## TODO
 
+- [ ] orientation lock http://stackoverflow.com/a/21212345/3995789
+
 ### Website
 
-[ ] [bug] dont group fake with same color replace
-[ ] add force animation
+[ ] anonymous don't allow multiple games?
+
+[x] add force animation
 [x] add membersOnly to scheudulejsonview masa
 [x] display membersOnly on casual masa
 [x] fix translation Players chat
@@ -14,20 +17,38 @@
 [x] persist fen on collect open
 [x] duz variant, withTore, no end scores
 [x] Open scores doesn't link data-hint
-[x] add translations
+[ ] add translations
+  signin giris
   side east
   aiBot level
 
 ### Mobile
-  #### Functional
+
+* Masa
+  * listview
+    - [ ] refresh occasionally
+  * created
+    - [ ] waiting players title
+  * started
+    - [ ] countdown
+    - [ ] link current playing hand
+  * finished
+    - [ ] podium
+
+  - [ ] fix action buttons
+  - [ ] add masa pairings
+  - [ ] add masa join spinner
+
+
+* Round
+  - [ ] add round end scores
+  - [x] add round open scores
+
+#### Functional
   [x] add round ... more game settings
-  [ ] fix game action buttons
+  [x] fix game action buttons
   [ ] fix chat
-  [ ] add round end scores
-  [ ] add round open scores
   [ ] add now playing games
-  [ ] add masa pairings
-  [ ] add masa join spinner
   [ ] fix startup splash
   [x] loading spinner
   [x] add timers

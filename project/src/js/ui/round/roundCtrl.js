@@ -23,6 +23,21 @@ const { wrapGroup, wrapPiece, wrapDrop, partial } = util;
 export default function(cfg) {
   this.data = makeData(cfg);
 
+  this.data.game.oscores = {
+    east: {
+      series: 101
+    },
+    west: {
+      pairs: 5
+    },
+    north: {
+      pairs: 5
+    },
+    south: {
+      pairs: 5
+    }
+  };
+
   this.chat = new chat.controller(this);
 
   this.vm = {
@@ -72,6 +87,9 @@ export default function(cfg) {
   };
 
   var userMove = (key, move) => {
+    if (key === okeyground.move.leaveTaken) {
+      return;
+    }
     this.sendMove(key, move);
   };
 
@@ -117,9 +135,10 @@ export default function(cfg) {
         } else if (o.drop) {
           this.okeyground.apiMove(o.key, wrapDrop(o.drop.piece, o.drop.pos));
         } else if (o.key === okeyground.move.collectOpen) {
-          this.restoreFen(o.fen);
+          this.restoreFen(o.fen, okeyground.move.collectOpen);
         } else if (o.key === okeyground.move.leaveTaken) {
-          this.restoreFen(o.fen);
+          // this.restoreFen(o.fen);
+          this.okeyground.apiMove(o.key, wrapPiece(o.leavetaken.piece));
         } else {
           this.okeyground.apiMove(o.key);
         }
@@ -140,14 +159,15 @@ export default function(cfg) {
     this.updateGameActions();
   };
 
-  this.restoreFen = (fen) => {
+  this.restoreFen = (fen, hint) => {
     var oldBoard = this.okeyground.getFen();
 
     // make a hack fen to split
     var oldFen = "//" + oldBoard + "/";
 
     this.okeyground.set({
-      fen: mutil.persistentFen(fen, oldFen)
+      fen: mutil.persistentFen(fen, oldFen),
+      animationHint: hint
     });
   };
 
