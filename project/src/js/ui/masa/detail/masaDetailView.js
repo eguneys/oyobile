@@ -1,4 +1,5 @@
 import mapValues from 'lodash/mapValues';
+import merge from 'lodash/merge';
 import { header as headerWidget, backButton } from '../../shared/common';
 import session from '../../../session';
 import layout from '../../layout';
@@ -48,10 +49,17 @@ function masaBody(ctrl) {
 }
 
 function masaContentFinished(ctrl) {
-  return ['finished'];
+  const data = ctrl.masa();
+  return [
+    masaHeader(data, data.roundsToFinish, ''),
+    data.podium ? masaPodium(data.podium.map(p =>
+      merge(p, data.players[p.id])
+    )) : null,
+    masaLeaderboard(ctrl)
+  ];
 }
 
-function myCurrentGameId(data) {
+function currentGames(data) {
   var ids = {
     created: 10,
     started: 20,
@@ -60,19 +68,28 @@ function myCurrentGameId(data) {
     normalEnd: 40,
     variantEnd: 70
   };
+  return data.pairings.filter(function(p) {
+    return p.s < ids.aborted
+  });
+}
+
+function myCurrentGameId(data) {
   var playerId = data.playerId;
   if (!playerId) return null;
-  var pairing = data.pairings.filter(function(p) {
-    return p.s < ids.aborted && (
-      p.u.filter((id) => id.toLowerCase() === playerId.toLowerCase())[0]
-    );
-  })[0];
+
+  var pairing = currentGames(data).filter(p =>
+    p.u.filter((id) =>
+      id.toLowerCase() === playerId.toLowerCase())[0]
+  )[0];
+
   return pairing ? pairing.id : null;
 }
 
 function masaContentStarted(ctrl) {
   const data = ctrl.masa();
   const gameId = myCurrentGameId(data);
+  const playings = currentGames(data);
+  const currentGameId = playings[0] ? playings[0].id : null;
   return [
     masaHeader(data, data.roundsToFinish, ''),
     gameId ? m('a.pov.button.glowed', {
@@ -80,7 +97,13 @@ function masaContentStarted(ctrl) {
     }, [
       i18n('youArePlaying'),
       m('span.text[data-icon=G]', i18n('joinTheGame'))
-    ]) : null,
+    ]) : (currentGameId ? 
+        m('a.pov.spectator.button', {
+          config: helper.ontouch(m.route.bind(null, `/masa/${data.id}/game/${currentGameId}`))
+        }, [
+          i18n('nowPlaying'),
+          m('span.text[data-icon=G]', i18n('spectateGame'))
+        ]) : null),
     masaLeaderboard(ctrl)
   ];
 }
@@ -136,7 +159,8 @@ function masaSeats(ctrl) {
 }
 
 function getPlayerName(p) {
-  return p ? (p.ai ? i18n('aiBot') : p.name ? p.name : i18n('anonymous')) : null;
+  return p.ai ? i18n('aiBot', p.ai) :
+         p.name ? p.name : i18n('anonymous');
 }
 
 function masaSeat(ctrl, side, p, me) {
@@ -151,7 +175,9 @@ function masaSeat(ctrl, side, p, me) {
 
 function masaLeaderboard(ctrl) {
   const data = ctrl.masa();
-  const players = data.standing.players;
+  const players = data.standing.players.map(p =>
+    merge(p, data.players[p.id])
+  );
   const user = session.get();
   const userName = user ? user.username : '';
 
@@ -160,6 +186,16 @@ function masaLeaderboard(ctrl) {
       <p className="masaTitle"> {i18n('leaderboard')} ({i18n('nbPlayers', data.nbPlayers)})</p>
       <table className="masaStandings">
         {players.map(renderLeaderboardItem.bind(null, ctrl.playerInfoCtrl, userName, data.playerId))}
+      </table>
+    </div>
+  );
+}
+
+function masaPairings(ctrl) {
+  return (
+    <div key="pairings" className="masaPairings">
+      <p className="masaTitle"> {i18n('rounds')}</p>
+      <table className="masaPairings">
       </table>
     </div>
   );
@@ -186,6 +222,41 @@ function renderLeaderboardItem(playerInfoCtrl, userName, playerId, player) {
   );
 }
 
+function masaPodium(podium) {
+  return (
+    <div key="podium" className="podium">
+      { renderPlace(podium[0]) }
+    </div>
+  );
+}
+
+function renderPlace(data) {
+  if (!data) return null;
+
+  const rank = data.rank;
+  return (
+    <div className={'place' + rank}>
+      <div className="trophy"></div>
+    <div className="username" config={data.name ? helper.ontouch(() => m.route('/@/' + data.name)) : null}>
+        {getPlayerName(data)}
+      </div>
+      {data.rating ?
+       <div className="rating"> {data.rating} {renderProgress(data.ratingDiff)} </div>
+       : null
+      }
+       <table className="stats">
+       </table>
+    </div>
+  );
+}
+
+function renderProgress(p) {
+  if (p === 0) return null;
+  return m('span', {
+    className: 'progress ' + (p > 0 ? 'positive' : 'negative'),
+    'data-icon': p > 0 ? 'N' : 'M'
+  }, Math.abs(p));
+}
 
 function renderFooter(ctrl) {
   if (!ctrl.masa()) {

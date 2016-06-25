@@ -40,12 +40,15 @@
 
 .wrap_info,
 .wrap_user
+  height 100%
   flex 1 1 50%
-
-.wrap_info
   display flex
+  flex-flow column nowrap
   align-items center
   justify-content center
+
+
+.wrap_info
   font-size 0.7em
   
 .playerUser
@@ -76,6 +79,7 @@
 .clock
   position relative
   top -4px
+  width 100%
   &.emerg .bar
     background #efaaaa
   & .bar
