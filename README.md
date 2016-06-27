@@ -4,8 +4,12 @@
 
 ### Website
 
+- [ ] add api /account/info
+- [ ] add api lobby /
+- [ ] add roundNo to game
 - [ ] dont allow fake sign
 - [ ] add no time control
+- [ ] time space between rounds
 - [ ] anonymous don't allow multiple games?
 
 - [x] add force animation
@@ -20,7 +24,9 @@
 - [x] duz variant, withTore, no end scores
 - [x] Open scores doesn't link data-hint
 - [ ] add translations
+  nbHand %s
   signin giris
+  preferences secenekler
   side east
   aiBot level
   nowPlaying
@@ -28,37 +34,39 @@
 
 ### Mobile
 
+* Menu
+  - [ ] logo
+  - [ ] login
+  - [ ] settings
+
 * Masa
   * listview
-    - [ ] refresh occasionally
+    - [ ] refresh on empty list
   * created
+    - [ ] add chat
     - [ ] waiting players title
+    - [ ] masa join spinner
   * started
     - [ ] countdown
-    - [ ] add pairings
+    - [o] add pairings
   * finished
-    - [ ] podium
-
-  - [ ] fix action buttons
-  - [ ] add masa pairings
-  - [ ] add masa join spinner
-
+    - [x] podium
 
 * Round
+  - [ ] fix chat
   - [ ] different ui for current turn
-  - [ ] add round end scores
+  - [ ] fix round end scores
   - [x] add round open scores
-
-#### Functional
   - [x] add round ... more game settings
   - [x] fix game action buttons
-  - [ ] fix chat
+
+#### Functional
   - [ ] add now playing games
   - [ ] fix startup splash
   - [x] loading spinner
   - [x] add timers
 
   #### Responsive
-  - [ ] fix game replay status text
+  ~~ - [ ] fix game replay status text ~~
   - [ ] fix gameaction buttons text nowrap
   - [ ] fix button icons

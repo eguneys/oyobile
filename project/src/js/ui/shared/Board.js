@@ -35,12 +35,13 @@ function renderPlayerInfo(ctrl, player, position) {
 
   const opens = ctrl.data.game.oscores ? ctrl.data.game.oscores[player.side] : null;
   const opensHint = opens ? (opens.series ? 'openedSeries' : 'openedPairs') : null;
+  const opensClass = "opens" + ((opens && opens.new) ? " new" : "");
 
   return (
     <div className={wrapperClass} config={vConf}>
       <div class="wrap_info">
         {opens ?
-         <div class="opens">
+         <div class={opensClass}>
            {(opens.series ? opens.series : opens.pairs)}
            {' '}
            {i18n(opensHint)}

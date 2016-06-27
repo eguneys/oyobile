@@ -13,6 +13,8 @@ import Board from '../../shared/Board';
 import popupWidget from '../../shared/popup';
 import Zanimo from 'zanimo';
 
+const { util } = okeyground;
+const { partial } = util;
 
 export default function view(ctrl) {
   const isPortrait = helper.isPortrait();
@@ -156,11 +158,12 @@ function renderGameRunningActions(ctrl) {
 }
 
 function renderGameEndedActions(ctrl) {
+  const nbHand = ctrl.data.game.roundNo;
   const result = gameApi.result(ctrl.data);
   const winner = gameApi.getPlayer(ctrl.data, ctrl.data.game.winner);
   const status = gameStatus.toLabel(ctrl.data.game.status.name, ctrl.data.game.winner, ctrl.data.game.variant.key);
   const resultDOM = gameStatus.aborted(ctrl.data) ? [] : [
-    m('strong', result), m('br')
+    m('strong', `${nbHand}. ` + result), m('br')
   ];
 
   resultDOM.push(m('em.resultStatus', status));
@@ -175,7 +178,59 @@ function renderGameEndedActions(ctrl) {
   return (
     <div className="game_controls">
       <div className="result">{resultDOM}</div>
+      {renderScores(ctrl)}
       <div className="control buttons">{buttons}</div>
     </div>
   );
+}
+
+function renderScores(ctrl) {
+  var d = ctrl.data;
+  var sides = ['east', 'west', 'north', 'south'];
+  var scores = sides.map(side => {
+    return {
+      player: gameApi.getPlayer(d, side),
+      scores: d.game.scores ? d.game.scores[side] : { scores: [] },
+      opens: d.game.oscores ? d.game.oscores[side] : null
+    };
+  });
+
+  var tableBody = scores.map(partial(duzPlayerTr, ctrl));
+
+    return (
+      <div className="crosstable">
+        <table>
+          <thead><tr></tr></thead>
+          <tbody>{tableBody}</tbody>
+        </table>
+      </div>
+    );
+}
+
+function duzPlayerTr(ctrl, { player, scores }) {
+  const mySide = ctrl.data.player.side;
+
+  const trClass = helper.classSet({
+    'me': player.side === mySide
+  });
+
+  return (
+    <tr key={player.side} className={trClass}>
+      <th className="score">{scores.total}</th>
+      <th className="user">{utilPlayer(player, 'a')}</th>
+    </tr>);
+}
+
+
+function utilPlayer(p, tag) {
+  var fullName = p.user ? p.user.username : (p.ai ? i18n('aiBot', p.ai) : i18n(p.side));
+  var attrs = {
+    class: 'user_link'
+  };
+  if (p.user && p.user.username) attrs[tag === 'a' ? 'href' : 'data-href'] = '/@/' + p.user.username;
+  return {
+    tag: tag,
+    attrs: attrs,
+    children: fullName
+  };
 }

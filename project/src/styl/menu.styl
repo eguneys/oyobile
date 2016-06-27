@@ -52,16 +52,27 @@
 .side_menu_header
   position relative
   color #fff
-  .logo
+  > .logo
     color gold
     height 50px
     width 100%
-  .username
+  > .username
     text-align center
     line-height 40px
     font-size 1.2rem
     width 100%
     color #FFF
+  > .open_button
+    position absolute
+    right 0
+    bottom 0
+    width 50px
+    height 40px
+    line-height 40px
+    color gold
+    text-align center
+    &.active
+      background lighten(#353535, 8%)
 
 .side_links
   color textLightGray

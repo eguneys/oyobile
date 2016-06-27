@@ -1,5 +1,7 @@
 import i18n from '../../i18n';
+import session from '../../session';
 import menu from '.';
+import loginModal from '../loginModal';
 import newGameForm from '../newGameForm';
 import { hasNetwork } from '../../utils';
 import helper from '../helper';
@@ -23,12 +25,39 @@ function renderHeader(user) {
     <h2 className="username">
       { hasNetwork() ? user ? user.username : i18n('anonymous') : i18n('offline') }
     </h2>
+    { hasNetwork() && user ?
+      <button className="open_button" data-icon={menu.headerOpen() ? 'S' : 'R'}
+              config = {helper.ontouch(menu.toggleHeader, null, null, false)}
+      /> : null
+    }
     { hasNetwork() && !user ?
-      <button className="login">
+      <button className="login" config={helper.ontouchY(loginModal.open)}>
       {i18n('signIn')}
       </button> : null
     }
     </header>
+  );
+}
+
+function renderProfileActions(user) {
+  return (
+    <ul className="side_links profileActions">
+      <li className="side_link" config={helper.ontouch(menu.route('/@/' + user.id))}>
+        <span data-icon="r" />
+        {i18n('profile')}
+      </li>
+      <li className="side_link" config={helper.ontouch(menu.route('/settings/preferences'))}>
+        <span data-icon="%" />
+        {i18n('preferences')}
+      </li>
+      <li className="side_link" config={helper.ontouch(() => {
+        session.logout();
+        menu.headerOpen(false);
+      })}>
+        <span data-icon="w" />
+        {i18n('logOut')}
+      </li>
+    </ul>
   );
 }
 
@@ -64,11 +93,11 @@ function renderLinks(user) {
 }
 
 function renderMenu() {
-  const user = null;
+  const user = session.get();
   return (
     <div className="native_scroller">
       {renderHeader(user)}
-      { renderLinks(user) }
+      { user && menu.headerOpen() ? renderProfileActions(user) : renderLinks(user) }
     </div>
   );
 }

@@ -25,7 +25,8 @@ export default function(cfg) {
 
   this.data.game.oscores = {
     east: {
-      series: 101
+      series: 101,
+      new: true
     },
     west: {
       pairs: 5

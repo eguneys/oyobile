@@ -1,0 +1,72 @@
+import i18n from '../i18n';
+import helper from './helper';
+import backbutton from '../backbutton';
+import m from 'mithril';
+
+const signupModal = {};
+
+var isOpen = false;
+
+signupModal.open = function() {
+  backbutton.stack.push(helper.slidesOutDown(signupModal.close, 'signupModal'));
+  isOpen = true;
+};
+
+signupModal.close = function(fromBB) {
+  window.cordova.plugins.Keyboard.close();
+  if (fromBB !== 'backbutton' && isOpen) backbutton.stack.pop();
+  isOpen = false;
+};
+
+signupModal.view = function() {
+  if (!isOpen) return null;
+
+  return m('div.modal#signupModal', { config: helper.slidesInUp }, [
+    m('header', [
+      m('button.modal_close[data-icon=L]', {
+        config: helper.ontouch(helper.slidesOutDown(signupModal.close, 'signupModal'))
+      }),
+      m('h2', i18n('signUp'))
+    ]),
+    m('div.modal_content', [
+      m('p.signupWarning.withIcon[data-icon=!]', [
+        i18n('computersAreNotAllowedToPlay')
+      ]),
+      m('p.tosWarning', [
+        i18n('byRegisteringYouAgreeToBeBoundByOur'),
+        m('a', {
+        }, i18n('termsOfService')), '.'
+      ]),
+      m('form.login', {
+        onsubmit: function(e) {
+          e.preventDefault();
+          return submit(e.target);
+        }
+      }, [
+        m('input#pseudo[type=text]', {
+          placeholder: i18n('username'),
+          autocomplete: 'off',
+          autocapitalize: 'off',
+          autocorrect: 'off',
+          spellcheck: 'false',
+          required: true
+        }),
+        m('input#email[type=email]', {
+          placeholder: i18n('email'),
+          autocomplete: 'off',
+          autocapitalize: 'off',
+          autocorrect: 'off',
+          spellcheck: 'false',
+          required: true
+        }),
+        m('input#password[type=password]', {
+          placeholder: i18n('password'),
+          required: true
+        }),
+        m('button.fat', i18n('signUp'))
+      ])
+    ])
+  ]);
+};
+
+export default signupModal;

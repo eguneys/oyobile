@@ -22,7 +22,7 @@ export default function homeView(ctrl) {
           </section>
         </div>
       </div>
-    );    
+    );
   }
 
   const header = headerWidget.bind(null, 'oyunkeyf.net');

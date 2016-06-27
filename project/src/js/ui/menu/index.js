@@ -61,4 +61,8 @@ menu.close = function(fromBB) {
     });
 };
 
+menu.toggleHeader = function() {
+  return menu.headerOpen() ? menu.headerOpen(false) : menu.headerOpen(true);
+};
+
 export default menu;
