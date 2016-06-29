@@ -8,7 +8,7 @@
 - [ ] add api /translation/select
 - [x] add api /account/info
 - [x] add api lobby /
-- [ ] add roundNo to game
+- [x] add roundNo to game
 - [ ] dont allow fake sign
 - [ ] add no time control
 - [ ] time space between rounds
@@ -57,7 +57,7 @@
 * Round
   - [ ] fix chat
   - [ ] different ui for current turn
-  - [ ] fix round end scores
+  - [x] fix round end scores
   - [x] add round open scores
   - [x] add round ... more game settings
   - [x] fix game action buttons

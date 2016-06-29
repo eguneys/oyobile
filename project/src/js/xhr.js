@@ -8,7 +8,8 @@ export function newGame() {
   const data = {
     variant: config.variant(),
     rounds: config.rounds(),
-    mode: config.mode()
+    mode: session.isConnected() ? config.mode() : '0',
+    membersOnly: session.isConnected() ? config.membersOnly() : false
   };
 
   return request('/masa/new', {

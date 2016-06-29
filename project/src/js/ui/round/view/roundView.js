@@ -158,7 +158,7 @@ function renderGameRunningActions(ctrl) {
 }
 
 function renderGameEndedActions(ctrl) {
-  const nbHand = ctrl.data.game.roundNo;
+  const nbHand = ctrl.data.game.roundAt + 1;
   const result = gameApi.result(ctrl.data);
   const winner = gameApi.getPlayer(ctrl.data, ctrl.data.game.winner);
   const status = gameStatus.toLabel(ctrl.data.game.status.name, ctrl.data.game.winner, ctrl.data.game.variant.key);
