@@ -97,8 +97,31 @@ function createMasaHome(handlers) {
     url,
     version: 0,
     opts
-  });  
+  });
 }
+
+function createLobby(lobbyVersion, onOpen, handlers) {
+  socketHandlers = {
+    onOpen,
+    events: Object.assign({}, defaultHandlers, handlers)
+  };
+  const opts = {
+    options: {
+      name: 'lobby',
+      debug: false,
+      pingDelay: 2000,
+      registeredEvents: Object.keys(socketHandlers.events)
+    }
+  };
+  tellWorker(worker, 'create', {
+    clientId: oyunkeyfSri,
+    socketEndPoint: window.oyunkeyf.socketEndPoint,
+    url: '/lobby/socket/v1',
+    version: lobbyVersion,
+    opts
+  });
+}
+
 
 function createDefault() {
   // default socket is useless when anon.?
@@ -166,7 +189,7 @@ worker.addEventListener('message', function(msg) {
     break;
   case 'handle':
     var h = socketHandlers.events[msg.data.payload.t];
-    if (h) h(msg.data.payload.d || msg.data.payload);
+    if (h) h(msg.data.payload.d || null, msg.data.payload);
     break;
   }
 });
@@ -176,6 +199,7 @@ export default {
   createMasa,
   createMasaHome,
   createGame,
+  createLobby,
   setVersion(version) {
     tellWorker(worker, 'setVersion', version);
   },

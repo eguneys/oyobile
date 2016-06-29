@@ -1,5 +1,6 @@
 import { request } from './http';
 import settings from './settings';
+import session from './session';
 
 export function newGame() {
   const config = settings.gameSetup.human;
@@ -23,4 +24,15 @@ export function lobby(feedback) {
 export function game(id, background) {
   var url = '/' + id;
   return request(url, { background }, true);
+}
+
+export function setServerLang(lang) {
+  if (session.isConnected()) {
+    return request('/translation/select', {
+      method: 'POST',
+      data: { lang }
+    });
+  } else {
+    return Promise.resolve();
+  }
 }

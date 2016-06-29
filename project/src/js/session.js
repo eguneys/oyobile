@@ -85,6 +85,7 @@ export default {
   signup,
   logout,
   login: throttle(login, 1000),
+  rememberLogin: throttle(rememberLogin, 1000),
   refresh: throttle(refresh, 1000),
   get: getSession
 };

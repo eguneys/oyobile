@@ -8,8 +8,11 @@ import moment from 'moment';
 window.moment = moment;
 
 import m from 'mithril';
+import * as utils from './utils';
+import session from './session';
+import settings from './settings';
 import { loadPreferredLanguage } from './i18n';
-// import { status as xhrStatus } from './xhr';
+import { status as xhrStatus, setServerLang } from './xhr';
 import helper from './ui/helper';
 import backbutton from './backbutton';
 import socket from './socket';
@@ -22,6 +25,15 @@ function main() {
   // cache viewport dims
   helper.viewportDim();
 
+  // pull session data once (to log in user automatically thanks to cookie)
+  // and also listen to online event in case network was disconnected at app
+  // startup
+  if (utils.hasNetwork()) {
+    onOnline();
+  }
+
+  document.addEventListener('online', onOnline, false);
+  document.addEventListener('offline', onOffline, false);
   document.addEventListener('resume', onResume, false);
   document.addEventListener('pause', onPause, false);
   document.addEventListener('backbutton', backbutton, false);
@@ -40,6 +52,23 @@ function main() {
     window.StatusBar.hide();
     // xhrStatus();
   }, 500);
+}
+
+function onOnline() {
+  if (isForeground()) {
+    session.rememberLogin()
+      .then(() => {
+        m.redraw();
+      })
+      .then(() => setServerLang(settings.general.lang()));
+  }
+}
+
+function onOffline() {
+  if (isForeground()) {
+    socket.disconnect();
+    m.redraw();
+  }
 }
 
 function onResize() {

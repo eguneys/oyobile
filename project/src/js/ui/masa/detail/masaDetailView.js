@@ -164,7 +164,7 @@ function getPlayerName(p) {
 }
 
 function masaSeat(ctrl, side, p, me) {
-  const playerName = getPlayerName(p);
+  const playerName = p ? getPlayerName(p): '';
   const classes = ' in' + (p ? '' : ' empty') + ((me === side[0]) ? ' me' : '');
   return (
     <div className={"masaSeat" + classes }>

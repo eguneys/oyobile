@@ -4,8 +4,10 @@
 
 ### Website
 
-- [ ] add api /account/info
-- [ ] add api lobby /
+- [ ] add mobile api /signup post
+- [ ] add api /translation/select
+- [x] add api /account/info
+- [x] add api lobby /
 - [ ] add roundNo to game
 - [ ] dont allow fake sign
 - [ ] add no time control

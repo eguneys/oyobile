@@ -37,5 +37,25 @@ export default {
         return renderOption(e[0], e[1], storedValue, e[2], e[3]);
       }))
     ];
+  },
+  renderCheckbox: function(label, name, settingsProp, callback, disabled) {
+    var isOn = settingsProp();
+    return m('div.check_container', {
+      className: disabled ? 'disabled': ''
+    }, [
+      m('label', {
+        'for': name
+      }, label),
+      m('input[type=checkbox]', {
+        name: name,
+        disabled,
+        checked: isOn,
+        onchange: function() {
+          const newVal = !isOn;
+          settingsProp(newVal);
+          if (callback) callback(newVal);
+        }
+      })
+    ]);
   }
 };

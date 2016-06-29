@@ -1,11 +1,33 @@
+import session from '../session';
 import i18n from '../i18n';
 import helper from './helper';
+import loginModal from './loginModal';
 import backbutton from '../backbutton';
 import m from 'mithril';
 
 const signupModal = {};
 
 var isOpen = false;
+
+function submit(form) {
+  var login = form[0].value.trim();
+  var email = form[1].value.trim();
+  var pass = form[2].value.trim();
+  if (!login || !email || !pass) return false;
+  window.cordova.plugins.Keyboard.close();
+  return session.signup(login, email, pass).then(function() {
+    signupModal.close();
+    loginModal.close();
+    window.plugins.toast.show(i18n('loginSuccessfull'), 'short', 'center');
+  }, function(error) {
+    var data = error.response;
+    if (data.error.username) {
+      window.plugins.toast.show(data.error.username[0], 'short', 'center');
+    } else if (data.error.password) {
+      window.plugins.toast.show(data.error.password[0], 'short', 'center');
+    }
+  });
+}
 
 signupModal.open = function() {
   backbutton.stack.push(helper.slidesOutDown(signupModal.close, 'signupModal'));

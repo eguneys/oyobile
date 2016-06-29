@@ -53,7 +53,7 @@ function renderForm(formName, action, settingsObj, variants) {
       formWidgets.renderSelect('mode', formName + 'mode', modes, settingsObj.mode)
     ]));
 
-    if (session.isConnected()) {
+    if (session.isConnected() && settingsObj.mode() === '0') {
       generalFieldset.push(
         formWidgets.renderCheckbox(i18n('membersOnly'), 'membersOnly', settingsObj.membersOnly));
     }
