@@ -12,6 +12,53 @@ let lastRoute;
 let cachedTransformProp;
 let cachedViewportDim = null;
 
+function viewSlideIn(el, callback) {
+  if (m.route() === lastRoute) {
+    callback();
+    return;
+  }
+
+  lastRoute = m.route();
+
+  function after() {
+    utils.setViewSlideDirection('fwd');
+    el.removeAttribute('style');
+    callback();
+  }
+
+  const direction = utils.getViewSlideDirection() === 'fwd' ? '100%' : '-100%';
+  el.style.transform = `translate3d(${direction},0,0)`;
+  el.style.transition = 'transform 200ms ease-out';
+
+  setTimeout(() => {
+    el.style.transform= 'translate3d(0%,0,0)';
+  });
+
+  el.addEventListener('transitionend', after, false);
+}
+
+function viewSlideOut(el, callback) {
+  if (m.route() === lastRoute) {
+    callback();
+    return;
+  }
+
+  function after() {
+    utils.setViewSlideDirection('fwd');
+    callback();
+  }
+
+  const direction = utils.getViewSlideDirection() === 'fwd' ? '-100%' : '100%';
+  el.style.transform = 'translate3d(0%,0,0)';
+  el.style.transition = 'transform 200ms ease-out';
+
+  setTimeout(() => {
+    el.style.transform= `translate3d(${direction},0,0)`;
+  });
+
+  el.addEventListener('transitionend', after, false);
+}
+
 function viewFadesIn(el, callback) {
   var tId;
 
@@ -119,6 +166,7 @@ function viewportDim() {
 }
 
 export default {
+  slidingPage: animator(viewSlideIn, viewSlideOut),
   fadingPage: animator(viewFadesIn, viewFadesOut),
   viewportDim,
   clearCachedViewportDim() {

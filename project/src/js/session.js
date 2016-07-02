@@ -15,6 +15,10 @@ function getSession() {
   return session;
 }
 
+function getUserId() {
+  return (session && session.id) ? session.id : null;
+}
+
 function nowPlaying() {
   var np = session && session.nowPlaying || [];
   return np.filter(function(e) {
@@ -96,5 +100,6 @@ export default {
   rememberLogin: throttle(rememberLogin, 1000),
   refresh: throttle(refresh, 1000),
   get: getSession,
+  getUserId,
   nowPlaying: nowPlaying
 };

@@ -4,6 +4,7 @@
 
 ### Website
 
+- [ ] add api/user
 - [ ] sync okeyground css
 - [ ] add viewonly/minimaldom okeyground
 - [ ] fix nowPlaying json
