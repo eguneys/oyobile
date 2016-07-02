@@ -101,7 +101,7 @@ function masaContentStarted(ctrl) {
         m('a.pov.spectator.button', {
           config: helper.ontouch(m.route.bind(null, `/masa/${data.id}/game/${currentGameId}`))
         }, [
-          i18n('nowPlaying'),
+          i18n('playingRightNow'),
           m('span.text[data-icon=G]', i18n('spectateGame'))
         ]) : null),
     masaLeaderboard(ctrl)

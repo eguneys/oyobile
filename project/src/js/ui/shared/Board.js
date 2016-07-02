@@ -44,7 +44,7 @@ function renderPlayerInfo(ctrl, player, position) {
          <div class={opensClass}>
            {(opens.series ? opens.series : opens.pairs)}
            {' '}
-           {i18n(opensHint)}
+           {i18n(opensHint).split(' ')[0]}
          </div>: null
         }
       </div>

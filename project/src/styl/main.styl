@@ -34,7 +34,14 @@ main
       overflow hidden
       text-overflow ellipsis
       white-space nowrap
-
+    > .buttons
+      flex 0 0 auto
+      > .main_header_button
+        padding-left 10px
+        padding-right 10px
+        > .chip
+          left 2px
+      
 .main_header_button
   flex 0 0 auto
   background transparent
@@ -74,6 +81,17 @@ main
   &.active
     background lighten(headerBgDark, 5%)
 
+.game_menu_button
+  position relative
+  &.invisible
+    visibility hidden
+  &::before
+    content ''
+    display block
+    width 20px
+    height 20px
+    background #eee
+  
 .content
   width 100%
   height calc(100% - 50px)

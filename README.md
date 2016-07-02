@@ -4,6 +4,9 @@
 
 ### Website
 
+- [ ] sync okeyground css
+- [ ] add viewonly/minimaldom okeyground
+- [ ] fix nowPlaying json
 - [ ] add mobile api /signup post
 - [ ] add api /translation/select
 - [x] add api /account/info
@@ -26,19 +29,18 @@
 - [x] duz variant, withTore, no end scores
 - [x] Open scores doesn't link data-hint
 - [ ] add translations
-  nbHand %s
-  signin giris
-  preferences secenekler
-  side east
-  aiBot level
   nowPlaying
-  spectateGame
+
 
 ### Mobile
 
+* User
+  - [ ] list
+  - [ ] profile
+
 * Menu
   - [ ] logo
-  - [ ] login
+  - [x] login
   - [ ] settings
 
 * Masa

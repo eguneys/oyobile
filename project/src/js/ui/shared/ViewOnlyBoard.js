@@ -3,7 +3,8 @@ import okeyground from 'okeyground-mobile';
 export default {
   view(_, args) {
     const boardClass = [
-      'display_board'
+      'display_board',
+      args.variant ? args.variant.key : ''
     ].join(' ');
 
     function boardConf(el, isUpdate, context) {
@@ -26,8 +27,14 @@ export default {
 };
 
 function makeConfig(args) {
+  const { fen, orientation, bounds } = args;
   const conf = {
+    viewOnly: true,
+    minimalDom: true,
+    fen
   };
-  
+
+  if (bounds) conf.bounds = bounds;
+
   return conf;
 }

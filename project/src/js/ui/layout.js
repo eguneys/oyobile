@@ -1,5 +1,6 @@
 import menu from './menu';
 import menuView from './menu/menuView';
+import gamesMenu from './gamesMenu';
 import newGameForm from './newGameForm';
 import loginModal from './loginModal'
 import signupModal from './signupModal'
@@ -22,6 +23,7 @@ export default {
             {menu.isOpen ? <div className="menu-close-overlay" config={helper.ontouch(menu.close)} /> : null }
           </main>
           {menuView()}
+          {gamesMenu.view()}
           {loginModal.view()}
           {signupModal.view()}
           { overlay ? overlay() : null }
@@ -45,6 +47,7 @@ export default {
             {menu.isOpen ? <div className="menu-close-overlay" config={helper.ontouch(menu.close)} /> : null }
           </main>
           {menuView()}
+          {gamesMenu.view()}
           {loginModal.view()}
           {signupModal.view()}
           {newGameForm.view()}

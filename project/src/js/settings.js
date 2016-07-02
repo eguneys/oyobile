@@ -20,6 +20,9 @@ export default {
       background: localstorageprop('settings.bgTheme', 'dark')
     }
   },
+  game: {
+    supportedVariants: ['standard', 'yuzbir', 'duzokey']
+  },
   gameSetup: {
     availableRounds: [1, 5, 10, 15, 20, 25, 30].map(tupleOf),
     isRoundValid: function(gameSettings) {

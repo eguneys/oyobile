@@ -1,6 +1,7 @@
 import { request } from './http';
 import { hasNetwork, handleXhrError } from './utils';
 import i18n from './i18n';
+import settings from './settings';
 import throttle from 'lodash/throttle';
 import m from 'mithril';
 
@@ -12,6 +13,13 @@ function isConnected() {
 
 function getSession() {
   return session;
+}
+
+function nowPlaying() {
+  var np = session && session.nowPlaying || [];
+  return np.filter(function(e) {
+    return settings.game.supportedVariants.indexOf(e.variant.key) !== -1;
+  });
 }
 
 function login(username, password) {
@@ -87,5 +95,6 @@ export default {
   login: throttle(login, 1000),
   rememberLogin: throttle(rememberLogin, 1000),
   refresh: throttle(refresh, 1000),
-  get: getSession
+  get: getSession,
+  nowPlaying: nowPlaying
 };

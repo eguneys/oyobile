@@ -1,0 +1,100 @@
+#games_menu
+  background rgba(21, 26, 30, 0.8)
+
+#wrapper_games
+  position absolute
+  top 13%
+  width 100%
+  z-index 12
+  @media only screen and (min-width 600px)
+    width 540px
+    left calc((100% - 540px) / 2)
+    top calc((100% - 540px) / 2)
+    top 15%
+    height 70%
+    > .popup_content
+      overflow hidden
+      height calc(100% - 45px)
+      position relative
+  @media only screen and (max-height 400px)
+    top 10%
+    height 80%
+
+#all_games
+  height 100%
+  position relative
+  @media only screen and (min-width 600px)
+    background bglight
+    height 100%
+    display flex
+    flex-flow row wrap
+    overflow-y auto
+    -webkit-overflow-scrolling touch
+    padding-left 5px
+    border-radius 0 0 5px 5px
+    
+.wrapper_overlay_close
+  position absolute
+  width 100%
+  height 100%
+  z-index 10
+
+.card
+  background textDarkGray
+  position relative
+  float left
+  border-radius 5px
+  box-shadow 0 2px 3px 0 rgba(0,0,0,0.5)
+  .infos
+    text-align center
+    text-transform uppercase
+    position relative
+  .icon-game
+    font-size 20px
+    color darken(gold, 10%)
+    background #EFE1C7
+    border solid 2px textDarkGray
+    padding-top 10px
+    display block
+    height 45px
+    width 45px
+    position absolute
+    top -22px
+    left 0
+    right 0
+    margin 0 auto
+    border-radius 50%
+    box-shadow inset 0px 0px 3px 0px #96762F
+    z-index 3
+  .description
+    line-height 1
+    padding 20px 0 10px
+    height 100px
+  h2
+    margin-top 20px
+    font-size 1.4em
+    color #fff
+    .rating
+      font-size 0.8em
+      color gold
+  p
+    font-size 0.9em
+    color gold
+    margin-top 20px
+    .timeIndication
+      display block
+      margin-top 5px
+    &.active
+      background lighten(textDarkGray, 10%)
+  @media only screen and (max-width 600px) and (orientation landscape)
+    font-size 0.7em
+    .icon-game
+      display none
+    .description
+      padding 0
+      height initial
+      p
+        margin-top 10px
+    h2
+      font-size 1em
+      margin-top 10px

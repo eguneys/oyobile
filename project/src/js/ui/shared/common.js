@@ -1,5 +1,8 @@
 import menu from '../menu';
 import * as utils from '../../utils';
+import gamesMenu from '../gamesMenu';
+import newGameForm from '../newGameForm';
+import session from '../../session';
 import helper from '../helper';
 import m from 'mithril';
 import ViewOnlyBoard from './ViewOnlyBoard';
@@ -25,13 +28,24 @@ export function gamesButton() {
 
   key='games-menu';
 
+  if (session.nowPlaying().length) {
+    key = 'games-menu';
+    action = gamesMenu.open;
+  } else {
+    key = 'new-game-form';
+    action = newGameForm.open;
+  }
+
   const className = [
     'main_header_button',
-    'game_menu_button'
+    'game_menu_button',
+    !utils.hasNetwork() ? 'invisible' : ''
   ].join(' ');
 
+  const longAction = () => window.plugins.toast.show(i18n('nbGamesInPlay', session.nowPlaying().length), 'short', 'top');
+
   return (
-    <button key={key} className={className}>
+      <button key={key} className={className} config={helper.ontouch(action, longAction)}>
     </button>
   );
 }
