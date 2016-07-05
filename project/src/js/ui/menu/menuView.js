@@ -78,7 +78,7 @@ function renderLinks(user) {
     {hasNetwork() ? <li className="sep_link" key="sep_link_community">
       {i18n('community')}
     </li> : null }
-    {hasNetwork() ? <li className="side_link" key="players">
+    {hasNetwork() ? <li className="side_link" key="players" config={helper.ontouchY(menu.route('/players'))}>
       <span className="fa fa-at"/>{i18n('players')}
     </li> : null }
     {hasNetwork() ? <li className="side_link" key="ranking">

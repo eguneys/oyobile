@@ -2,6 +2,7 @@ import helper from './ui/helper';
 import home from './ui/home';
 import game from './ui/game';
 import user from './ui/user';
+import players from './ui/players';
 import masaDetail from './ui/masa/detail';
 import masa from './ui/masa';
 
@@ -15,6 +16,7 @@ export default {
     m.route(document.body, '/', {
       '/': fadingPage(home),
       '/@/:id': slidingPage(user),
+      '/players': fadingPage(players),
       '/game/:id': game,
       '/masa': fadingPage(masa),
       '/masa/:id': fadingPage(masaDetail),

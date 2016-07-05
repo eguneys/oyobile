@@ -4,12 +4,13 @@
 
 ### Website
 
+- [ ] add player/online
 - [ ] add user profile / perfs
-- [ ] add api/user
+- [x] add api/user
 - [ ] sync okeyground css
 - [x] add viewonly/minimaldom okeyground
 - [x] fix nowPlaying json
-- [ ] add mobile api /signup post
+- [x] add mobile api /signup post
 - [ ] add api /translation/select
 - [x] add api /account/info
 - [x] add api lobby /

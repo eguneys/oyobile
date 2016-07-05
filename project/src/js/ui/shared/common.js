@@ -83,3 +83,17 @@ export function viewOnlyBoardContent() {
     board
   ];
 }
+
+export function empty() {
+  return [];
+}
+
+export function userStatus(user) {
+  const status = user.online ? 'online' : 'offline';
+  return (
+    <div className="user">
+      <span className={'userStatus ' + status} data-icon="r" />
+      {user.username}
+    </div>
+  );
+}
