@@ -4,10 +4,11 @@
 
 ### Website
 
+- [ ] add user profile / perfs
 - [ ] add api/user
 - [ ] sync okeyground css
-- [ ] add viewonly/minimaldom okeyground
-- [ ] fix nowPlaying json
+- [x] add viewonly/minimaldom okeyground
+- [x] fix nowPlaying json
 - [ ] add mobile api /signup post
 - [ ] add api /translation/select
 - [x] add api /account/info
@@ -30,8 +31,7 @@
 - [x] duz variant, withTore, no end scores
 - [x] Open scores doesn't link data-hint
 - [ ] add translations
-  nowPlaying
-
+    lastLogin
 
 ### Mobile
 

@@ -14,8 +14,8 @@ export default {
       } else {
         // TODO try to avoid that
         if (!config.bounds) {
-          console.log('no board bounds');
-          config.bounds = el.getBoundingClientRect();
+          // console.log('no board bounds');
+          // config.bounds = el.getBoundingClientRect();
         }
         context.ground = okeyground(el, config);
       }
@@ -34,7 +34,7 @@ function makeConfig(args) {
     fen
   };
 
-  if (bounds) conf.bounds = bounds;
+  // if (bounds) conf.bounds = bounds;
 
   return conf;
 }
