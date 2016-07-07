@@ -233,5 +233,12 @@ export default {
   },
   isLandscape: function() {
     return window.matchMedia('(orientation: landscape)').matches;
+  },
+  progress: function (p) {
+    if (p === 0) return null;
+    return m('span', {
+      className: 'progress ' + (p > 0 ? 'positive' : 'negative'),
+      'data-icon': p > 0 ? 'N' : 'M'
+    }, Math.abs(p));
   }
 };

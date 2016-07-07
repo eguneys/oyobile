@@ -4,21 +4,22 @@
 
 ### Website
 
-- [ ] add player/online
-- [ ] add user profile / perfs
-- [x] add api/user
-- [ ] sync okeyground css
-- [x] add viewonly/minimaldom okeyground
-- [x] fix nowPlaying json
-- [x] add mobile api /signup post
+- [ ] add duz okey perfs
 - [ ] add api /translation/select
-- [x] add api /account/info
-- [x] add api lobby /
-- [x] add roundNo to game
-- [ ] dont allow fake sign
+- [ ] sync okeyground css
 - [ ] add no time control
 - [ ] time space between rounds
 - [ ] anonymous don't allow multiple games?
+- [x] add player/online
+- [x] add user profile / perfs
+- [x] add api/user
+- [x] add viewonly/minimaldom okeyground
+- [x] fix nowPlaying json
+- [x] add mobile api /signup post
+- [x] add api /account/info
+- [x] add api lobby /
+- [x] add roundNo to game
+- [x] dont allow fake sign
 
 - [x] add force animation
 - [x] add membersOnly to scheudulejsonview masa
@@ -33,12 +34,17 @@
 - [x] Open scores doesn't link data-hint
 - [ ] add translations
     lastLogin
+    loginSuccessfull
+    cannotReadDataFromServer
+    newOpponent
+    viewAllNbGames
+    nothingHere
 
 ### Mobile
 
 * User
-  - [ ] list
-  - [ ] profile
+  - [x] list
+  - [x] profile
 
 * Menu
   - [ ] logo

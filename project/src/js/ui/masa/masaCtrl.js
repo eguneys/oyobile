@@ -1,3 +1,4 @@
+import throttle from 'lodash/throttle';
 import socket from '../../socket';
 import * as utils from '../../utils';
 import * as xhr from './masaXhr';
@@ -24,11 +25,18 @@ export default function controller() {
 
   socket.createMasaHome(handlers);
 
-  xhr.currentMasas().then(reload).catch(utils.handleXhrError);
+
+  const refresh = throttle(() => {
+    xhr.currentMasas().then(reload).catch(utils.handleXhrError);
+  }, 1000);
+
+  refresh();
+
 
   return {
     masas,
-    currentTab
+    currentTab,
+    refresh
   };
 }
 

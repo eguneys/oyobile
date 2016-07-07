@@ -25,6 +25,8 @@ export default function view(ctrl) {
       <div id="userProfile" className="native_scroller_page">
         {renderStatus(user)}
         {renderProfile(user)}
+        {renderRatings(user)}
+        {renderActions(ctrl)}
       </div>
     );
   }
@@ -45,8 +47,9 @@ function renderStatus(user) {
 function renderProfile(user) {
   if (!user.profile) return null;
   
-  let fullname = '';
+  let fullName = '';
   if (user.profile.firstName) fullName += user.profile.firstName;
+  if (user.profile.lastName) fullName += (user.profile.firstName ? ' ' :'') + user.profile.lastName;
   // const country = countries[user.profile.country];
   const location = user.profile.location;
   const memberSince = i18n('memberSince') + ' ' + window.moment(user.createdAt).format('LL');
@@ -55,9 +58,11 @@ function renderProfile(user) {
   return (
     <section classname="profile">
       {fullName ?
-       <h3 className="fullname">{fullname}</h3>: null
+       <h3 className="fullname">{fullName}</h3>: null
       }
-       // profile.bio
+      {user.profile.bio ?
+       <p className="profileBio">{user.profile.bio}</p>: null
+      }
        <div className="userInfos">
          {
            user.language ?
@@ -67,7 +72,7 @@ function renderProfile(user) {
              </span>
            </p> : null
          }
-           //location
+           <p className="location">{location}</p>
            <p className="memberSince">{memberSince}</p>
            {seenAt ?
             <p className="lastSeen">{seenAt}</p>: null
@@ -87,6 +92,19 @@ function renderRatings(user) {
   return (
     <section id="userProfileRatings" className="perfs">
       {userPerfs(user).filter(isShowing).map(p => perf(p.key, p.name, p.perf, user))}
+    </section>
+  );
+}
+
+function renderActions(ctrl) {
+  const user = ctrl.user();
+  return (
+    <section id="userProfileActions" class="noPadding">
+      <div className="list_item_nav"
+           config={helper.ontouchY(ctrl.goToGames)}
+           key="view_all_games">
+        {i18n('viewAllNbGames', user.count.all)}
+      </div>
     </section>
   );
 }

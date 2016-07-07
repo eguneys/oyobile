@@ -72,7 +72,7 @@
   },
   "cordova": {
     "preferences": {
-      "Orientation": "landscape",
+      "Orientation": "sensorLandscape",
       "DisallowOverscroll": true,
       "EnableViewportScale": false,
       "KeyboardDisplayRequiresUserAction": false,

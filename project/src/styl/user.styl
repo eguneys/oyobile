@@ -13,3 +13,65 @@
 
 .onlineStatus, .profile, .userStats
   padding 10px 0
+
+.perfs
+  display flex
+  flex-flow row wrap
+  padding 10px 0
+  font-size 0.9em
+  &:after
+    content none
+
+.profilePerf
+  width 50%
+  text-align left
+  padding 5px 0
+  line-height 1.2em
+  &.active
+    background lighten(bgdark, 5%)
+  &:before
+    color gold
+    font-size 2em
+    float left
+    margin-right 5px
+  > .rating
+    color textLightGray
+    font-weight bold
+    display block
+    float left
+    > .progress, & > .nb
+      font-weight normal
+      font-size 0.8em
+      margin-left 0.5em
+    > .progress
+      &.positive
+        color green
+      &.negative
+        color red
+      &::before
+        vertical-align middle
+        margin-right 1px
+    > .nb
+      opacity 0.4
+  > .name
+    display block
+    color gold
+    text-transform uppercase
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis
+    float left
+    width 80%
+  &.nav
+    &:after
+      content "\f054"
+      display inline-block
+      font normal normal normal 14px/1 FontAwesome
+      font-size inherit
+      text-rendering auto
+      -webkit-font-smoothing antialiased
+      position relative
+      float right
+      right 15px
+      line-height 20px
+

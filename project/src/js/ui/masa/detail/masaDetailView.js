@@ -13,7 +13,6 @@ export default function view(ctrl) {
   const headerCtrl = headerWidget
         .bind(null, null,
               backButton(ctrl.masa() ? ctrl.masa().fullName : null));
-  
   const body = masaBody.bind(null, ctrl);
   const footer = renderFooter.bind(null, ctrl);
   const faqOverlay = renderFAQOverlay.bind(null, ctrl);
@@ -241,21 +240,13 @@ function renderPlace(data) {
         {getPlayerName(data)}
       </div>
       {data.rating ?
-       <div className="rating"> {data.rating} {renderProgress(data.ratingDiff)} </div>
+       <div className="rating"> {data.rating} {helper.progress(data.ratingDiff)} </div>
        : null
       }
        <table className="stats">
        </table>
     </div>
   );
-}
-
-function renderProgress(p) {
-  if (p === 0) return null;
-  return m('span', {
-    className: 'progress ' + (p > 0 ? 'positive' : 'negative'),
-    'data-icon': p > 0 ? 'N' : 'M'
-  }, Math.abs(p));
 }
 
 function renderFooter(ctrl) {

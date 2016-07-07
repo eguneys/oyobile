@@ -3,6 +3,7 @@ import { header } from '../shared/common';
 import { pad, formatMasaDuration, capitalize } from '../../utils';
 import layout from '../layout';
 import i18n from '../../i18n';
+import helper from '../helper';
 import m from 'mithril';
 import tabs from '../shared/tabs';
 
@@ -42,16 +43,26 @@ function masaListBody(ctrl) {
   return m('.module-tabs.tabs-routing', [
     tabNavigation(ctrl.currentTab),
     m('.tab-content.layout.center-center.native_scroller',
-      renderMasaList(tabContent, ctrl.currentTab())
+      renderMasaList(tabContent, ctrl.currentTab(), ctrl.refresh)
      )
   ]);
 }
 
-function renderMasaList(list, id) {
-  return (
-    <table key={id} className='masaList'>
-      {list.map(renderMasaListItem)}
-    </table>
+function renderMasaList(list, id, onRefresh) {
+  return list.length ?
+    (
+        <table key={id} className='masaList'>
+        {list.map(renderMasaListItem)}
+      </table>
+    ) :
+  (
+    <div className='vertical_align empty_masas_list'>
+    <div>{i18n('nothingHere')}</div>
+    <button id='refreshButton' config={helper.ontouchY(onRefresh)}>
+      <span className='fa fa-refresh'></span>
+      {i18n('refresh')}
+    </button>
+    </div>
   );
 }
 
