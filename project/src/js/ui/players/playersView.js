@@ -34,12 +34,20 @@ function body(ctrl) {
 }
 
 function renderPlayer(user) {
-  //const perf = Object.keys(user.perfs)
+  // find best perf
+  const perf = Object.keys(user.perfs).reduce((prev, curr) => {
+    if (!prev) return curr;
+    if (user.perfs[prev].rating < user.perfs[curr].rating)
+      return curr;
+    else
+      return prev;
+  });
 
   return (
     <li className="list_item playerSuggestion nav" config={h.ontouchY(() => m.route('/@/' + user.id))}>
       {userStatus(user)}
-      <span className="rating">
+      <span className="rating" data-icon={utils.gameIcon(perf)}>
+        {user.perfs[perf].rating}
       </span>
     </li>
   );

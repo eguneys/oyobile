@@ -1,6 +1,7 @@
 ## TODO
 
 - [ ] orientation lock http://stackoverflow.com/a/21212345/3995789
+  //   http://stackoverflow.com/questions/38292052/how-to-add-custom-config-in-androidmanifest-xml-sensorlandscape-supported-orient
 
 ### Website
 
@@ -33,12 +34,11 @@
 - [x] duz variant, withTore, no end scores
 - [x] Open scores doesn't link data-hint
 - [ ] add translations
-    lastLogin
-    loginSuccessfull
+    background
+    dark
+    light
+    language
     cannotReadDataFromServer
-    newOpponent
-    viewAllNbGames
-    nothingHere
 
 ### Mobile
 
@@ -53,11 +53,11 @@
 
 * Masa
   * listview
-    - [ ] refresh on empty list
+    - [x] refresh on empty list
   * created
     - [ ] add chat
     - [ ] waiting players title
-    - [ ] masa join spinner
+    - [x] masa join spinner
   * started
     - [ ] countdown
     - [o] add pairings
@@ -73,8 +73,8 @@
   - [x] fix game action buttons
 
 #### Functional
-  - [ ] add now playing games
-  - [ ] fix startup splash
+  - [x] add now playing games
+  - [x] fix startup splash
   - [x] loading spinner
   - [x] add timers
 

@@ -22,7 +22,7 @@ export default function view(ctrl) {
     // ratings
     // actions
     return (
-      <div id="userProfile" className="native_scroller_page">
+      <div id="userProfile" className="native_scroller page">
         {renderStatus(user)}
         {renderProfile(user)}
         {renderRatings(user)}

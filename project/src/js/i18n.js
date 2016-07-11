@@ -33,6 +33,19 @@ export function loadPreferredLanguage() {
     .then(loadMomentLocale);
 }
 
+export function getAvailableLanguages() {
+  return m.request({
+    url: 'i18n/refs.json',
+    method: 'GET'
+  }).then(data => { return data; }, error => {
+    // same workaround for iOS as above
+    if (error && error[0][0] === 'tr')
+      return error;
+    else
+      throw { error: 'Cannot load languages' };
+  });
+}
+
 export function loadFromSettings() {
   return loadFile(settings.general.lang()).then(loadMomentLocale);
 }

@@ -63,7 +63,8 @@
         "extend": "dev"
       },
       "stage": {
-        "extend": "stage"
+        "extend": "stage",
+        "hockeyapp_id": "93f703e5111f4df189b4fb4a31cfba20"
       },
       "prod": {
         "extend": "prod"
@@ -72,7 +73,7 @@
   },
   "cordova": {
     "preferences": {
-      "Orientation": "sensorLandscape",
+      "Orientation": "landscape",
       "DisallowOverscroll": true,
       "EnableViewportScale": false,
       "KeyboardDisplayRequiresUserAction": false,

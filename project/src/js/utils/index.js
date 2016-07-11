@@ -67,6 +67,21 @@ export function handleXhrError(error) {
   }
 }
 
+function partialApply(fn, args) {
+  return fn.bind.apply(fn, [null].concat(args));
+}
+
+export function partialf() {
+  return partialApply(arguments[0], Array.prototype.slice.call(arguments, 1));
+}
+
+export function f() {
+  var args = arguments,
+      fn = arguments[0];
+  return function() {
+    fn.apply(fn, Array.prototype.slice.call(args, 1));
+  };
+}
 
 export function noop() {}
 

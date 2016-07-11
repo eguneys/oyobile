@@ -19,9 +19,9 @@ export function reload(id) {
 
 export function join(id, side) {
   side = side ? `?side=${side}`: '';
-  return request('/masa/' + id + '/join' + side, { method: 'POST' });
+  return request('/masa/' + id + '/join' + side, { method: 'POST' }, true);
 }
 
 export function withdraw(id) {
-  return request('/masa/' + id + '/withdraw', { method: 'POST' });
+  return request('/masa/' + id + '/withdraw', { method: 'POST' }, true);
 }

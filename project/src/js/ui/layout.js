@@ -11,6 +11,10 @@ var background;
 
 export default {
 
+  onBackgroundChange: function(bg) {
+    background = bg;
+  },
+
   board: function(header, content, overlay, side = '') {
     background = background || settings.general.theme.background();
     return (
@@ -55,5 +59,4 @@ export default {
         </div>
     );
   }
-  
 }

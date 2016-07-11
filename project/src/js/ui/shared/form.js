@@ -9,6 +9,23 @@ function renderOption(label, value, storedValue, labelArg, labelArg2) {
 }
 
 export default {
+  renderRadio: function(label, name, value, checked, onchange) {
+    var id = name + '_' + value;
+    return [
+      m('input.radio[type=radio]', {
+        name,
+        id,
+        className: value,
+        value,
+        checked,
+        onchange
+      }),
+      m('label', {
+        'for': id
+      }, i18n(label))
+    ];
+  },
+
   renderSelect: function(label, name, options, settingsProp, isDisabled, onChangeCallback) {
     var storedValue = settingsProp();
     return [

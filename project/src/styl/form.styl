@@ -84,6 +84,49 @@ input[type='checkbox']:checked:after
       right 10px
       color #5f5f5f
 
+// radio
+.nice-radio
+  display inline-block
+  clear both
+  width 50%
+  label
+    width 100%
+    background #fff
+    color labelText
+    height 40px
+    box-shadow 0px 1px 2px 0px rgba(0,0,0,0.1)
+  input.radio:empty
+    display none
+  input.radio:empty + label
+    position relative
+    float left
+    line-height 40px
+    padding 0 20px
+    font-size 0.9em
+    -webkit-tap-highlight-color rgba(0,0,0,0)
+  input.radio:empty + label:after
+    position absolute
+    display block
+    bottom 12px
+    left 0
+    content ''
+    text-align left
+    width 2.5em
+  input.radio:checked + label
+    background-color gold
+    padding-left 30px
+    color #fff
+  input.radio:checked + label:after
+    display inline-block
+    font normal normal 14px/1 FontAwesome
+    padding-top 20px
+    font-size inherit
+    text-rendering auto
+    -webkit-font-smoothing antialiased
+    -moz-osx-font-smoothing antialiased
+    content "\f00c"
+    text-indent .9em
+
 button.fat
   display block
   width 80%

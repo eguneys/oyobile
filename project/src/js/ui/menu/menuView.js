@@ -85,7 +85,7 @@ function renderLinks(user) {
       <span className="fa fa-cubes"/>{i18n('leaderboard')}
     </li> : null }
     <li className="hr" key="set_link_settings"></li>
-    <li className="side_link" key="settings">
+    <li className="side_link" key="settings" config={helper.ontouchY(menu.route('/settings'))}>
       <span className="fa fa-cog"/>{i18n('settings')}
     </li>
     </ul>
@@ -111,4 +111,3 @@ export default function view() {
     </aside>
   );
 }
-
