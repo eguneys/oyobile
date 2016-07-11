@@ -5,6 +5,30 @@
     margin-bottom 0
     height calc(100% - 40px)
 
+.radio_list
+  .list_item
+    padding 0
+  input.radio:empty
+    display none
+  input.radio:checked + label
+    background-color lighten(bgdark, 5%)
+  input.radio:checked + label:after
+    display inline-block
+    font normal normal normal 14px/1 FontAwesome
+    font-size inherit
+    text-rendering auto
+    -webkit-font-smoothing antialiased
+    -mox-osx-font-smoothing grayscale
+    content "\f00c"
+    text-indent .9em
+  label
+    display block
+    padding 15px
+    width 100%
+    height 100%
+    text-transform capitalize
+  
+  
 .settingsChoicesInline
   display flex
   flex-flow row wrap
