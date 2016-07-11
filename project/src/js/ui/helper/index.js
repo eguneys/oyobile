@@ -224,6 +224,10 @@ export default {
     }
     return arr.join(' ');
   },
+
+  isWideScreen: function() {
+    return viewportDim().vw >= 600;
+  },
   isIpadLike: function() {
     const { vh, vw } = viewportDim();
     return vh >= 700 && vw <= 1050;

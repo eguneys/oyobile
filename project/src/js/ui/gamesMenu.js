@@ -53,9 +53,10 @@ function cardDims() {
 }
 
 function renderViewOnlyBoard(cDim, fen, orientation, variant) {
-  const innerH = cDim.innerW / (4/3);
+  const innerH = cDim ? cDim.innerW / (4/3): 0;
+  const innerW = cDim ? cDim.innerW : 0;
   const style = cDim ? { height: innerH + 'px' } : {};
-  const bounds = cDim ? { width: cDim.innerW, height: innerH } : null;
+  const bounds = cDim ? { width: innerW, height: innerH } : null;
   return (
     <div className="boardWrapper" style={style}>
       {m.component(ViewOnlyBoard, { bounds, fen, orientation, variant})}
@@ -126,19 +127,22 @@ function renderAllGames(cDim) {
 
   var allCards = nowPlaying.map(g => renderGame(g, cDim, cardStyle));
 
-  const newGameCard = (
-    <div className="card standard" key="game.new-game" style={cardStyle}
-    config={helper.ontouchX(() => { gamesMenu.close(); newGameForm.open(); })}>
-      {renderViewOnlyBoard(cDim)}
-      <div className="infos">
-        <div className="description">
-          <h2 className="title">{i18n('createAGame')}</h2>
-          <p>{i18n('newOpponent')}</p>
+  if (!helper.isWideScreen()) {
+
+    const newGameCard = (
+      <div className="card standard" key="game.new-game" style={cardStyle}
+           config={helper.ontouchX(() => { gamesMenu.close(); newGameForm.open(); })}>
+        {renderViewOnlyBoard(cDim)}
+        <div className="infos">
+          <div className="description">
+            <h2 className="title">{i18n('createAGame')}</h2>
+            <p>{i18n('newOpponent')}</p>
+          </div>
         </div>
       </div>
-    </div>
-  );
-  if (utils.hasNetwork()) allCards.unshift(newGameCard);
+    );
+    if (utils.hasNetwork()) allCards.unshift(newGameCard);
+  }
 
   return m('div#all_games', { style: wrapperStyle }, allCards);
 }
@@ -149,8 +153,10 @@ gamesMenu.view = function() {
 
   const vh = helper.viewportDim().vh
   const cDim = cardDims();
-  const wrapperStyle = { top: ((vh - cDim.h) / 2) + 'px' };
-  const wrapperConfig = function(el, isUpdate, context) {
+  const wrapperStyle = helper.isWideScreen() ? {} : { top: ((vh - cDim.h) / 2) + 'px' };
+  const wrapperConfig =
+  helper.isWideScreen() ? utils.noop :
+  function(el, isUpdate, context) {
     if (!isUpdate) {
       scroller = new iScroll(el, {
         scrollX: true,
@@ -174,15 +180,26 @@ gamesMenu.view = function() {
     scroller.options.snap = el.querySelectorAll('.card');
     scroller.refresh();
   };
-  const wrapperClass = '';
+
+  const isWideScreen = helper.isWideScreen();
+
+  const wrapperClass = isWideScreen ? 'overlay_popup' : '';
 
   return (
     <div id="games_menu" className="overlay_popup_wrapper">
       <div className="wrapper_overlay_close"
            config={helper.ontouch(helper.fadesOut(gamesMenu.close, '.overlay_popup_wrapper'))}/>
       <div id="wrapper_games" className={wrapperClass} style={wrapperStyle} config={wrapperConfig}>
-        { null }
-        { renderAllGames(cDim) }
+        { isWideScreen ? (
+          <header>
+            {i18n('nbGamesInPlay', session.nowPlaying().length)}
+          </header>
+        ) : null }
+        { isWideScreen ? (
+          <div className="popup_content">
+          {renderAllGames(null)}
+          </div>
+        ) : renderAllGames(cDim) }
       </div>
     </div>
   );

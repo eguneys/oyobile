@@ -86,6 +86,32 @@
       margin-top 5px
     &.active
       background lighten(textDarkGray, 10%)
+  @media only screen and (min-width 600px)
+    float none
+    box-shadow none
+    margin 0.5rem
+    border none
+    border-radius 0
+    width 160px
+    height 230px
+    > .boardWrapper
+      width 160px
+      height 160px
+    > .infos
+      height 70px
+    .description
+      padding 10px
+      height initial
+    .icon-game
+      display none
+    h2
+      font-size 1rem
+      margin-top 0
+    p
+      margin-top 5px
+      text-transform none
+      > .variant
+        display none
   @media only screen and (max-width 600px) and (orientation landscape)
     font-size 0.7em
     .icon-game
