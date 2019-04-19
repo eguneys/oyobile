@@ -1,4 +1,4 @@
-import userPerfs from '../../oyunkeyf/perfs'
+// import userPerfs from '../../oyunkeyf/perfs';
 import perf from '../shared/perf';
 import { header as headerWidget, backButton } from '../shared/common';
 import layout from '../layout';
@@ -91,7 +91,7 @@ function renderRatings(user) {
 
   return (
     <section id="userProfileRatings" className="perfs">
-      {userPerfs(user).filter(isShowing).map(p => perf(p.key, p.name, p.perf, user))}
+      // {userPerfs(user).filter(isShowing).map(p => perf(p.key, p.name, p.perf, user))}
     </section>
   );
 }
