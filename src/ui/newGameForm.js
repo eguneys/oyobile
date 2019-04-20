@@ -1,11 +1,30 @@
+import h from 'mithril/hyperscript';
 import popupWidget from './shared/popup';
 import formWidgets from './shared/form';
 import i18n from '../i18n';
 import settings from '../settings';
 import session from '../session';
 import backbutton from '../backbutton';
+import * as xhr from '../xhr';
 import lobby from './lobby';
 import m from 'mithril';
+
+export function renderQuickSetup() {
+  return h('div.newGame-pools', { key: 'quickSetup' },
+           xhr.cachedPools.map(p => renderPool(p))
+          );
+}
+
+function renderPool(p) {
+  return h('div.newGame-pool', {
+    key: 'pool-' + p.id,
+    oncreate: helper.ontap(() => {
+      console.log('oncreate');
+    })
+  }, [h('div.newGame-rounds', p.id),
+      h('div.newGame-perf', p.perf)
+     ]);
+}
 
 const newGameForm = {};
 

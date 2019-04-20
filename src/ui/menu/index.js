@@ -1,12 +1,28 @@
 import Zanimo from 'zanimo';
 import backbutton from '../../backbutton';
 import m from 'mithril';
+import SideMenuCtrl from '../shared/sideMenu/SideMenuCtrl';
+
+function onMenuOpen() {
+}
+
+function onMenuClose() {
+}
+
+
+export const mainMenuCtrl = new SideMenuCtrl(
+  'left',
+  'side_menu',
+  'menu_close_overlay',
+  onMenuOpen,
+  onMenuClose
+);
 
 const menu = {};
 
 /* properties */
 menu.isOpen = false;
-menu.headerOpen = m.prop(false);
+// menu.headerOpen = m.prop(false);
 
 menu.route = function(route) {
   return function() {

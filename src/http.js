@@ -26,7 +26,7 @@ function xhrConfig(xhr) {
 // convenient wrapper around m.request
 export function request(url, opts, feedback, xhrConf) {
   var cfg = {
-    url: 'http://' + baseUrl + url,
+    url: baseUrl + url,
     method: 'GET',
     data: { },
     config: xhrConf || xhrConfig,

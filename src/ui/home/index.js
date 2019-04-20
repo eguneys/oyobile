@@ -1,7 +1,23 @@
+import stream from 'mithril/stream';
 import controller from './homeCtrl';
-import view from './homeView';
+import { dropShadowHeader } from '../shared/common';
+import { body } from './homeView';
+import layout from '../layout';
 
 export default {
-  controller,
-  view
+  oninit() {
+    const nbConnectedPlayers = stream();
+    const nbGamesInPlay = stream();
+    
+    this.ctrl = {
+      nbConnectedPlayers,
+      nbGamesInPlay
+    };
+  },
+  
+  view() {
+    const header = dropShadowHeader('oyunkeyf.net');
+
+    return layout.free(header, body(this.ctrl));
+  }
 };

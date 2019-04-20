@@ -1,8 +1,30 @@
 import Zanimo from 'zanimo';
 import * as utils from '../../utils';
+import redraw from '../../utils/redraw';
 import ButtonHandler from './button';
 import animator from './animator';
 import m from 'mithril';
+
+function createTapHandler(tapHandler, holdHandler, repeatHandler, scrollX, scrollY, getElement, preventEndDefault) {
+  return function(vnode) {
+    ButtonHandler(vnode.dom,
+                  (e) => {
+                    tapHandler(e);
+                    redraw();
+                  },
+                  holdHandler ? (e) => utils.autoredraw(() => holdHandler(e)) : undefined,
+                  repeatHandler,
+                  scrollX,
+                  scrollY,
+                  getElement,
+                  preventEndDefault);
+  };
+}
+
+export function ontap(tapHandler, holdHandler, repeatHandler, getElement) {
+  return createTapHandler(tapHandler, holdHandler, repeatHandler, false, false, getElement);
+}
+
 
 //store temporarily last route to disable animations on same route
 // TODO find a better way cause this is ugly
@@ -154,7 +176,7 @@ function computeTransformProp() {
     'oTransform' : 'msTransform';
 }
 
-function viewportDim() {
+export function viewportDim() {
   if (cachedViewportDim) return cachedViewportDim;
 
   let e = document.documentElement;
@@ -165,84 +187,84 @@ function viewportDim() {
   return vpd;
 }
 
-export default {
-  slidingPage: animator(viewSlideIn, viewSlideOut),
-  fadingPage: animator(viewFadesIn, viewFadesOut),
-  viewportDim,
-  clearCachedViewportDim() {
-    cachedViewportDim = null;
-  },
+// export default {
+//   slidingPage: animator(viewSlideIn, viewSlideOut),
+//   fadingPage: animator(viewFadesIn, viewFadesOut),
+//   viewportDim,
+//   clearCachedViewportDim() {
+//     cachedViewportDim = null;
+//   },
 
-  transformProp: function() {
-    if (!cachedTransformProp) cachedTransformProp = computeTransformProp();
-    return cachedTransformProp;
-  },
+//   transformProp: function() {
+//     if (!cachedTransformProp) cachedTransformProp = computeTransformProp();
+//     return cachedTransformProp;
+//   },
 
-  slidesInUp: function(el, isUpdate, context) {
-    if (!isUpdate) {
-      el.style.transform = 'translateY(100%)';
-      // force reflow back
-      context.lol = el.offsetHeight;
-      Zanimo(el, 'transform', 'translateY(0)', 250, 'ease-out')
-        .catch(console.log.bind(console));
-    }
-  },
-  slidesOutDown: function(callback, elID) {
-    return function() {
-      const el = document.getElementById(elID);
-      m.redraw.strategy('none');
-      return Zanimo(el, 'transform', 'translateY(100%)', 250, 'ease-out')
-        .then(utils.autoredraw.bind(null, callback))
-        .catch(callback);
-    };
-  },
+//   slidesInUp: function(el, isUpdate, context) {
+//     if (!isUpdate) {
+//       el.style.transform = 'translateY(100%)';
+//       // force reflow back
+//       context.lol = el.offsetHeight;
+//       Zanimo(el, 'transform', 'translateY(0)', 250, 'ease-out')
+//         .catch(console.log.bind(console));
+//     }
+//   },
+//   slidesOutDown: function(callback, elID) {
+//     return function() {
+//       const el = document.getElementById(elID);
+//       m.redraw.strategy('none');
+//       return Zanimo(el, 'transform', 'translateY(100%)', 250, 'ease-out')
+//         .then(utils.autoredraw.bind(null, callback))
+//         .catch(callback);
+//     };
+//   },
 
-  fadesOut: function(callback, selector, time = 150) {
-    return function(e) {
-      e.stopPropagation();
-      var el = selector ? findParentBySelector(e.target, selector) : e.target;
-      m.redraw.strategy('none');
-      return Zanimo(el, 'opacity', 0, time)
-        .then(() => utils.autoredraw(callback))
-        .catch(console.log.bind(console));
-    };
-  },
+//   fadesOut: function(callback, selector, time = 150) {
+//     return function(e) {
+//       e.stopPropagation();
+//       var el = selector ? findParentBySelector(e.target, selector) : e.target;
+//       m.redraw.strategy('none');
+//       return Zanimo(el, 'opacity', 0, time)
+//         .then(() => utils.autoredraw(callback))
+//         .catch(console.log.bind(console));
+//     };
+//   },
 
-  ontouch: function(tapHandler, holdHandler, repeatHandler, touchEndFeedback = true) {
-    return ontouch(tapHandler, holdHandler, repeatHandler, false, false, touchEndFeedback);
-  },
-  ontouchX: function(tapHandler, holdHandler, touchEndFeedback = true) {
-    return ontouch(tapHandler, holdHandler, null, true, false, touchEndFeedback);
-  },
-  ontouchY: function(tapHandler, holdHandler, touchEndFeedback = true) {
-    return ontouch(tapHandler, holdHandler, null, false, true, touchEndFeedback);
-  },
-  classSet: function(classes) {
-    var arr = [];
-    for (var i in classes) {
-      if (classes[i]) arr.push(i);
-    }
-    return arr.join(' ');
-  },
+//   ontouch: function(tapHandler, holdHandler, repeatHandler, touchEndFeedback = true) {
+//     return ontouch(tapHandler, holdHandler, repeatHandler, false, false, touchEndFeedback);
+//   },
+//   ontouchX: function(tapHandler, holdHandler, touchEndFeedback = true) {
+//     return ontouch(tapHandler, holdHandler, null, true, false, touchEndFeedback);
+//   },
+//   ontouchY: function(tapHandler, holdHandler, touchEndFeedback = true) {
+//     return ontouch(tapHandler, holdHandler, null, false, true, touchEndFeedback);
+//   },
+//   classSet: function(classes) {
+//     var arr = [];
+//     for (var i in classes) {
+//       if (classes[i]) arr.push(i);
+//     }
+//     return arr.join(' ');
+//   },
 
-  isWideScreen: function() {
-    return viewportDim().vw >= 600;
-  },
-  isIpadLike: function() {
-    const { vh, vw } = viewportDim();
-    return vh >= 700 && vw <= 1050;
-  },
-  isPortrait: function() {
-    return window.matchMedia('(orientation: portrait)').matches;
-  },
-  isLandscape: function() {
-    return window.matchMedia('(orientation: landscape)').matches;
-  },
-  progress: function (p) {
-    if (p === 0) return null;
-    return m('span', {
-      className: 'progress ' + (p > 0 ? 'positive' : 'negative'),
-      'data-icon': p > 0 ? 'N' : 'M'
-    }, Math.abs(p));
-  }
-};
+//   isWideScreen: function() {
+//     return viewportDim().vw >= 600;
+//   },
+//   isIpadLike: function() {
+//     const { vh, vw } = viewportDim();
+//     return vh >= 700 && vw <= 1050;
+//   },
+//   isPortrait: function() {
+//     return window.matchMedia('(orientation: portrait)').matches;
+//   },
+//   isLandscape: function() {
+//     return window.matchMedia('(orientation: landscape)').matches;
+//   },
+//   progress: function (p) {
+//     if (p === 0) return null;
+//     return m('span', {
+//       className: 'progress ' + (p > 0 ? 'positive' : 'negative'),
+//       'data-icon': p > 0 ? 'N' : 'M'
+//     }, Math.abs(p));
+//   }
+// };

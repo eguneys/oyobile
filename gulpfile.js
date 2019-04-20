@@ -37,7 +37,7 @@ const browsers = ['and_chr >= 53', 'ios_saf >= 10'];
 
 const babelSettings = {
   extensions: ['.js', '.jsx'],
-  presets: [['es2015'], ['react']]
+  presets: [['es2015']]
 };
 
 var logErrorAndExit = function(error) {
@@ -82,6 +82,7 @@ gulp.task('scripts', () => {
 gulp.task('watch-scripts', () => {
   const opts = watchify.args;
   opts.debug = true;
+  opts.extensions = ['.jsx'];
 
   const bundleStream = watchify(
     browserify(SRC + '/main.js', opts)
@@ -108,4 +109,4 @@ gulp.task('launch-watch', () => {
 });
 
 gulp.task('default', ['html', 'styl', 'scripts']);
-gulp.task('watch', ['html', 'styl', 'watch-scripts', 'watch']);
+gulp.task('watch', ['html', 'styl', 'watch-scripts', 'launch-watch']);

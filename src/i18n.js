@@ -20,17 +20,17 @@ export function loadPreferredLanguage() {
   if (settings.general.lang())
     return loadFromSettings();
 
-  var deferred = m.deferred();
-  window.navigator.globalization.getPreferredLanguage(
-    language => deferred.resolve(language.value.split('-')[0]),
-    () => deferred.resolve(defaultCode));
+  // var deferred = m.deferred();
+  // window.navigator.globalization.getPreferredLanguage(
+  //   language => deferred.resolve(language.value.split('-')[0]),
+  //   () => deferred.resolve(defaultCode));
 
-  return deferred.promise.then(code => {
-    settings.general.lang(code);
-    return code;
-  })
-    .then(loadFile)
-    .then(loadMomentLocale);
+  // return deferred.promise.then(code => {
+  //   settings.general.lang(code);
+  //   return code;
+  // })
+  //   .then(loadFile)
+  //   .then(loadMomentLocale);
 }
 
 export function getAvailableLanguages() {

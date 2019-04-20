@@ -1,31 +1,35 @@
 import i18n from '../../i18n';
 import layout from '../layout';
 import helper from '../helper';
+import { renderQuickSetup } from '../newGameForm';
 import newGameForm from '../newGameForm';
 import { header as headerWidget } from '../shared/common';
 import m from 'mithril';
 
-export default function homeView(ctrl) {
-  function body() {
-    const nbPlayers = i18n('nbConnectedPlayers', ctrl.nbConnectedPlayers() || '?');
-    const nbGames = i18n('nbGamesInPlay', ctrl.nbGamesInPlay() || '?');
+export function body(ctrl) {
+  const nbPlayers = i18n('nbConnectedPlayers', ctrl.nbConnectedPlayers() || '?');
+  const nbGames = i18n('nbGamesInPlay', ctrl.nbGamesInPlay() || '?');
 
-    return (
+  return (
       <div className="native_scroller page">
         <div className="home">
-          <section>
-            <div>{m.trust(nbPlayers.replace(/(\d+)/, '<strong>$1</strong>'))}</div>
-            <div>{m.trust(nbGames.replace(/(\d+)/, '<strong>$1</strong>'))}</div>
+          <section className="stats">
+            <div className="numPlayers">{nbPlayers}</div>
+            <div className="numGames">{nbGames}</div>
           </section>
-          <section id="homeCreate">
-        <button className="fatButton" config={helper.ontouchY(newGameForm.openRealtime)}>{i18n('createAGame')}</button>
-          </section>
+      { renderQuickGame() }
         </div>
       </div>
-    );
-  }
+  );
 
-  const header = headerWidget.bind(null, 'oyunkeyf.net');
+  // const header = headerWidget.bind(null, 'oyunkeyf.net');
 
-  return layout.free(header, body);
+  // return layout.free(header, body);
+}
+
+function renderQuickGame() {
+  return h('div.homeCreate', [
+    h('h2.homeTitle', 'Hemen oyna'),
+    renderQuickSetup(() => newGameForm.openRealtime('custom'))
+  ]);
 }

@@ -2,6 +2,8 @@ import { request } from './http';
 import settings from './settings';
 import session from './session';
 
+export let cachedPools = [];
+
 export function newGame() {
   const config = settings.gameSetup.human;
 
@@ -29,10 +31,11 @@ export function game(id, background) {
 
 export function setServerLang(lang) {
   if (session.isConnected()) {
-    return request('/translation/select', {
-      method: 'POST',
-      data: { lang }
-    });
+    // return request('/translation/select', {
+    //   method: 'POST',
+    //   data: { lang }
+    // });
+    return Promise.resolve();
   } else {
     return Promise.resolve();
   }

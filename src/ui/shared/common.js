@@ -1,18 +1,55 @@
-import menu from '../menu';
+import * as menu from '../menu';
 import * as utils from '../../utils';
 import gamesMenu from '../gamesMenu';
 import newGameForm from '../newGameForm';
 import session from '../../session';
-import helper from '../helper';
+import * as helper from '../helper';
 import m from 'mithril';
 import ViewOnlyBoard from './ViewOnlyBoard';
 
 export function menuButton() {
-  return (
-      <button key="main-menu" className="fa fa-navicon main_header_button menu_button" config={helper.ontouch(menu.toggle)}>
-    </button>
-  );
+  return h('button.fa.fa-navicon.main_header_button.menu_button', {
+    key: 'main-menu',
+    oncreate: helper.ontap(menu.mainMenuCtrl.toggle)
+  });
 }
+
+
+export function headerBtns() {
+
+  if (utils.hasNetwork() && session.isConnected()) {
+    return (
+      <div key="buttons" className="buttons">
+      </div>
+    );
+  } else {
+    return (
+      <div key="buttons" className="buttons">
+      </div>
+    );
+  }
+  
+}
+
+export function dropShadowHeader(title, leftButton) {
+
+  return [
+    h('nav', [
+      leftButton ? leftButton : menuButton(),
+      title ? <div className="main_header_title" key="title">{title}</div>: null,
+      headerBtns()
+    ]),
+    h('div.main_header_drop_shadow')
+  ];
+  
+}
+
+// export function menuButton() {
+//   return (
+//       <button key="main-menu" className="fa fa-navicon main_header_button menu_button" config={helper.ontouch(menu.toggle)}>
+//     </button>
+//   );
+// }
 
 export function backButton(title) {
   return (
@@ -50,13 +87,13 @@ export function gamesButton() {
   );
 }
 
-export function headerBtns() {
-  return (
-    <div key="buttons" className="buttons">
-      {gamesButton()}
-    </div>
-  );
-}
+// export function headerBtns() {
+//   return (
+//     <div key="buttons" className="buttons">
+//       {gamesButton()}
+//     </div>
+//   );
+// }
 
 export function header(title, leftButton) {
   return (

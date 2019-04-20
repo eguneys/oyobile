@@ -1,6 +1,8 @@
 import i18n from '../i18n';
 import m from 'mithril';
 
+export function noop() {}
+
 export const oyunkeyfSri = Math.random().toString(36).substring(2);
 
 export function tellWorker(worker, topic, payload) {
@@ -82,8 +84,6 @@ export function f() {
     fn.apply(fn, Array.prototype.slice.call(args, 1));
   };
 }
-
-export function noop() {}
 
 export function playerName(player, withRating) {
   if (player.username || player.user) {

@@ -3,9 +3,36 @@ import session from '../../session';
 import menu from '.';
 import loginModal from '../loginModal';
 import newGameForm from '../newGameForm';
-import { hasNetwork } from '../../utils';
+import { hasNetwork, noop } from '../../utils';
 import helper from '../helper';
 import Zanimo from 'zanimo';
+
+export default {
+  onbeforeupdate() {
+    return menu.mainMenuCtrl.isOpen;
+  },
+
+  view() {
+    return (
+      <aside id="side_menu">
+        {renderHeader()}
+      </aside>
+
+    );
+  }
+};
+
+function renderHeader(user) {
+  const profileLink = user ? menu.route('/@/' + user.id) : noop;
+
+  return (
+    <header className="side_menu_header">
+      <button className="signInButton">
+        {i18n('signIn')}
+      </button>
+    </header>
+  );
+}
 
 
 function slidesInUp(el, isUpdate, context) {
@@ -15,28 +42,6 @@ function slidesInUp(el, isUpdate, context) {
     context.lol = el.offsetHeight;
     Zanimo(el, 'transform', 'translate3d(0,0,0)', 250, 'ease-out');
   }
-}
-
-
-function renderHeader(user) {
-  return (
-    <header className="side_menu_header">
-    { <div className="logo">oyunkeyf</div> }
-    <h2 className="username">
-      { hasNetwork() ? user ? user.username : i18n('anonymous') : i18n('offline') }
-    </h2>
-    { hasNetwork() && user ?
-      <button className="open_button" data-icon={menu.headerOpen() ? 'S' : 'R'}
-              config = {helper.ontouch(menu.toggleHeader, null, null, false)}
-      /> : null
-    }
-    { hasNetwork() && !user ?
-      <button className="login" config={helper.ontouchY(loginModal.open)}>
-      {i18n('signIn')}
-      </button> : null
-    }
-    </header>
-  );
 }
 
 function renderProfileActions(user) {
@@ -99,15 +104,5 @@ function renderMenu() {
       {renderHeader(user)}
       { user && menu.headerOpen() ? renderProfileActions(user) : renderLinks(user) }
     </div>
-  );
-}
-
-export default function view() {
-  if (!menu.isOpen) return null;
-
-  return (
-    <aside id="side_menu" config={slidesInUp}>
-      {renderMenu()}
-    </aside>
   );
 }

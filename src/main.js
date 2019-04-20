@@ -13,7 +13,7 @@ import session from './session';
 import settings from './settings';
 import { loadPreferredLanguage } from './i18n';
 import { status as xhrStatus, setServerLang } from './xhr';
-import helper from './ui/helper';
+import * as helper from './ui/helper';
 import backbutton from './backbutton';
 import socket from './socket';
 import routes from './routes';
@@ -93,6 +93,6 @@ function onPause() {
 // window.onerror = handleError;
 
 document.addEventListener('deviceready',
-                          () => loadPreferredLanguage().then(main),
+                          () => main(), //loadPreferredLanguage().then(main),
                           false
                          );
