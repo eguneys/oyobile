@@ -1,7 +1,12 @@
+import stream from 'mithril/stream';
 import Zanimo from 'zanimo';
 import backbutton from '../../backbutton';
 import m from 'mithril';
 import SideMenuCtrl from '../shared/sideMenu/SideMenuCtrl';
+import { ontap } from '../helper';
+
+
+export const profileMenuOpen = stream(false);
 
 function onMenuOpen() {
 }
@@ -13,10 +18,21 @@ function onMenuClose() {
 export const mainMenuCtrl = new SideMenuCtrl(
   'left',
   'side_menu',
-  'menu_close_overlay',
+  'menu-close-overlay',
   onMenuOpen,
   onMenuClose
 );
+
+
+export function route(route) {
+  return function() {
+    return mainMenuCtrl.close().then(() => router.set(route));
+  }
+}
+
+export const backdropCloseHandler = ontap(() => {
+  mainMenuCtrl.close();
+});
 
 const menu = {};
 

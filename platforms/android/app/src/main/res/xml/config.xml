@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget android-versionCode="6001029" id="org.oyunkeyf.mobileapp" version="6.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="NetworkStatus">
+        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+    <name>oyunkeyf</name>
+    <description>oyunkeyf.net mobile application</description>
+    <content src="index.html" />
+    <preference name="loglevel" value="DEBUG" />
+</widget>

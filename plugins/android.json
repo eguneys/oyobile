@@ -1,0 +1,21 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "org.oyunkeyf.mobileapp"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "org.oyunkeyf.mobileapp"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "org.oyunkeyf.mobileapp"
+    }
+  },
+  "dependent_plugins": {}
+}

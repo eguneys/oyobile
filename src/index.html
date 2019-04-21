@@ -4,6 +4,8 @@
     <meta charset="utf-8"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, minimum-scale=1.0, width=device-width" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' gap: data: https://ssl.gstatic.com; connect-src 'self' https://sentry.io https://veloce.github.io <!-- @echo API_END_POINT --> <!-- @echo SOCKET_END_POINT -->:*; script-src 'self' 'unsafe-eval' 'unsafe-inline'; child-src 'self' filesystem: gap://ready; style-src 'self' 'unsafe-inline'; img-src 'self' data: <!-- @echo API_END_POINT -->; media-src 'self'">
+
     <title>oyunkeyf.net</title>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="css/fa.css"/>
@@ -28,12 +30,15 @@
     </script>
   </head>
   <body>
-    <!-- @ifdef TARIFA -->
+    <script type="text/javascript" src="lib/polyfills.js"></script>
+
+    <!-- @if TARGET="'cordova'" -->
     <script type="text/javascript" src="cordova.js"></script>
     <!-- @endif -->
-    <!-- @ifndef TARIFA -->
+    <!-- @if TARGET='browser' -->
     <script type="text/javascript" src="../cordova.polyfills.js"></script>
     <!-- @endif -->
+
     <script type="text/javascript" src="app.js"></script>
   </body>
 </html>

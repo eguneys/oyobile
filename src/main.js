@@ -21,7 +21,6 @@ import { isForeground, setForeground, setBackground } from './utils/appMode';
 
 function main() {
   routes.init();
-
   // cache viewport dims
   helper.viewportDim();
 
@@ -29,7 +28,7 @@ function main() {
   // and also listen to online event in case network was disconnected at app
   // startup
   if (utils.hasNetwork()) {
-    onOnline();
+    // onOnline();
   }
 
   document.addEventListener('online', onOnline, false);

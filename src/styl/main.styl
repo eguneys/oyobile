@@ -56,6 +56,27 @@ main
   &.active
     background lighten(bgdark, 8%)
 
+.main_header_drop_shadow
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom 0px
+  height: 3px
+  z-index: 1
+  box-shadow 0px 2px 3px -1px rgba(0,0,0,0.5)
+
+.main_header_title
+  display flex
+  flex-flow row nowrap
+  align-items center
+  padding-left 10px
+  font-size 1.1rem
+  line-height headerHeight
+  flex 1 1 auto
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
+
 .back_button
   flex 0 1 auto
   font-size 1.1em

@@ -1,5 +1,5 @@
 import h from 'mithril/hyperscript';
-import menu from './menu';
+import * as menu from './menu';
 import MenuView from './menu/menuView';
 import gamesMenu from './gamesMenu';
 import newGameForm from './newGameForm';

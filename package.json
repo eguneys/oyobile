@@ -20,6 +20,10 @@
   "dependencies": {
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "cordova-android": "^8.0.0",
+    "cordova-plugin-network-information": "^2.0.1",
+    "cordova-plugin-splashscreen": "^5.0.2",
+    "cordova-plugin-statusbar": "^2.4.2",
     "iscroll": "^5.2.0",
     "mithril": "^1.1.6",
     "moment": "^2.24.0",
@@ -32,5 +36,15 @@
     "watch": "gulp watch",
     "build-cordova-dev": "gulp --target='cordova' --env=env-dev.json",
     "android-dev": "yarn run build-cordova-dev && cordova run android --browserify"
+  },
+  "cordova": {
+    "platforms": [
+      "android"
+    ],
+    "plugins": {
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-splashscreen": {}
+    }
   }
 }

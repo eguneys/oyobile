@@ -50,7 +50,6 @@ gulp.task('html', () => {
   context.TARGET = options.target;
   context.MODE = options.mode;
 
-  console.log(context);
   return gulp.src(path.join(SRC, 'index.html'))
     .pipe(preprocess({ context: context }))
     .on('error', logErrorAndExit)

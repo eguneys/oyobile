@@ -48,7 +48,9 @@ function main() {
   }
 
   setTimeout(function() {
+    console.log(window.navigator.splashscreen);
     window.navigator.splashscreen.hide();
+    console.log(window.StatusBar);
     window.StatusBar.hide();
     // xhrStatus();
   }, 500);

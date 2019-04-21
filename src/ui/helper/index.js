@@ -25,6 +25,10 @@ export function ontap(tapHandler, holdHandler, repeatHandler, getElement) {
   return createTapHandler(tapHandler, holdHandler, repeatHandler, false, false, getElement);
 }
 
+export function ontapXY(tapHandler, holdHandler, getElement, preventEndDefault = true) {
+  return createTapHandler(tapHandler, holdHandler, undefined, true, true, getElement, preventEndDefault);
+}
+
 
 //store temporarily last route to disable animations on same route
 // TODO find a better way cause this is ugly

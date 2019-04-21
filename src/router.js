@@ -38,7 +38,8 @@ export function defineRoutes(mountPoint, routes) {
     const component = routes[route];
     router.add(route, function onRouteMatch({ params }) {
       const RouteComponent = { view() {
-        return Vnode(component, undefined, params);
+        var node = Vnode(component, undefined, params);
+        return node;
       }};
 
       function redraw() {
