@@ -1723,6 +1723,29 @@ piece.fake {
 .home >.homeCreate {
   padding: 0px 10px;
 }
+.home >.homeCreate >.newGame-pools {
+  margin: 20px auto;
+  padding: 0px;
+  width: 100px;
+  height: 100px;
+}
+.home >.homeCreate >.newGame-pools >.newGame-pool {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  text-align: center;
+  box-shadow: none;
+  background-color: #2f2f2f;
+  border: 1px solid #3d3d3d;
+  color: inherit;
+}
+.home >.homeCreate >.newGame-pools >.newGame-pool.active {
+  background-color: #3c3c3c;
+}
 .homeTitle {
   font-weight: bold;
   text-align: center;
@@ -1981,6 +2004,10 @@ main {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+.masa-list-player > .masaPlayer > button {
+  margin-left: 10px;
+  border: 1px solid #d59120;
 }
 .list-item.masa-me > .masaPlayer {
   border-left: 10px solid #d59120;

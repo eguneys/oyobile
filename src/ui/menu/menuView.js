@@ -61,7 +61,7 @@ function renderLinks(user) {
   return (
     <ul className="side_links"
       oncreate={helper.ontapXY(onLinkTap, undefined, helper.getLI)}>
-      <li className="side_link" key="home" config={helper.ontapXY(menu.route('/'))}>
+      <li className="side_link" data-route="/">
         <span className="fa fa-home" />{i18n('home')}
       </li>
       {hasNetwork() ? 

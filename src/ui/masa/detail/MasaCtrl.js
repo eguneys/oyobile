@@ -36,6 +36,13 @@ export default function MasaCtrl(id) {
     }
   });
 
+  this.invite = throttle(() => {
+    xhr.invite(this.masa.id)
+      .then(() => {
+        redraw();
+      }).catch(utils.handleXhrError);
+  }, 1000);
+
   this.join = throttle(() => {
     xhr.join(this.masa.id)
       .then(() => {

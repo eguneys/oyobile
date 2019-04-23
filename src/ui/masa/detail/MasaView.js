@@ -112,13 +112,13 @@ function masaLeaderboard(ctrl) {
       { data.nbPlayers > 0 ?
         <p className="masaTitle"> {i18n("leaderboard")} ({i18n('nbConnectedPlayers', data.nbPlayers)})</p> : null }
       <ul className={'masaStandings'}>
-      {players.map(p => renderPlayerEntry(userName, p))}
+      {players.map(p => renderPlayerEntry(ctrl, userName, p))}
       </ul>
     </div>
   );
 }
 
-function renderPlayerEntry(userName, player) {
+function renderPlayerEntry(ctrl, userName, player) {
   const isMe = player.name === userName;
 
   return (
@@ -127,6 +127,7 @@ function renderPlayerEntry(userName, player) {
        <div className="masaPlayer">
          <span className="flagRank" data-icon={player.withdraw ? 'b':''}> {player.withdraw ? '' : (player.rank + '. ')}</span>
          <span> {i18n('emptySeat')}</span>
+         <button oncreate={helper.ontap(ctrl.invite)}>{i18n('inviteBot')}</button>
        </div>
        <span className={'masaPoints '} data-icon='Q'>{player.score}</span>
       </li>

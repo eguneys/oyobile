@@ -184,7 +184,7 @@ function masaLeaderboard(ctrl) {
     <div key="leaderboard" className="masaLeaderboard">
       <p className="masaTitle"> {i18n('leaderboard')} ({i18n('nbPlayers', data.nbPlayers)})</p>
       <table className="masaStandings">
-        {players.map(renderLeaderboardItem.bind(null, ctrl.playerInfoCtrl, userName, data.playerId))}
+      {players.map(renderLeaderboardItem.bind(null, ctrl, ctrl.playerInfoCtrl, userName, data.playerId))}
       </table>
     </div>
   );
@@ -200,7 +200,7 @@ function masaPairings(ctrl) {
   );
 }
 
-function renderLeaderboardItem(playerInfoCtrl, userName, playerId, player) {
+function renderLeaderboardItem(ctrl, playerInfoCtrl, userName, playerId, player) {
   const isMe = player.id === playerId;
   const playerName = player.name || getPlayerName(player);
   const playerRating = player.rating ? (' (' + player.rating + ') ') : '';
@@ -213,6 +213,7 @@ function renderLeaderboardItem(playerInfoCtrl, userName, playerId, player) {
           {player.active ? (player.rank + '. ') : ''}
         </span>
         <span> { playerWithRating } </span>
+      { player.active ? null : <button config={helper.ontouchY(ctrl.invite)}>i18n('inviteBot')</button>}
       </td>
       <td className='masaPoints'>
         <span data-icon='Q'>{player.score}</span>

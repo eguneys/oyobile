@@ -16,6 +16,10 @@ export function join(id) {
   return fetchJSON('/masa/'+ id + '/join', { method: 'POST' }, true);
 }
 
+export function invite(id) {
+  return fetchJSON('/masa/'+ id + '/invite', { method: 'POST' }, true);
+}
+
 export function withdraw(id) {
   return fetchJSON('/masa/'+ id + '/withdraw', { method: 'POST' }, true);
 }
