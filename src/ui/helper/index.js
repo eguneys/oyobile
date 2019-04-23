@@ -5,6 +5,8 @@ import ButtonHandler from './button';
 import animator from './animator';
 import m from 'mithril';
 
+const animDuration = 250;
+
 function createTapHandler(tapHandler, holdHandler, repeatHandler, scrollX, scrollY, getElement, preventEndDefault) {
   return function(vnode) {
     ButtonHandler(vnode.dom,
@@ -29,6 +31,51 @@ export function ontapXY(tapHandler, holdHandler, getElement, preventEndDefault =
   return createTapHandler(tapHandler, holdHandler, undefined, true, true, getElement, preventEndDefault);
 }
 
+export function slidesInUp(vnode) {
+  const el = vnode.dom;
+  el.style.transform = 'translateY(100%)';
+  vnode.state.lol = el.offsetHeight;
+  return Zanimo(el, 'transform', 'translateY(0)', 250, 'ease-out')
+    .catch(console.log.bind(console));
+}
+
+export function slidesOutDown(callback, elID) {
+  return function(fromBB) {
+    const el = document.getElementById(elID);
+    return Zanimo(el, 'transform', 'translateY(100%)', 250, 'ease-out')
+      .then(() => utils.autoredraw(() => callback(fromBB)))
+      .catch(console.log.bind(console));
+  };
+}
+
+
+
+// el fade in transition, can be applied to any element
+export function elFadeIn(el, duration = animDuration, origOpacity = '0.5', endOpacity = '1') {
+  let tId;
+
+  el.style.opacity = origOpacity;
+  el.style.transition = `opacity ${duration}ms ease-out`;
+
+  setTimeout(() => {
+    el.style.opacity = endOpacity;
+  });
+
+  function after() {
+    clearTimeout(tId);
+    if (el) {
+      el.removeAttribute('style');
+      el.removeEventListener('transitionend', after, false);
+    }
+  }
+
+  el.addEventListener('transitionend', after, false);
+  // in case transitionend does not fire
+  tId = setTimeout(after, duration + 10);
+}
+
+
+// OLD
 
 //store temporarily last route to disable animations on same route
 // TODO find a better way cause this is ugly
@@ -189,6 +236,35 @@ export function viewportDim() {
     vh: e.clientHeight
   };
   return vpd;
+}
+
+function collectionHas(coll, el) {
+  for (let i = 0, len = coll.length; i < len; i++) {
+    if (coll[i] === el) return true;
+  }
+  return false;
+}
+
+export function findParentBySelector(el, selector) {
+  const matches = document.querySelectorAll(selector);
+  let cur = el;
+  while (cur && !collectionHas(matches, cur)) {
+    cur = cur.parentNode;
+  }
+  return cur;
+}
+
+export function getLI(e) {
+  const target = e.target;
+  return target.tagName === 'LI' ? target : findParentBySelector(target, 'LI');
+}
+
+export function classSet(classes) {
+  const arr = [];
+  for (let i in classes) {
+    if (classes[i]) arr.push(i);
+  }
+  return arr.join(' ');
 }
 
 // export default {

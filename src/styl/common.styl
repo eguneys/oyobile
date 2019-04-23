@@ -1,27 +1,4 @@
-/* COLORS */
-bgdark = #1a1a1a
-themeBgLight = #eeeeee
-bglight = #f5f5f5
-bgpopup = #eeeeee
-
-gold = #C4A86F
-orange = #d85000
-
-textDarkBg = #aeaeae
-textLightBg = #747474
-
-textLightGray = #aeaeae
-textMediumGray = #707070
-textDarkGray = #383838
-textGray = #656565
-labelText = #969696
-green = #759900
-red = #ac524f
-
-selectBg = #e6e6e6
-headerBgDark = darken(bgdark, 15%)
-borderColor = lighten(bgdark, 8%)
-
+headerHeight = 56px
 footerHeight = 45px
 
 
@@ -172,3 +149,13 @@ span.fa
     border-bottom-color darken(bglight, 15%)
     &.active
       background-color darken(bglight, 5%)
+
+.actions_bar
+  display flex
+  flex-flow row nowrap
+  padding 0
+  flex 0 0 footerHeight
+  width 100%
+  overflow hidden
+  margin-bottom: constant(safe-area-inset-bottom);
+  margin-bottom: env(safe-area-inset-bottom);

@@ -1,6 +1,7 @@
 import h from 'mithril/hyperscript';
 import * as menu from './menu';
 import MenuView from './menu/menuView';
+import MainBoard from './shared/layout/MainBoard';
 import gamesMenu from './gamesMenu';
 import newGameForm from './newGameForm';
 import loginModal from './loginModal';
@@ -11,6 +12,17 @@ import settings from '../settings';
 var background;
 
 export default {
+
+  board: function(header, content, overlay) {
+    background = background;
+
+    return h('div.view-container', { className: bgClass(background) }, [
+      h(MainBoard, { header }, content),
+      h(MenuView),
+      overlay
+    ]);
+  },
+
 
   free: function(header, content, footer, overlay) {
     background = background || settings.general.theme.background();
@@ -23,7 +35,11 @@ export default {
           footer ? h('footer.main_footer', footer) : null,
           h('div#menu-close-overlay.menu-backdrop', { oncreate: menu.backdropCloseHandler })
         ]),
-        h(MenuView)
+        h(MenuView),
+        loginModal.view(),
+        signupModal.view(),
+        newGameForm.view(),
+        overlay
       ])
     );
   }

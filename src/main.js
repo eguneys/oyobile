@@ -7,17 +7,19 @@
 import moment from 'moment';
 window.moment = moment;
 
-import m from 'mithril';
 import * as utils from './utils';
 import session from './session';
+import redraw from './utils/redraw';
 import settings from './settings';
-import { loadPreferredLanguage } from './i18n';
-import { status as xhrStatus, setServerLang } from './xhr';
+import { loadPreferredLanguage, ensureLangIsAvailable, loadLanguage } from './i18n';
+import * as xhr from './xhr';
 import * as helper from './ui/helper';
 import backbutton from './backbutton';
 import socket from './socket';
 import routes from './routes';
 import { isForeground, setForeground, setBackground } from './utils/appMode';
+
+let firstConnection = true;
 
 function main() {
   routes.init();
@@ -28,7 +30,7 @@ function main() {
   // and also listen to online event in case network was disconnected at app
   // startup
   if (utils.hasNetwork()) {
-    // onOnline();
+    onOnline();
   }
 
   document.addEventListener('online', onOnline, false);
@@ -55,29 +57,48 @@ function main() {
 
 function onOnline() {
   if (isForeground()) {
-    session.rememberLogin()
-      .then(() => {
-        m.redraw();
-      })
-      .then(() => setServerLang(settings.general.lang()));
+    if (firstConnection) {
+      firstConnection = false;
+      // xhr.status();
+      
+      session.rememberLogin()
+        .then((user) => {
+          const serverLang = user.language && user.language.split('-')[0];
+          if (serverLang) {
+            ensureLangIsAvailable(serverLang)
+              .then(lang => {
+                settings.general.lang(lang);
+                loadLanguage(lang);
+              });
+          }
+          redraw();
+        }).catch(() => {
+          console.log('connected as anonymous');
+        });
+    } else {
+      socket.connect();
+      session.refresh();
+    }
   }
 }
 
 function onOffline() {
-  if (isForeground()) {
+  if (isForeground() && !hasNetwork()) {
     socket.disconnect();
-    m.redraw();
+    redraw();
   }
 }
 
 function onResize() {
   helper.clearCachedViewportDim();
-  m.redraw();
+  redraw();
 }
 
 function onResume() {
   setForeground();
+  session.refresh();
   socket.connect();
+  redraw();
 }
 
 function onPause() {
@@ -92,6 +113,6 @@ function onPause() {
 // window.onerror = handleError;
 
 document.addEventListener('deviceready',
-                          () => main(), //loadPreferredLanguage().then(main),
+                          () => loadPreferredLanguage().then(main),
                           false
                          );

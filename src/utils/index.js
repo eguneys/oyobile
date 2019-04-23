@@ -1,7 +1,70 @@
 import i18n from '../i18n';
-import m from 'mithril';
+import redraw from './redraw';
+
+export function autoredraw(action) {
+  const res = action();
+  redraw();
+  return res;
+}
 
 export function noop() {}
+
+export function handleXhrError(error) {
+  const status = error.status;
+  const data = error.body;
+  let message;
+
+  if (!status || status === 0) {
+    message = 'oyunkeyfIsUnreachable';
+  } else if (status === 401) {
+    message = 'unauthorizedError';
+  } else if (status === 404) {
+    message = 'resourceNotFoundError';
+  } else if (status === 503) {
+    message = 'oyunkeyfIsUnavailableError';
+  } else {
+    message = 'Error.';
+  }
+
+  message = i18n(message);
+
+  if (typeof data === 'string') {
+    message += ` ${data}`;
+ }
+  else if (typeof data.error === 'string') {
+    message += ` ${i18n(data.global[0])}`;
+  }
+  window.plugins.toast.show(message, 'short', 'center');
+}
+
+export function loadLocalJsonFile(url) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.overrideMimeType('application/json');
+    xhr.open('GET', url, true);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 0 || xhr.status === 200) {
+          resolve(JSON.parse(xhr.responseText));
+        } else {
+          reject(xhr);
+        }
+      }
+    };
+    xhr.send(null);
+  });
+}
+
+let sri;
+
+export function currentSri() {
+  return sri || newSri();
+}
+
+export function newSri() {
+  sri = Math.random().toString(36).substring(2).slice(0, 10);
+  return sri;
+}
 
 export const oyunkeyfSri = Math.random().toString(36).substring(2);
 
@@ -35,39 +98,39 @@ export function hasNetwork() {
   return window.navigator.connection.type !== Connection.NONE;
 }
 
-export function handleXhrError(error) {
-  var {response: data, status} = error;
-  if (!hasNetwork()) {
-    window.plugins.toast.show(i18n('noInternetConnection'), 'short', 'center');
-  } else {
-    let message;
-    if (!status || status === 0) {
-      message = 'oyunkeyfIsUnreachable';
-    } else if (status === 401) {
-      message = 'unauthorizedError';
-    } else if (status === 404) {
-      message = 'resourceNotFoundError';
-    } else if (status === 503) {
-      message = 'oyunkeyfIsUnavailableError';
-    } else if (status >= 500) {
-      message = 'serverError';
-    } else {
-      message = 'Error.';
-    }
+// export function handleXhrError(error) {
+//   var {response: data, status} = error;
+//   if (!hasNetwork()) {
+//     window.plugins.toast.show(i18n('noInternetConnection'), 'short', 'center');
+//   } else {
+//     let message;
+//     if (!status || status === 0) {
+//       message = 'oyunkeyfIsUnreachable';
+//     } else if (status === 401) {
+//       message = 'unauthorizedError';
+//     } else if (status === 404) {
+//       message = 'resourceNotFoundError';
+//     } else if (status === 503) {
+//       message = 'oyunkeyfIsUnavailableError';
+//     } else if (status >= 500) {
+//       message = 'serverError';
+//     } else {
+//       message = 'Error.';
+//     }
 
-    message = i18n(message);
+//     message = i18n(message);
 
-    if (typeof data === 'string') {
-      message += ` ${data}`;
-    } else if (data.global && data.global.constructor === Array) {
-      message += ` ${data.global[0]}`;
-    } else if (typeof data.error === 'string') {
-      message += ` ${data.error}`;
-    }
+//     if (typeof data === 'string') {
+//       message += ` ${data}`;
+//     } else if (data.global && data.global.constructor === Array) {
+//       message += ` ${data.global[0]}`;
+//     } else if (typeof data.error === 'string') {
+//       message += ` ${data.error}`;
+//     }
 
-    window.plugins.toast.show(message, 'short', 'center');
-  }
-}
+//     window.plugins.toast.show(message, 'short', 'center');
+//   }
+// }
 
 function partialApply(fn, args) {
   return fn.bind.apply(fn, [null].concat(args));
@@ -157,14 +220,14 @@ export function getBoardBounds(viewportDim, isPortrait, isIpadLike, mode) {
   }
 }
 
-export function autoredraw(action) {
-  m.startComputation();
-  try {
-    return action();
-  } finally {
-    m.endComputation();
-  }
-}
+// export function autoredraw(action) {
+//   m.startComputation();
+//   try {
+//     return action();
+//   } finally {
+//     m.endComputation();
+//   }
+// }
 
 const perfIconsMap = {
   yuzbir: 'T',

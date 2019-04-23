@@ -1,3 +1,33 @@
+.masaNotFound
+  padding 1em
+  p
+    margin-bottom 0.5em                
+
+.masaLeaderboard
+  display flex
+  flex-flow column nowrap
+  padding 0 10px
+
+.masa-list-player
+  position initial
+  display flex
+  flex-flow row nowrap
+  justify-content space-between
+  padding 15px 0
+  > .masaPoints
+    flex 0 0 20%
+    text-align right
+  > .masaPlayer
+    flex-grow 1
+    text-overflow ellipsis
+    white-space nowrap
+    overflow hidden
+
+.list-item.masa-me
+  > .masaPlayer
+    border-left 10px solid #d59120
+    padding-left 5px
+                
 table.masaList
   width 100%
 

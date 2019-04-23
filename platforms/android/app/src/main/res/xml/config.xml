@@ -11,8 +11,23 @@
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="Toast">
+        <param name="android-package" value="nl.xservices.plugins.Toast" />
+    </feature>
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Globalization">
+        <param name="android-package" value="org.apache.cordova.globalization.Globalization" />
+    </feature>
+    <feature name="Keyboard">
+        <param name="android-package" onload="true" value="io.ionic.keyboard.IonicKeyboard" />
+    </feature>
     <name>oyunkeyf</name>
     <description>oyunkeyf.net mobile application</description>
     <content src="index.html" />
+    <access origin="https://oyunkeyf.net" />
+    <access origin="https://*.oyunkeyf.net" />
     <preference name="loglevel" value="DEBUG" />
 </widget>

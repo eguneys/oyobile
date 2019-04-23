@@ -1,4 +1,4 @@
 {
   "API_END_POINT": "https://oyunkeyf.net",
-  "SOCKET_END_POINT": "wss://socket.oyunkeyf.net"
+  "SOCKET_END_POINT": "wss://socket.oyunkeyf.net:9021"
 }

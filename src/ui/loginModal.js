@@ -1,16 +1,121 @@
+import h from 'mithril/hyperscript';
+import redraw from '../utils/redraw';
 import session from '../session';
 import * as utils from '../utils';
 import i18n from '../i18n';
-import helper from './helper';
+import signals from '../signals';
+import * as helper from './helper';
+import { handleXhrError } from '../utils';
 import backbutton from '../backbutton';
 import signupModal from './signupModal';
-import m from 'mithril';
+import { closeIcon } from './shared/icons';
+import router from '../router';
+
+let isOpen = false;
+let formError = null;
+
+export default {
+  open,
+  close,
+  view() {
+    if (!isOpen) return null;
+
+    return h('div.modal#loginModal', { oncreate: helper.slidesInUp }, [
+      h('header', [
+        h('button.modal_close', {
+          oncreate: helper.ontap(helper.slidesOutDown(close, 'loginModal'))
+        }, closeIcon),
+        h('h2', i18n('signIn'))
+      ]),
+      h('div.modal_content', [
+        h('form.login', {
+          onsubmit: (e) => {
+            e.preventDefault();
+            submit(e.target);
+          }
+        }, [
+          formError ? h('div.form-error', formError): null,
+          h('div.field', [
+            h('input#username', {
+              type: 'text',
+              className: formError ? 'form-error':'',
+              placeholder: i18n('username'),
+              autocomplete: 'off',
+              autocapitalize: 'off',
+              autocorrect: 'off',
+              spellcheck: false,
+              required: true
+            })
+          ]),
+          h('div.field', [
+            h('input#password', {
+              type: 'password',
+              className: formError? 'form-error':'',
+              placeholder: i18n('password'),
+              required: true
+            })
+          ]),
+          h('div.submit', [
+            h('button.submitButton[data-icon=F]', i18n('signIn'))
+          ])
+        ]),
+        h('div.signup', [
+          i18n('newToOyunkeyf') + ' ',
+          h('br'),
+          h('a', {
+            oncreate: helper.ontap(signupModal.open)
+          }, [i18n('signUp')])
+        ])
+      ])
+    ]);
+  }
+};
+
+function open() {
+  router.backbutton.stack.push(helper.slidesOutDown(close, 'loginModal'));
+  isOpen = true;
+  formError = null;
+}
+
+function close(fromBB) {
+  window.Keyboard.hide();
+  if (fromBB !== 'backbutton' && isOpen) router.backbutton.stack.pop();
+  isOpen = false;
+}
+
+function submit(form) {
+  const username = form['username'].value;
+  const password = form['password'].value;
+  if (!username || !password) return;
+
+  redraw();
+  window.Keyboard.hide();
+  session.login(username, password)
+    .then(() => {
+      close();
+      window.plugins.toast.show(i18n('loginSuccessful'), 'short', 'center');
+      signals.afterLogin.dispatch();
+      redraw();
+      socket.reconnectCurrent();
+      session.refresh();
+    }).catch((err) => {
+      if (err.status !== 400 && err.status !== 401) handleXhrError(err);
+      else {
+        if (err.body.global) {
+          formError = err.body.global[0];
+          redraw();
+        }
+      }
+    });
+  
+}
+
+
+// OLD
 
 const loginModal = {};
 
-var isOpen = false;
-
-function submit(form) {
+function submitOLD(form) {
   const login = form[0].value.trim();
   const pass = form[1].value;
   if (!login || !pass) return false;
@@ -81,4 +186,4 @@ loginModal.view = function() {
   ]);
 };
 
-export default loginModal;
+// export default loginModal;

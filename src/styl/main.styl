@@ -12,11 +12,15 @@ main
   background bgdark
   color textDarkBg
   overflow hidden
+  display flex
+  flex-flow column nowrap
   
 
 .main_header
+  position relative      
   background headerBgDark
-  height 50px
+  flex 0 0 headerHeight
+  color headerBgDarkColor
   &.board
     background inherit
   > nav
@@ -79,13 +83,29 @@ main
 
 .back_button
   flex 0 1 auto
+  display flex
+  flex-flow row nowrap
+  height headerHeight
   font-size 1.1em
-  height 50px
   white-space nowrap
   padding 0
   overflow hidden
   text-overflow ellipsis
   text-align left
+  > button
+    margin 0
+    height headerHeight
+    padding 0 16px
+    > .svg-icon_wrapper
+      width 24px
+      height 24px
+  > .title, .main_header_title
+    font-size 1rem
+    padding-right 10px
+    padding-left 2px
+    overflow hidden
+    text-overflow ellipsis
+    line-height headerHeight
   > .title, .fa
     display inline-block
     height 50px
@@ -115,9 +135,15 @@ main
   
 .content
   width 100%
-  height calc(100% - 50px)
-  &.withFooter
-    height "calc(100% - 50px - %s)" % footerHeight
+  flex 1 1 auto
+  display flex
+  flex-flow column nowrap
+  &.fullScreen
+    height 100%
 
 .main_footer
-  height footerHeight
+  flex 0 0 footerHeight
+  display flex
+  flex-flow column nowrap
+  margin-bottom: constant(safe-area-inset-bottom);
+  margin-bottom: env(safe-area-inset-bottom);

@@ -1,17 +1,18 @@
 import i18n from '../../i18n';
 import backbutton from '../../backbutton';
-import helper from '../helper';
+import * as helper from '../helper';
+import router from '../../router';
 
 export default {
   controller: function(masa) {
     let isOpen = false;
 
     function open() {
-      backbutton.stack.push(close);
+      router.backbutton.stack.push(close);
       isOpen = true;
     }
     function close(fromBB) {
-      if (fromBB !== 'backbutton' && isOpen) backbutton.stack.pop();
+      if (fromBB !== 'backbutton' && isOpen) router.backbutton.stack.pop();
       isOpen = false;
     }
 
@@ -24,7 +25,7 @@ export default {
   },
   view: function(ctrl) {
     if (!ctrl.isOpen()) return null;
-    const masa = ctrl.masa();
+    const masa = ctrl.masa;
 
     if (!masa) return null;
 
@@ -32,7 +33,7 @@ export default {
       <div className="modal" id="masaFaqModal" config={helper.slidesInUp}>
         <header>
           <button className="modal_close" data-icon="L"
-                  config={helper.ontouch(helper.slidesOutDown(ctrl.close, "masaFaqModal"))}/>
+                  oncreate={helper.ontap(helper.slidesOutDown(ctrl.close, "masaFaqModal"))}/>
           <h2>{i18n('masaFAQ')}</h2>
         </header>
         <div className="modal_content">

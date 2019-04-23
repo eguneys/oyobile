@@ -210,7 +210,7 @@ html {
   font-size: 100%;
 }
 body {
-  background-color: #1a1a1a;
+  background-color: #2b2b2b;
   overflow: hidden;
 }
 button {
@@ -260,7 +260,7 @@ span.fa {
   position: relative;
   line-height: 20px;
   padding: 15px;
-  border-bottom: 1px solid #2c2c2c;
+  border-bottom: 1px solid #3c3c3c;
 }
 .list_item > td {
   padding: 15px 0;
@@ -279,13 +279,13 @@ span.fa {
   border-bottom: none;
 }
 .list_item.active {
-  background: #252525;
+  background: #363636;
 }
 .list_item.bglight {
-  border-bottom-color: #d0d0d0;
+  border-bottom-color: #d3d3d3;
 }
 .list_item.bglight.active {
-  background-color: #e9e9e9;
+  background-color: #ececec;
 }
 .nav:after {
   content: "\f054";
@@ -345,7 +345,7 @@ span.fa {
   position: relative;
   line-height: 20px;
   padding: 15px;
-  border-bottom: 1px solid #2c2c2c;
+  border-bottom: 1px solid #3c3c3c;
 }
 .list_item > td {
   padding: 15px 0;
@@ -364,13 +364,30 @@ span.fa {
   border-bottom: none;
 }
 .list_item.active {
-  background: #252525;
+  background: #363636;
 }
 .list_item.bglight {
-  border-bottom-color: #d0d0d0;
+  border-bottom-color: #d3d3d3;
 }
 .list_item.bglight.active {
-  background-color: #e9e9e9;
+  background-color: #ececec;
+}
+.actions_bar {
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0;
+  flex: 0 0 45px;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: constant(safe-area-inset-bottom);
+  margin-bottom: env(safe-area-inset-bottom);
+}
+.form-error {
+  color: #f00;
+}
+input.form-error {
+  box-shadow: inset 0px 0px 5px 1px #f00;
+  color: inherit;
 }
 .check_container {
   display: flex;
@@ -418,7 +435,7 @@ input[type='checkbox']:checked:after {
   background: #fff;
   height: 40px;
   line-height: 40px;
-  color: #383838;
+  color: #404040;
   padding: 0 10px;
   font-size: 0.85em;
   position: relative;
@@ -553,12 +570,12 @@ button.fat.active {
   max-height: 80%;
   z-index: 12;
   background-color: #fff;
-  color: #383838;
+  color: #404040;
   box-shadow: 0 0 35px 10px rgba(0,0,0,0.5);
 }
 .overlay_popup button {
   min-height: 45px;
-  color: #383838;
+  color: #404040;
 }
 .overlay_popup > header {
   text-align: center;
@@ -610,7 +627,7 @@ button.fat.active {
   padding: 0;
   min-height: 45px;
   background: #fff;
-  color: #383838;
+  color: #404040;
 }
 .player_controls button.active {
   background: #e6e6e6;
@@ -621,6 +638,26 @@ button.fat.active {
 .player_controls button:last-child {
   border-bottom: none;
   border-radius: 0 0 5px 5px;
+}
+.popupActionWrapper {
+  width: 100%;
+  text-align: center;
+  margin: 10px 0;
+}
+.popupActionWrapper > button.popupAction {
+  background: transparent;
+  width: initial;
+  display: initial;
+  border-radius: 0;
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+.popupActionWrapper > button.popupAction:active {
+  background: transparent;
+  box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.1) inset;
+}
+.popupActionWrapper > button.popupAction:active:before {
+  color: #759900;
 }
 .og-table-wrap {
   width: 100%;
@@ -1069,14 +1106,6 @@ piece.fake {
   width: 100%;
   height: 100%;
 }
-.actions_bar {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0;
-  height: 100%;
-  width: 40%;
-  overflow: hidden;
-}
 .actions_bar_vertical > .action_bar_vbutton {
   width: 100%;
   background-color: #c4a86f;
@@ -1351,7 +1380,7 @@ piece.fake {
 }
 .opens:not(.new) {
   font-weight: bold;
-  color: #1a1a1a;
+  color: #2b2b2b;
 }
 .playerUser {
   display: flex;
@@ -1489,7 +1518,7 @@ piece.fake {
 }
 @media only screen and (min-width: 600px) {
   #all_games {
-    background: #f5f5f5;
+    background: #f8f8f8;
     height: 100%;
     display: flex;
     flex-flow: row wrap;
@@ -1506,7 +1535,7 @@ piece.fake {
   z-index: 10;
 }
 .card {
-  background: #383838;
+  background: #404040;
   position: relative;
   float: left;
   border-radius: 5px;
@@ -1521,7 +1550,7 @@ piece.fake {
   font-size: 20px;
   color: #bb9b59;
   background: #efe1c7;
-  border: solid 2px #383838;
+  border: solid 2px #404040;
   padding-top: 10px;
   display: block;
   height: 45px;
@@ -1559,7 +1588,7 @@ piece.fake {
   margin-top: 5px;
 }
 .card p.active {
-  background: #4c4c4c;
+  background: #535353;
 }
 @media only screen and (min-width: 600px) {
   .card {
@@ -1644,21 +1673,47 @@ piece.fake {
 form.login {
   margin-top: 2em;
 }
-form.login input {
+form.login .form-error {
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+form.login .field {
+  margin-top: 1em;
+}
+form.login .field > input {
+  width: 80%;
+  margin: 0 auto;
   display: block;
   width: 80%;
   margin: 0 auto;
-  margin-top: 10px;
   height: 50px;
   background: #fff;
   border-radius: 5px;
   border: 1px solid #ddd;
   padding: 0 15px;
 }
+form.login .submit {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
+form.login .submit > .submitButton:before {
+  font-size: 1.2em;
+  vertical-align: middle;
+  margin-right: 3px;
+}
 .signup {
   margin-top: 40px;
+  padding: 0 10px;
   text-align: center;
+}
+.signup >a {
   color: #c4a86f;
+  text-decoration: underline;
+}
+#signupModal .modal_content.loading {
+  opacity: 0.5;
 }
 .signupWarning {
   font-size: 0.9em;
@@ -1682,13 +1737,17 @@ main {
   position: absolute;
   height: 100%;
   width: 100%;
-  background: #1a1a1a;
-  color: #aeaeae;
+  background: #2b2b2b;
+  color: #b3b3b3;
   overflow: hidden;
+  display: flex;
+  flex-flow: column nowrap;
 }
 .main_header {
-  background: #161616;
-  height: 50px;
+  position: relative;
+  background: #222;
+  flex: 0 0 56px;
+  color: #ccc;
 }
 .main_header.board {
   background: inherit;
@@ -1734,7 +1793,7 @@ main {
   top: -2px;
 }
 .main_header_button.active {
-  background: #2c2c2c;
+  background: #3c3c3c;
 }
 .main_header_drop_shadow {
   position: absolute;
@@ -1751,7 +1810,7 @@ main {
   align-items: center;
   padding-left: 10px;
   font-size: 1.1rem;
-  line-height: headerHeight;
+  line-height: 56px;
   flex: 1 1 auto;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1759,13 +1818,33 @@ main {
 }
 .back_button {
   flex: 0 1 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  height: 56px;
   font-size: 1.1em;
-  height: 50px;
   white-space: nowrap;
   padding: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: left;
+}
+.back_button > button {
+  margin: 0;
+  height: 56px;
+  padding: 0 16px;
+}
+.back_button > button > .svg-icon_wrapper {
+  width: 24px;
+  height: 24px;
+}
+.back_button > .title,
+.back_button .main_header_title {
+  font-size: 1rem;
+  padding-right: 10px;
+  padding-left: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 56px;
 }
 .back_button > .title,
 .back_button .fa {
@@ -1786,7 +1865,7 @@ main {
   margin-right: 10px;
 }
 .back_button.active {
-  background: #222;
+  background: #2d2d2d;
 }
 .game_menu_button {
   position: relative;
@@ -1803,13 +1882,51 @@ main {
 }
 .content {
   width: 100%;
-  height: calc(100% - 50px);
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: column nowrap;
 }
-.content.withFooter {
-  height: calc(100% - 50px - 45px);
+.content.fullScreen {
+  height: 100%;
 }
 .main_footer {
-  height: 45px;
+  flex: 0 0 45px;
+  display: flex;
+  flex-flow: column nowrap;
+  margin-bottom: constant(safe-area-inset-bottom);
+  margin-bottom: env(safe-area-inset-bottom);
+}
+.masaNotFound {
+  padding: 1em;
+}
+.masaNotFound p {
+  margin-bottom: 0.5em;
+}
+.masaLeaderboard {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0 10px;
+}
+.masa-list-player {
+  position: initial;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: 15px 0;
+}
+.masa-list-player > .masaPoints {
+  flex: 0 0 20%;
+  text-align: right;
+}
+.masa-list-player > .masaPlayer {
+  flex-grow: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.list-item.masa-me > .masaPlayer {
+  border-left: 10px solid #d59120;
+  padding-left: 5px;
 }
 table.masaList {
   width: 100%;
@@ -2161,7 +2278,7 @@ td.masaPoints {
 .modal > header > h2 {
   text-align: center;
   line-height: 50px;
-  color: #383838;
+  color: #404040;
 }
 .modal_close {
   position: absolute;
@@ -2175,8 +2292,8 @@ td.masaPoints {
   color: #c4a86f;
 }
 .modal_content {
-  background: #f5f5f5;
-  color: #383838;
+  background: #f8f8f8;
+  color: #404040;
   height: 100%;
   padding-top: 50px;
   overflow-y: auto;
@@ -2184,8 +2301,21 @@ td.masaPoints {
 .modal_content p {
   margin: 1em 15px 0;
 }
+.modal_content .submitButton {
+  background: linear-gradient(to bottom, #eee 0%, #d5d5d5 100%);
+  text-shadow: 0 1px 0 #fff;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  color: #707070;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.modal_content .submitButton.active,
+.modal_content .submitButton:active {
+  background: linear-gradient(to bottom, #f6f6f6 0%, #e6e6e6 100%);
+}
 .game_form_popup {
-  background: #f5f5f5;
+  background: #f8f8f8;
 }
 .game_form {
   padding-top: 10px;
@@ -2238,7 +2368,7 @@ button.newGameButton > .fa-hourglass-half {
   display: none;
 }
 .radio_list input.radio:checked + label {
-  background-color: #252525;
+  background-color: #363636;
 }
 .radio_list input.radio:checked + label:after {
   display: inline-block;
@@ -2287,7 +2417,7 @@ button.newGameButton > .fa-hourglass-half {
   flex-flow: row nowrap;
   height: 48px;
   position: relative;
-  background-color: #161616;
+  background-color: #222;
 }
 .tab {
   flex: 0 1 auto;
@@ -2300,7 +2430,7 @@ button.newGameButton > .fa-hourglass-half {
 }
 .tab.active,
 .tab:active {
-  background-color: #313131;
+  background-color: #404040;
 }
 .tab.selected {
   color: #c4a86f;
@@ -2350,7 +2480,7 @@ button.newGameButton > .fa-hourglass-half {
   line-height: 1.2em;
 }
 .profilePerf.active {
-  background: #252525;
+  background: #363636;
 }
 .profilePerf:before {
   color: #c4a86f;
@@ -2406,27 +2536,32 @@ button.newGameButton > .fa-hourglass-half {
   line-height: 20px;
 }
 .view-container.light main {
-  color: #747474;
+  color: #636363;
+}
+.view-container.light .main_header {
+  color: #636363;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #e5e5e5;
 }
 .view-container.light #page {
-  background: #eee;
+  background: #f9f9f9;
   color: #707070;
 }
 .view-container.light #side_menu {
-  background: #f5f5f5;
+  background: #f8f8f8;
 }
 .view-container.light #side_menu .login {
-  color: #747474;
-  background: #d0d0d0;
+  color: #636363;
+  background: #d3d3d3;
 }
 .view-container.light #side_menu .login.active {
-  background: #d5d5d5;
+  background: #d7d7d7;
 }
 .view-container.light .side_menu_header {
   background: #fff;
 }
 .view-container.light .side_menu_header > .username {
-  color: #747474;
+  color: #636363;
 }
 .view-container.light .side_links .hr {
   border-color: #aeaeae;
@@ -2435,10 +2570,13 @@ button.newGameButton > .fa-hourglass-half {
   color: #707070;
 }
 .view-container.light .side_link {
-  color: #383838;
+  color: #404040;
 }
 .view-container.light .side_link.active {
-  background: #e2e2e2;
+  background: #ededed;
+}
+.view-container.light .back_button > button.active {
+  background: #e6e6e6;
 }
 .view-container.light #games_menu {
   background: rgba(0,0,0,0.6);
@@ -2453,7 +2591,7 @@ button.newGameButton > .fa-hourglass-half {
   background: linear-gradient(to bottom, #f8f8f8 0%, #f3f3f3 100%);
 }
 .view-container.light .button.active {
-  background: #dbdbdb;
+  background: #e5e5e5;
 }
 .view-container.light input[type=checkbox] {
   background: #aaa;
@@ -2466,32 +2604,32 @@ button.newGameButton > .fa-hourglass-half {
   background-color: rgba(0,0,0,0.6);
 }
 .view-container.light .card {
-  background: #eee;
+  background: #f9f9f9;
   box-shadow: 0px 2px 15px 0 rgba(0,0,0,0.5);
 }
 .view-container.light .card .icon-game {
-  border-color: #eee;
+  border-color: #f9f9f9;
 }
 .view-container.light .card h2 {
-  color: #383838;
+  color: #404040;
 }
 .view-container.light .list_item {
-  border-bottom-color: #d0d0d0;
+  border-bottom-color: #d3d3d3;
 }
 .view-container.light .list_item.active {
-  background-color: #e9e9e9;
+  background-color: #ececec;
 }
 .view-container.light .ranking {
-  border-bottom-color: #d0d0d0;
+  border-bottom-color: #d3d3d3;
 }
 .view-container.light .playTable {
-  color: #383838;
+  color: #404040;
 }
 .view-container.light .playerInfos .rating {
   color: #707070;
 }
 .view-container.light .playerInfos.active {
-  background-color: #dbdbdb;
+  background-color: #e5e5e5;
 }
 .view-container.light .action_bar_button {
   color: #656565;
@@ -2504,45 +2642,45 @@ button.newGameButton > .fa-hourglass-half {
 }
 .view-container.light .action_bar_button.highlight {
   background: #aeaeae;
-  color: #eee;
+  color: #f9f9f9;
 }
 .view-container.light .action_bar_button.active {
-  background: #dbdbdb;
+  background: #e5e5e5;
 }
 .view-container.light .main_header {
   box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.2);
 }
 .view-container.light .radio-list input.radio:checked + label {
-  background-color: #ddd;
+  background-color: #dfdfdf;
 }
 .view-container.light .profilePerf.active {
-  background: #e9e9e9;
+  background: #ececec;
 }
 .view-container.light .profilePerf > .rating {
-  color: #383838;
+  color: #404040;
 }
 .view-container.light .profilePerf > .rating > .nb {
-  color: #747474;
+  color: #636363;
 }
 .view-container.light .profilePerf > .name {
-  color: #383838;
+  color: #404040;
 }
 .view-container.light #searchPlayerModal > header {
   color: #707070;
-  border-bottom: 1px solid #d0d0d0;
+  border-bottom: 1px solid #d3d3d3;
 }
 .view-container.light #searchPlayerModal > .modal_content {
   color: #707070;
-  background-color: #eee;
+  background-color: #f9f9f9;
 }
 .view-container.light #searchPlayerModal .list_item {
-  border-bottom-color: #d0d0d0;
+  border-bottom-color: #d3d3d3;
 }
 .view-container.light #searchPlayerModal .list_item.active {
-  background-color: #e9e9e9;
+  background-color: #ececec;
 }
 .view-container.light .tabs {
-  background-color: #161616;
+  background-color: #222;
   margin-top: -1px;
 }
 .view-container.light .tab {
@@ -2552,25 +2690,25 @@ button.newGameButton > .fa-hourglass-half {
   height: 3px;
 }
 .view-container.light .navigationButton {
-  border-color: #d0d0d0;
+  border-color: #d3d3d3;
 }
 .view-container.light .homeMoreButton > button {
-  background: #e9e9e9;
+  background: #ececec;
 }
 .view-container.light .homeMoreButton > button.active {
-  background: #f0f0f0;
+  background: #f3f3f3;
 }
 .view-container.light #masaPlayerInfoModal > header {
   background-color: #fff;
   color: #707070;
-  border-bottom: 1px solid #d0d0d0;
+  border-bottom: 1px solid #d3d3d3;
 }
 .view-container.light #masaPlayerInfoModal > header > .playerModalHeader {
   color: #707070;
 }
 .view-container.light #masaPlayerInfoModal > .modal_content {
   color: #707070;
-  background-color: #eee;
+  background-color: #f9f9f9;
 }
 .menu-backdrop {
   height: 100%;

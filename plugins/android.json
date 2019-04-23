@@ -15,6 +15,18 @@
     },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "org.oyunkeyf.mobileapp"
+    },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "org.oyunkeyf.mobileapp"
+    },
+    "cordova-plugin-x-toast": {
+      "PACKAGE_NAME": "org.oyunkeyf.mobileapp"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "org.oyunkeyf.mobileapp"
+    },
+    "cordova-plugin-globalization": {
+      "PACKAGE_NAME": "org.oyunkeyf.mobileapp"
     }
   },
   "dependent_plugins": {}

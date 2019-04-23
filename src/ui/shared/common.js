@@ -4,8 +4,8 @@ import gamesMenu from '../gamesMenu';
 import newGameForm from '../newGameForm';
 import session from '../../session';
 import * as helper from '../helper';
-import m from 'mithril';
-import ViewOnlyBoard from './ViewOnlyBoard';
+import router from '../../router';
+import { backArrow } from './icons';
 
 export function menuButton() {
   return h('button.fa.fa-navicon.main_header_button.menu_button', {
@@ -44,6 +44,28 @@ export function dropShadowHeader(title, leftButton) {
   
 }
 
+export function connectingDropShadowHeader(title) {
+  return [
+    h('nav', [
+      menuButton(),
+      h('div.main_header_title.reconnecting', {
+        className: title ? 'withTitle':'',
+        key: 'connecting-title'
+      }),
+      title ? h('div.main_header_title', { key: 'title' }, title) : null,
+      headerBtns()
+    ]),
+    h('div.main_header_drop_shadow')
+  ];
+}
+
+export function backButton(title) {
+  return h('div.back_button', { key: 'default-history-backbutton' }, [
+    h('button', { oncreate: helper.ontap(router.backHistory) }, backArrow),
+    title !== undefined ? typeof title === 'string' ? h('div.main_header_title', title) : title : null
+  ]);
+}
+
 // export function menuButton() {
 //   return (
 //       <button key="main-menu" className="fa fa-navicon main_header_button menu_button" config={helper.ontouch(menu.toggle)}>
@@ -51,14 +73,14 @@ export function dropShadowHeader(title, leftButton) {
 //   );
 // }
 
-export function backButton(title) {
-  return (
-      <button key="default-history-backbutton" className="back_button main_header_button" config={helper.ontouch(utils.backHistory)}>
-      <span className="fa fa-arrow-left"/>
-      {title ? <div className="title">{title}</div> : null }
-    </button>
-  );
-}
+// export function backButton(title) {
+//   return (
+//       <button key="default-history-backbutton" className="back_button main_header_button" config={helper.ontouch(utils.backHistory)}>
+//       <span className="fa fa-arrow-left"/>
+//       {title ? <div className="title">{title}</div> : null }
+//     </button>
+//   );
+// }
 
 export function gamesButton() {
   let key, action;

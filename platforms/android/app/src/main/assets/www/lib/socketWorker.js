@@ -48,7 +48,7 @@ StrongSocket.prototype = {
     var self = this;
     self.destroy();
     self.autoReconnect = true;
-    var fullUrl = 'ws://' + self.baseUrl() + self.url + '?' + serializeQueryParameters(self.settings.params);
+    var fullUrl = self.baseUrl() + self.url + '?' + serializeQueryParameters(self.settings.params);
     self.debug('connection attempt to ' + fullUrl, true);
     try {
       if (WebSocket) self.ws = new WebSocket(fullUrl);
@@ -241,7 +241,7 @@ StrongSocket.prototype = {
   },
 
   baseUrl: function() {
-    if (this.socketEndPoint === 'socket.en.lichess.org') {
+    if (this.socketEndPoint === 'socket.oyunkeyf.net') {
       if (!currentUrl) {
         currentUrl = this.urlsPool[0];
       } else if (this.tryAnotherUrl) {

@@ -5,22 +5,34 @@ function withStorage(f) {
   } catch (e) {}
 }
 
-export default {
+function get(k) {
+  return withStorage(function(s) {
+    return JSON.parse(s.getItem(k));
+  });
+}
+function remove(k) {
+  return withStorage(function(s) {
+    s.removeItem(k);
+  });
+}
+function set(k, v) {
+  return withStorage(function(s) {
+    s.removeItem(k);
+    s.setItem(k, JSON.stringify(v));
+  });
+}
 
-  get: function(k) {
-    return withStorage(function(s) {
-      return JSON.parse(s.getItem(k));
-    });
-  },
-  remove: function(k) {
-    return withStorage(function(s) {
-      s.removeItem(k);
-    });
-  },
-  set: function(k, v) {
-    return withStorage(function(s) {
-      s.removeItem(k);
-      s.setItem(k, JSON.stringify(v));
-    });
-  }
+function prop(key, initialValue) {
+  return function() {
+    if (arguments.length) set(key, arguments[0]);
+    const ret = get(key);
+    return (ret !== null && ret !== undefined) ? ret : initialValue;
+  };
+}
+
+export default {
+  get,
+  set,
+  remove,
+  prop
 };

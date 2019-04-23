@@ -1,105 +1,106 @@
-import { request } from './http';
+import { SESSION_ID_KEY, fetchJSON } from './http';
 import { hasNetwork, handleXhrError } from './utils';
 import i18n from './i18n';
 import settings from './settings';
 import throttle from 'lodash/throttle';
-import m from 'mithril';
+import storage from './storage';
 
-var session = null;
+let session;
 
 function isConnected() {
-  return !!session;
+  return session !== undefined;
 }
 
 function getSession() {
   return session;
 }
 
-function getUserId() {
-  return (session && session.id) ? session.id : null;
+function isSession(data) {
+  return data.id !== undefined;
 }
 
-function nowPlaying() {
-  var np = session && session.nowPlaying || [];
-  return np.filter(function(e) {
-    return settings.game.supportedVariants.indexOf(e.variant.key) !== -1;
-  });
+function storeSession(d) {
+  
 }
 
 function login(username, password) {
-  return request('/login', {
+  return fetchJSON('/login', {
     method: 'POST',
-    data: {
+    body: JSON.stringify({
       username,
       password
-    }
-  }, true).then(function(data) {
-    session = data;
-    return session;
-  });
-}
-
-function logout() {
-  return request('/logout', {}, true).then(function() {
-    session = null;
-  }, function(err) {
-    handleXhrError(err);
-    throw err;
-  });
+    })
+  }, true)
+    .then((data) => {
+      if (isSession(data)) {
+        session = data;
+        if (session.sessionId) {
+          storage.set(SESSION_ID_KEY, session.sessionId);
+        }
+        // storeSession(data);
+        return session;
+      }
+      return false;
+    });
 }
 
 function signup(username, email, password) {
-  return request('/signup', {
+  return fetchJSON('/signup', {
     method: 'POST',
-    data: {
+    body: JSON.stringify({
       username,
       email,
       password
-    }
-  }, true).then(function(data) {
-    session = data;
-    return session;
-  });
+    })
+  }, true)
+    .then(d => {
+      if (isSession(d)) {
+        session = d;
+        if (session.sessionId) {
+          storage.set(SESSION_ID_KEY, session.sessionId);
+        }
+      }
+      return d;
+    });
 }
 
 function rememberLogin() {
-  return request('/account/info', {
-    background: true
-  }).then(function(data) {
-    session = data;
-    return data;
-  });
+  return fetchJSON('/account/info')
+    .then((data) => {
+      session = data;
+      storeSession(data);
+      return data;
+    });
 }
 
 function refresh() {
-  if (hasNetwork() && isConnected()) {
-    return request('/account/info', {
-      background: true
-    }).then(function(data) {
+  return fetchJSON('/account/info', { cache: 'reload' })
+    .then((data) => {
       session = data;
-      m.redraw();
-      return session;
-    }, err => {
-      if (session && err.status === 401) {
-        session = null;
-        m.redraw();
+      storeSession(data);
+      redraw();
+    }).catch((err) => {
+      if (session !== undefined && err.status === 401) {
+        session = undefined;
+        onLogout();
+        redraw();
         window.plugins.toast.show(i18n('signedOut'), 'short', 'center');
       }
-      throw err;
     });
-  } else {
-    return Promise.resolve(false);
-  }
+}
+
+function onLogout() {
+  storage.remove(SESSION_ID_KEY);
+  signals.afterLogout.dispatch();
 }
 
 export default {
   isConnected,
   signup,
-  logout,
   login: throttle(login, 1000),
   rememberLogin: throttle(rememberLogin, 1000),
-  refresh: throttle(refresh, 1000),
   get: getSession,
-  getUserId,
-  nowPlaying: nowPlaying
+  refresh: throttle(refresh, 1000)
 };
+
+

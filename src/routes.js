@@ -12,14 +12,14 @@ export default {
   init() {
     defineRoutes(document.body, {
       '': home,
-      '/@/:id': user,
-      '/players': players,
-      '/game/:id': game,
-      '/masa': masa,
-      '/masa/:id': masaDetail,
-      '/masa/:masaId/game/:id': game,
-      '/settings': settingsUi,
-      '/settings/lang': settingsLang,
+      '@/:id': user,
+      'players': players,
+      'game/:id': game,
+      'masa/:masaId/game/:id': game,
+      'masa': masa,
+      'masa/:id': masaDetail,
+      'settings': settingsUi,
+      'settings/lang': settingsLang,
     });
   }
 };

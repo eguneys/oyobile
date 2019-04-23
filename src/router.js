@@ -11,6 +11,11 @@ let viewSlideDirection = 'fwd';
 
 let previousPath = '/';
 
+const uid = (function() {
+  let id = 0;
+  return () => id++;
+})();
+
 const backbutton = (() => {
   const x = () => {
 
@@ -75,6 +80,45 @@ function processQuerystring(e) {
   if (!matched) router.run('/');
 }
 
+function assignState(state, path) {
+  try {
+    const newState = state ?
+            Object.assign({}, window.history.state, state) :
+          window.history.state;
+
+    if (path !== undefined) {
+      window.history.replaceState(newState, '', '?=' + path);
+    } else {
+      window.history.replaceState(newState, '');
+    }
+  } catch(e) { console.error(e); }
+}
+
+function replacePath(path) {
+  assignState(undefined, path);
+}
+
+function doSet(path, replace = false) {
+  backbutton.stack = [];
+  previousPath = get();
+  if (replace) {
+    replacePath(path);
+  } else {
+    const stateId = uid();
+    currentStateId = stateId;
+    viewSlideDirection = 'fwd';
+    try {
+      window.history.pushState({ id: stateId }, '', '?=' + path);
+    } catch (e) { console.error(e); }
+  }
+  const matched = router.run(path);
+  if (!matched) router.run('/');
+}
+
+function set(path, replace = false) {
+  setTimeout(() => doSet(path, replace), 0);
+}
+
 function get() {
   const path = window.location.search || '?=/';
   return decodeURIComponent(path.substring(2));
@@ -85,5 +129,8 @@ function backHistory() {
 }
 
 export default {
-  backbutton
+  get,
+  set,
+  backbutton,
+  backHistory
 };

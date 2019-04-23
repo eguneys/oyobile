@@ -3,5 +3,6 @@
   <name>oyunkeyf</name>
   <description>oyunkeyf.net mobile application</description>
   <content src="index.html"/>
-  
+  <access origin="https://oyunkeyf.net"/>
+  <access origin="https://*.oyunkeyf.net"/>
 </widget>
