@@ -75,6 +75,11 @@ export function elFadeIn(el, duration = animDuration, origOpacity = '0.5', endOp
 }
 
 
+export function getButton(e) {
+  const target = e.target;
+  return target.tagName === 'BUTTON' ? target : findParentBySelector(target, 'button');
+}
+
 // OLD
 
 //store temporarily last route to disable animations on same route

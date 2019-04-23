@@ -16,7 +16,7 @@ export default {
       'players': players,
       'game/:id': game,
       'masa/:masaId/game/:id': game,
-      'masa': masa,
+      'masas': masa,
       'masa/:id': masaDetail,
       'settings': settingsUi,
       'settings/lang': settingsLang,

@@ -1097,10 +1097,68 @@ piece.fake {
     stroke: #759900;
   }
 }
+.content_round {
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: row nowrap;
+}
+.game_board_wrapper,
+.board_wrapper {
+  height: 100vh;
+  width: 100vw;
+  flex: 0 0 auto;
+  margin: auto 0;
+}
 .game_board_wrapper {
   position: relative;
   flex: 0 0 auto;
   margin: auto;
+}
+.menu_actions_bar {
+  position: absolute;
+  z-index: 4;
+}
+.playTable {
+  position: absolute;
+}
+.playTable.player {
+  top: 65%;
+  left: 45%;
+}
+.playTable.opponentLeft {
+  top: 33%;
+  left: 2%;
+}
+.playTable.opponentRight {
+  top: 33%;
+  right: 2%;
+}
+.playTable.opponentUp {
+  top: 0;
+  left: 45%;
+}
+.opponentLeft .antagonistUser,
+.opponentRight .antagonistUser {
+  display: flex;
+  flex-flow: column nowrap;
+  text-align: center;
+}
+.antagonistUser {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1.1em;
+  white-space: nowrap;
+  color: #aeaeae;
+}
+.antagonistUser > .status {
+  font-size: 0.9em;
+  margin-right: 5px;
+}
+.antagonistUser > .status.ongame {
+  color: #759900;
+}
+.antagonistUser > .status.offgame {
+  opacity: 0.6;
 }
 .display_board {
   width: 100%;
@@ -1928,6 +1986,31 @@ main {
   border-left: 10px solid #d59120;
   padding-left: 5px;
 }
+.masa_item {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+.masa_item:before {
+  position: absolute;
+  left: 10px;
+  top: 21px;
+  font-size: 28px;
+}
+.masaListName {
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 65%;
+}
+.masaListName:first-child {
+  padding-left: 40px;
+}
+.masaListName > .fullName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 table.masaList {
   width: 100%;
 }
@@ -2412,10 +2495,66 @@ button.newGameButton > .fa-hourglass-half {
   font-size: 0.75em;
   color: #c9c9c9;
 }
-.tabs {
+.tabs-nav-header {
+  flex: 0 0 48px;
+  position: relative;
+}
+.tabs-navigation {
   display: flex;
   flex-flow: row nowrap;
   height: 48px;
+  position: relative;
+}
+.tab-button {
+  flex: 0 1 auto;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0 10px;
+  font-size: 14px;
+  overflow: hidden;
+  height: calc(100% - 2px);
+  color: #b8b8b8;
+}
+.tab-button.active {
+  background-color: #404040;
+}
+.tab-button.selected {
+  color: #c4a86f;
+}
+.tabIndicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background-color: #c4a86f;
+  transition: transform ease-out 200ms;
+}
+.tabs-view-wrapper {
+  overflow-x: hidden;
+  flex: 1 1 auto;
+  display: flex;
+}
+.tabs-view {
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  width: 300vw;
+  transition: transform ease-out 100ms;
+}
+.tab-content {
+  flex: 1 1 auto;
+  width: 100vw;
+  display: flex;
+  flex-flow: column nowrap;
+  visibility: hidden;
+}
+.tab-content.current {
+  visibility: visible;
+}
+.tabs {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 50px;
   position: relative;
   background-color: #222;
 }

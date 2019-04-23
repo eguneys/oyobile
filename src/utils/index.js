@@ -98,6 +98,8 @@ export function hasNetwork() {
   return window.navigator.connection.type !== Connection.NONE;
 }
 
+
+
 // export function handleXhrError(error) {
 //   var {response: data, status} = error;
 //   if (!hasNetwork()) {
@@ -250,4 +252,9 @@ export function pad(num, size) {
 
 export function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function safeStringToNum(s) {
+  const n = Number(s);
+  return isNaN(n) ? undefined : n;
 }

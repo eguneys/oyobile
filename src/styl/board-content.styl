@@ -6,10 +6,60 @@ topPieceHeight = 10%
 
 topCenterLeft = 45%
 
+.content_round
+  flex 1 1 auto
+  display flex
+  flex-flow row nowrap
+
+.game_board_wrapper, .board_wrapper
+  height 100vh
+  width 100vw
+  flex 0 0 auto
+  margin auto 0
+
 .game_board_wrapper
   position relative
   flex 0 0 auto
   margin auto
+
+.menu_actions_bar
+  position absolute
+  z-index 4
+
+.playTable
+  position absolute
+  &.player
+    top 65%
+    left 45%
+  &.opponentLeft
+    top 33%
+    left 2%
+  &.opponentRight
+    top 33%
+    right 2%
+  &.opponentUp
+    top 0
+    left 45%
+
+.opponentLeft .antagonistUser,
+.opponentRight .antagonistUser
+  display flex
+  flex-flow column nowrap
+  text-align center
+
+.antagonistUser
+  overflow hidden
+  text-overflow ellipsis
+  font-size 1.1em
+  white-space nowrap
+  color textLightGray
+  > .status
+    font-size 0.9em
+    margin-right 5px
+    &.ongame
+      color green
+    &.offgame
+      opacity 0.6
 
 .display_board
   width 100%

@@ -1,6 +1,7 @@
 import stream from 'mithril/stream';
 import Zanimo from 'zanimo';
 import backbutton from '../../backbutton';
+import router from '../../router';
 import redraw from '../../utils/redraw';
 import m from 'mithril';
 import SideMenuCtrl from '../shared/sideMenu/SideMenuCtrl';
