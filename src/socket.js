@@ -154,6 +154,9 @@ export default {
   createLobby,
   createMasa,
   reconnectCurrent,
+  setVersion(version) {
+    tellWorker(worker, 'setVersion', version);
+  },
   send: (t, data, opts) => {
     tellWorker(worker, 'send', [t, data, opts]);
   },

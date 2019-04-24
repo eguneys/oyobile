@@ -17,6 +17,14 @@ export default function OnlineRound(id, cfg) {
     this.data = cfg;
   };
 
+  const onResume = () => {
+    xhr.reload(this)
+      .then(data => {
+        socket.setVersion(data.player.version);
+        this.onReload(data);
+      });
+  };
+
   this.onMove = (key, piece) => {
     if (key === Okeyground.move.drawMiddle) {
       this.sendMove(key);
@@ -87,6 +95,8 @@ export default function OnlineRound(id, cfg) {
       if (this.clock) this.clock.setClock(d, o.clock.east, o.clock.west, o.clock.south, o.clock.north);
     }
 
+    document.addEventListener('resume', onResume);
+
     redraw();
   };
 
@@ -103,8 +113,8 @@ export default function OnlineRound(id, cfg) {
 
     if (!gameApi.playable(this.data)) {
       this.showActions();
-      redraw();
     }
+    redraw();
   };
 
   this.showActions = () => {
@@ -150,6 +160,7 @@ export default function OnlineRound(id, cfg) {
 
   this.unload = () => {
     clearTimeout(this.clockTimeoutId);
+    document.removeEventListener('resume', onResume);
   };
 
   this.resign = () => {

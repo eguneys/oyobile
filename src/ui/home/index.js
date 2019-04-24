@@ -38,8 +38,15 @@ export default {
 
     this.ctrl = {
       nbConnectedPlayers,
-      nbGamesInPlay
+      nbGamesInPlay,
+      init,
+      onResume
     };
+  },
+  onremove() {
+    socket.destroy();
+    document.removeEventListener('online', this.ctrl.init);
+    document.removeEventListener('resume', this.ctrl.onResume);
   },
   
   view() {

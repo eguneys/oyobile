@@ -1187,6 +1187,9 @@ piece.fake {
   position: absolute;
   top: 65%;
   left: 10%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
 }
 .game_actions_bar.right button {
   margin: 0 2px;
@@ -1205,6 +1208,9 @@ piece.fake {
 }
 .game_actions_bar.right button.empty {
   visibility: hidden;
+}
+.crosstable .me {
+  border-left: 10px solid #d59120;
 }
 .display_board {
   width: 100%;

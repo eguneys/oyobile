@@ -1,5 +1,6 @@
 import Rlite from 'rlite-router';
 import * as RenderService from 'mithril/render';
+import isFunction from 'lodash/isFunction';
 import Vnode from 'mithril/render/vnode';
 import signals from './signals';
 import redraw from './utils/redraw';
