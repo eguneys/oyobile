@@ -40,9 +40,23 @@ function renderGameRunningActions(ctrl) {
 }
 
 function renderGameEndedActions(ctrl) {
+  function utilPlayer(p, tag) {
+    const fullName = p.user ? p.user.username : (p.ai ? i18n('aiBot', p.ai) : 'Misafir');
+    
+    return (<a className="user_link">{fullName}</a>);
+  };
+  function playerScoresheetTr(ctrl, { player, scores }) {
+    var mySide = ctrl.data.player.side;
+
+    return (<tr key={player.side} className={player.side === mySide? 'me':''}>
+             <th className="user">{utilPlayer(player)}</th>
+             <th className="score">{scores.total}</th>
+            </tr>);
+  }
+
   const result = gameApi.result(ctrl.data);
   const resultDom = gameStatusApi.aborted(ctrl.data) ? [] : [
-    h('strong', result), h('br')
+    h('strong', i18n(result)), h('br')
   ];
 
   let buttons;
@@ -53,8 +67,26 @@ function renderGameEndedActions(ctrl) {
     ];
   }
 
+  var scores = ['east','west','north','south'].map(side => {
+    return {
+      player: gameApi.getPlayer(ctrl.data, side),
+      scores: ctrl.data.game.scores ? ctrl.data.game.scores[side] : { scores: [] }      
+    };
+  });
+
+  const endScores =
+          <div className="crosstable">
+            <table>
+              <thead><tr/></thead>
+              <tbody>
+                 {scores.map(playerScoresheetTr.bind(null, ctrl))}
+              </tbody>
+            </table>
+          </div>;
+
   return (
     <div className="game_controls">
+      <div className="endScores">{endScores}</div>
       <div className="control buttons">{buttons}</div>  
     </div>
   );
@@ -63,26 +95,27 @@ function renderGameEndedActions(ctrl) {
 function renderStatus(ctrl) {
   const result = gameApi.result(ctrl.data);
   const winner = gameApi.getPlayer(ctrl.data, ctrl.data.game.winner);
-  const status = ctrl.data.game.status.name;
-  
+  const status = gameStatusApi.toLabel(ctrl.data.game.status.name, ctrl.data.game.winner) +
+          (winner ? ('. ' + 'winner' + '.') : '');
+
   return (gameStatusApi.aborted(ctrl.data) ? [] : [
     h('strong', result), h('br')
-  ]).concat([h('em.resultStatus', status)]);
+  ]).concat([h('em.resultStatus', i18n(status))]);
 }
 
 function renderGamePopup(ctrl) {
   const header = !gameApi.playable(ctrl.data) ?
           () => renderStatus(ctrl) : undefined;
   
-  return popupWidget(
-    'player_controls',
-    header,
-    () => gameApi.playable(ctrl.data) ?
-      renderGameRunningActions(ctrl) :
-      renderGameEndedActions(ctrl),
-    ctrl.vm.showingActions,
-    ctrl.hideActions
-  );
+    return popupWidget(
+      'player_controls',
+      header,
+      () => gameApi.playable(ctrl.data) ?
+        renderGameRunningActions(ctrl) :
+        renderGameEndedActions(ctrl),
+      ctrl.vm.showingActions,
+      ctrl.hideActions
+    );
 }
 
 function renderHeader(ctrl) {

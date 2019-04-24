@@ -17,6 +17,6 @@ const variantMap = {
   },
 };
 
-export default function getVariant(key) {
+export function getVariant(key) {
   return variantMap[key];
 }

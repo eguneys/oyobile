@@ -8,7 +8,7 @@ import gameApi from '../../../oyunkeyf/game';
 import socketHandler from './socketHandler';
 import ClockCtrl from './clock/ClockCtrl';
 import * as xhr from './roundXhr';
-
+import * as masaXhr from '../../masa/masaXhr';
 const { util } = Okeyground;
 const { wrapGroup, wrapPiece, wrapDrop, partial } = util;
 
@@ -150,6 +150,10 @@ export default function OnlineRound(id, cfg) {
 
   this.unload = () => {
     clearTimeout(this.clockTimeoutId);
+  };
+
+  this.resign = () => {
+    masaXhr.withdraw(this.data.game.masaId);
   };
 
   this.leaveTaken = () => {

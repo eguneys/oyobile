@@ -4,6 +4,7 @@ import session from '../../../session';
 import i18n from '../../../i18n';
 import * as helper from '../../helper';
 import settings from '../../../settings';
+import * as variantApi from '../../../oyunkeyf/variant';
 
 import faq from '../faq';
 
@@ -59,8 +60,8 @@ function masaHeader(data, ctrl) {
 }
 
 function masaTimeInfo(data) {
-  const variant = data.variant;
-  const control = data.scores;
+  const variant = variantApi.getVariant(data.variant).name;
+  const control = data.scores ? data.scores + ' ' + i18n('scores') : data.rounds + ' ' + i18n('rounds');
   return (
     <div className="masaTimeInfo">
       <strong className="masaInfo withIcon">

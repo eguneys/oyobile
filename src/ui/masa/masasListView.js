@@ -3,6 +3,7 @@ import i18n from '../../i18n';
 import router from '../../router';
 import * as helper from '../helper';
 import { capitalize } from '../../utils';
+import newGameForm from '../newGameForm';
 import TabNavigation from '../shared/TabNavigation';
 import TabView from '../shared/TabView';
 
@@ -80,12 +81,17 @@ function renderMasaListItem(masa, index) {
   );
 }
 
-export function renderFooter() {
+export function renderFooter(ctrl) {
   return (
     <div className="actions_bar">
-      <button key="createMasa" className="action_create_button">
+      <button key="createMasa" className="action_create_button" oncreate={helper.ontap(newGameForm.openRealtime)}>
         <span className="fa fa-plus-circle"/>
         {i18n('createANewMasa')}
+      </button>
+      <button key="refreshMasa" className="action_refresh_button"
+    oncreate={helper.ontap(ctrl.refresh)}>
+        <span className="fa fa-refresh"/>
+        {i18n('refresh')}
       </button>
     </div>
   );

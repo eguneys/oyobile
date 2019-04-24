@@ -5,11 +5,16 @@ import * as xhr from './masaXhr';
 export default function MasasListCtrl(defaultTab) {
   this.currentTab = defaultTab || 0;
 
-  xhr.currentMasas()
-    .then(data => {
-      this.masas = data;
-      redraw();
-    }).catch(handleXhrError);
+
+  this.refresh = () => {
+    xhr.currentMasas()
+      .then(data => {
+        this.masas = data;
+        redraw();
+      }).catch(handleXhrError);
+  };
+
+  this.refresh();
 
   this.onTabChange = (tabIndex) => {
     const loc = window.location.search.replace(/\?tab\=\w+$/, '');

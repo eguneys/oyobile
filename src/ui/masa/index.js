@@ -22,7 +22,7 @@ export default {
     const ctrl = this.ctrl;
     
     const body = renderMasasList(ctrl);
-    const footer = renderFooter();
+    const footer = renderFooter(ctrl);
     const overlay = null;
     
     return layout.free(header(i18n('masas')), body, footer, overlay);
