@@ -121,10 +121,42 @@ function createMasa(masaId, version, handlers) {
   setupConnection(setup, socketHandlers);
 }
 
+function createGame(
+  url,
+  version,
+  handlers,
+  gameUrl) {
+  const socketHandlers = {
+    onOpen: session.backgroundRefresh,
+    events: Object.assign({}, defaultHandlers, handlers)
+  };
+  const opts = {
+    options: {
+      name: 'game',
+      debug: globalConfig.mode === 'dev',
+      sendOnOpen: [],
+      registeredEvents: Object.keys(socketHandlers.events)
+    }
+  };
+  const setup = {
+    clientId: newSri(),
+    socketEndPoint: globalConfig.socketEndPoint,
+    url,
+    version,
+    opts
+  };
+  
+  setupConnection(setup, socketHandlers);
+}
+
 export default {
+  createGame,
   createLobby,
   createMasa,
   reconnectCurrent,
+  send: (t, data, opts) => {
+    tellWorker(worker, 'send', [t, data, opts]);
+  },
   isConnected() {
     return connectedWS;
   },

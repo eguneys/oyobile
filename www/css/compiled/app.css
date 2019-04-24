@@ -1115,11 +1115,13 @@ piece.fake {
   margin: auto;
 }
 .menu_actions_bar {
+  display: flex;
   position: absolute;
   z-index: 4;
 }
 .playTable {
   position: absolute;
+  width: 13%;
 }
 .playTable.player {
   top: 65%;
@@ -1127,11 +1129,11 @@ piece.fake {
 }
 .playTable.opponentLeft {
   top: 33%;
-  left: 2%;
+  left: 1%;
 }
 .playTable.opponentRight {
   top: 33%;
-  right: 2%;
+  right: 1%;
 }
 .playTable.opponentUp {
   top: 0;
@@ -1146,7 +1148,7 @@ piece.fake {
 .antagonistUser {
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 1.1em;
+  font-size: 0.9em;
   white-space: nowrap;
   color: #aeaeae;
 }
@@ -1159,6 +1161,50 @@ piece.fake {
 }
 .antagonistUser > .status.offgame {
   opacity: 0.6;
+}
+.antagonistInfos > .bar span.emerg {
+  background: #efaaaa;
+}
+.antagonistInfos > .bar {
+  width: 100%;
+  height: 4px;
+}
+.antagonistInfos > .bar > span {
+  display: block;
+  height: 4px;
+  background: #759900;
+}
+.game_actions_bar {
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0;
+  flex: 0 0 45px;
+  width: 100%;
+  overflow: hidden;
+}
+.game_actions_bar.right {
+  z-index: 4;
+  position: absolute;
+  top: 65%;
+  left: 10%;
+}
+.game_actions_bar.right button {
+  margin: 0 2px;
+  text-align: center;
+  background: #c4a86f;
+  color: #fff;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1);
+}
+.game_actions_bar.right button.active {
+  background: #fff;
+  color: #dccba9;
+}
+.game_actions_bar.right button.glow {
+  animation: answer_glow 5s infinite;
+}
+.game_actions_bar.right button.empty {
+  visibility: hidden;
 }
 .display_board {
   width: 100%;
@@ -1242,7 +1288,7 @@ piece.fake {
     line-height: 14px;
   }
 }
-.game_actions_bar {
+.game_actions_barOLD {
   display: flex;
   justify-content: space-around;
   padding: 0 2px;

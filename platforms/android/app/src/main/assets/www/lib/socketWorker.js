@@ -244,7 +244,7 @@ StrongSocket.prototype = {
     if (this.socketEndPoint === 'socket.oyunkeyf.net') {
       if (!currentUrl) {
         currentUrl = this.urlsPool[0];
-      } else if (this.tryAnotherUrl) {
+      } else if (this.tryAnotherUrl){  
         this.tryAnotherUrl = false;
         currentUrl = this.urlsPool[(this.urlsPool.indexOf(currentUrl) + 1) % this.urlsPool.length];
       }

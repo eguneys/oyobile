@@ -4,6 +4,9 @@ bin/*.keystore
 /app
 /node_modules
 
+/platforms
+/plugins
+
 project/www/app.js
 project/www/index.html
 project/www/css/compiled

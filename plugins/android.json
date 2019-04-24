@@ -27,6 +27,9 @@
     },
     "cordova-plugin-globalization": {
       "PACKAGE_NAME": "org.oyunkeyf.mobileapp"
+    },
+    "cordova-plugin-insomnia": {
+      "PACKAGE_NAME": "org.oyunkeyf.mobileapp"
     }
   },
   "dependent_plugins": {}

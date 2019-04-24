@@ -73,7 +73,7 @@ gulp.task('scripts', () => {
     .bundle()
     .pipe(source('app.js'))
     .pipe(buffer())
-    .pipe(uglify({ safari10: true }))
+    // .pipe(uglify({ safari10: true }))
     .on('error', logErrorAndExit)
     .pipe(gulp.dest(DEST));
 });

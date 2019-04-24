@@ -101,6 +101,7 @@ function request(url, type, opts, feedback) {
             });
         }
       }).catch(err => {
+        console.log('error ' + err);
         onComplete();
         reject({
           status: 0,

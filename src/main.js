@@ -17,6 +17,7 @@ import * as helper from './ui/helper';
 import backbutton from './backbutton';
 import socket from './socket';
 import routes from './routes';
+import router from './router';
 import { isForeground, setForeground, setBackground } from './utils/appMode';
 
 let firstConnection = true;
@@ -37,7 +38,7 @@ function main() {
   document.addEventListener('offline', onOffline, false);
   document.addEventListener('resume', onResume, false);
   document.addEventListener('pause', onPause, false);
-  document.addEventListener('backbutton', backbutton, false);
+  document.addEventListener('backbutton', router.backbutton, false);
   window.addEventListener('unload', function() {
     socket.destroy();
     socket.terminate();

@@ -4,7 +4,7 @@ export default function ClockCtrl(d, opts) {
 
   this.setClock = (d, east, west, south, north) => {
     const isClockRunning = gameApi.playable(d) &&
-            ((d.game.turns - d.game.startedAtTurn) > -1 || (d.clock && d.clock.running));
+            (d.game.turns >= 4 || (d.clock && d.clock.running));
 
     this.times = {
       east: east * 1000,
@@ -47,8 +47,9 @@ export default function ClockCtrl(d, opts) {
   this.updateElement = (side, millis) => {
     const el = this.elements[side];
     if (el) {
-      el.textContent = millis;
-      if (millis < this.emergMs) el.classList.add('emerg');
+      const width = Math.max(0, Math.min(100, (millis / 30000) * 100)) + '%';
+      el.style.width = width;
+      if (millis < this.emergMs * 4 * 1000) el.classList.add('emerg');
       else el.classList.remove('emerg');
     }
   };

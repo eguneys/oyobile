@@ -272,6 +272,10 @@ export function classSet(classes) {
   return arr.join(' ');
 }
 
+export function clearCachedViewportDim() {
+  cachedViewportDim = null;
+}
+
 // export default {
 //   slidingPage: animator(viewSlideIn, viewSlideOut),
 //   fadingPage: animator(viewFadesIn, viewFadesOut),

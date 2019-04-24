@@ -18,7 +18,7 @@ export default {
 
     return h('div.view-container', { className: bgClass(background) }, [
       h(MainBoard, { header }, content),
-      h(MenuView),
+      // h(MenuView),
       overlay
     ]);
   },
