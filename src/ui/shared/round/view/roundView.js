@@ -136,9 +136,20 @@ function renderContent(ctrl) {
 }
 
 function renderGameActionsBarRight(ctrl) {
+  const myTurn = gameApi.isPlayerTurn(ctrl.data);
+
+  const canOpenSeries = ctrl.okeyground.canOpenSeries();
+  const canOpenPairs = ctrl.okeyground.canOpenPairs();
+  const canLeaveTaken = ctrl.okeyground.canLeaveTaken();
+
+  const canCollectOpen = ctrl.okeyground.canCollectOpen();
+
+  
   return (<section className="game_actions_bar right">
-          {gameButton.sortPairs(ctrl)}
-          {gameButton.sortSeries(ctrl)}
+          {(canLeaveTaken) ? gameButton.leaveTaken(ctrl) : null }
+          {(canOpenPairs) ? gameButton.openPairs(ctrl) : gameButton.sortPairs(ctrl) }
+          {(canOpenSeries) ? gameButton.openSeries(ctrl) : gameButton.sortSeries(ctrl) }
+          {(canCollectOpen) ? gameButton.collectOpen(ctrl) : null}
           </section>);
 }
 

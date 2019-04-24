@@ -24,6 +24,20 @@ export default {
         </button>
     );
   },
+  openSeries(ctrl) {
+    const className = "open-series";
+    return (
+        <button className={className} key="openSeries"
+      oncreate={helper.ontap(ctrl.openSeries)}>{i18n('openSeries')}</button>
+    );
+  },
+  openPairs(ctrl) {
+    const className = "open-pairs";
+    return (
+        <button className={className} key="openPairs"
+      oncreate={helper.ontap(ctrl.openPairs)}>{i18n('openPairs')}</button>
+    );
+  },
   sortPairs(ctrl) {
     const className = "sort-series";    
     return (
@@ -37,5 +51,19 @@ export default {
         <button className={className} key="sortSeries"
       oncreate={helper.ontap(ctrl.sortSeries)}>{i18n('sortSeries')}</button>
     );
+  },
+  collectOpen(ctrl) {
+    const className = "collect-open";
+    return (
+        <button className={className} key="collectOpen"
+      oncreate={helper.ontap(ctrl.collectOpen)}>{i18n('collectOpen')}</button>
+    );    
+  },
+  leaveTaken(ctrl) {
+    const className = "leave-taken";
+    return (
+        <button className={className} key="leaveTaken"
+      oncreate={helper.ontap(ctrl.leaveTaken)}>{i18n('leaveTaken')}</button>
+    );    
   }
 };

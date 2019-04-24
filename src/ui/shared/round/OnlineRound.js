@@ -152,6 +152,18 @@ export default function OnlineRound(id, cfg) {
     clearTimeout(this.clockTimeoutId);
   };
 
+  this.leaveTaken = () => {
+    this.sendMove(Okeyground.move.leaveTaken);
+  };
+  
+  this.openSeries = () => {
+    this.okeyground.playOpenSeries();
+  };
+
+  this.openPairs = () => {
+    this.okeyground.playOpenPairs();
+  };
+  
   this.sortPairs = () => {
     this.okeyground.sortPairs();
   };
@@ -160,6 +172,21 @@ export default function OnlineRound(id, cfg) {
     this.okeyground.sortSeries();
   };
 
+  this.leaveTaken = () => {
+    this.sendMove(Okeyground.move.leaveTaken);
+  };
+
+  this.collectOpen = () => {
+    this.sendMove(Okeyground.move.collectOpen);
+  };
+
+
+  this.restoreFen = (fen, hint) => {
+    this.okeyground.set({
+      fen: fen,
+      animationHint: hint
+    });
+  };
 
   if (!gameApi.playable(this.data)) {
     this.showActions();

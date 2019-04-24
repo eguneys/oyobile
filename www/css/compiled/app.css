@@ -1187,6 +1187,9 @@ piece.fake {
   position: absolute;
   top: 65%;
   left: 10%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
 }
 .game_actions_bar.right button {
   margin: 0 2px;
