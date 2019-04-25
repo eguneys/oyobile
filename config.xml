@@ -5,4 +5,9 @@
   <content src="index.html"/>
   <access origin="https://oyunkeyf.net"/>
   <access origin="https://*.oyunkeyf.net"/>
+  <platform name="android">
+    <icon src="res/b7.png"/>
+    <splash src="res/b7.png"/>
+  </platform>
+  <preference name="Orientation" value="landscape"/>
 </widget>

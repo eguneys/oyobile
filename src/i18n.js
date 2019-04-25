@@ -2,7 +2,7 @@ import settings from './settings';
 import { loadLocalJsonFile } from './utils';
 
 
-const defaultCode = 'tr';
+const defaultCode = 'tr-TR';
 
 let lang = defaultCode;
 let messages = {};

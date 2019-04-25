@@ -74,15 +74,22 @@ function renderLinks(user) {
       {hasNetwork() ? <li className="side_link" data-route="/masas">
          <span className="fa fa-trophy"/>{i18n('masas')}
        </li> : null }
-      {hasNetwork() ? <li className="side_link" data-route="/players">
+      {hasNetwork() ? <li className="side_link" data-route="/todo">
          <span className="fa fa-at"/>{i18n('players')}
        </li> : null }
-      {hasNetwork() ? <li className="side_link" data-route="/ranking">
+      {hasNetwork() ? <li className="side_link" data-route="/todo">
         <span className="fa fa-cubes"/>{i18n('leaderboard')}
        </li> : null }
        <li className="hr"></li>
        <li className="side_link" data-route="/settings">
         <span className="fa fa-cog"/>{i18n('settings')}
+       </li>
+      <li className="side_link" oncreate={helper.ontapXY(() => {
+         session.logout();
+        // menu.mainMenuCtrl.close(false);
+       })}>
+         <span data-icon="w" />
+         {i18n('logOut')}
        </li>
     </ul>
   );

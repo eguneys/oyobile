@@ -1,5 +1,6 @@
 import { SESSION_ID_KEY, fetchJSON } from './http';
 import { hasNetwork, handleXhrError } from './utils';
+import redraw from './utils/redraw';
 import i18n from './i18n';
 import settings from './settings';
 import throttle from 'lodash/throttle';
@@ -94,9 +95,18 @@ function onLogout() {
   signals.afterLogout.dispatch();
 }
 
+function logout() {
+  return fetchJSON('/logout', { method: 'GET' }, true)
+    .then(() => {
+      session = undefined;
+      redraw();
+    }).catch(handleXhrError);
+};
+
 export default {
   isConnected,
   signup,
+  logout,
   login: throttle(login, 1000),
   rememberLogin: throttle(rememberLogin, 1000),
   get: getSession,

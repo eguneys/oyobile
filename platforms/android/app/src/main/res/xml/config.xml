@@ -32,5 +32,8 @@
     <content src="index.html" />
     <access origin="https://oyunkeyf.net" />
     <access origin="https://*.oyunkeyf.net" />
+    <icon src="res/b7.png" />
+    <splash src="res/b7.png" />
     <preference name="loglevel" value="DEBUG" />
+    <preference name="Orientation" value="landscape" />
 </widget>

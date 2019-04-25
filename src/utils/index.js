@@ -44,7 +44,7 @@ export function loadLocalJsonFile(url) {
     xhr.open('GET', url, true);
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
-        if (xhr.status === 0 || xhr.status === 200) {
+        if ((xhr.status === 0 || xhr.status === 200) && xhr.responseText !== '') {
           resolve(JSON.parse(xhr.responseText));
         } else {
           reject(xhr);

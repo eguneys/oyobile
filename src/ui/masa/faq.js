@@ -30,7 +30,7 @@ export default {
     if (!masa) return null;
 
     return (
-      <div className="modal" id="masaFaqModal" config={helper.slidesInUp}>
+      <div className="modal" id="masaFaqModal" oncreate={helper.slidesInUp}>
         <header>
           <button className="modal_close" data-icon="L"
                   oncreate={helper.ontap(helper.slidesOutDown(ctrl.close, "masaFaqModal"))}/>

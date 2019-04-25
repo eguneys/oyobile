@@ -136,10 +136,32 @@ function renderPlayerEntry(ctrl, userName, player) {
     <li className={'list-item masa-list-player ' + (isMe ? 'masa-me' : '')} >
        <div className="masaPlayer">
          <span className="flagRank" data-icon={player.withdraw ? 'b':''}> {player.withdraw ? '' : (player.rank + '. ')}</span>
-         <span> {!(player.name) ? 'Anonymous' : player.name + ' (' + player.rating + ') '}</span>
+         <span> {!(player.name) ? (player.ai?i18n('aiBot'):'Misafir') : player.name + ' (' + player.rating + ') '}</span>
        </div>
        <span className={'masaPoints '} data-icon='Q'>{player.score}</span>
     </li>
   );
 
+}
+
+function masaPodium(podium) {
+  return (
+  <div key="podium" className="podium">
+    {renderPlace(podium[0])}
+  </div>
+  );
+
+}
+
+function renderPlace(data) {
+  if (!data) return null;
+  const rank = data.rank;
+  return (
+  <div className={'place' + rank}>
+    <div className="trophy"/>
+    <div className="username" oncreate={helper.ontap(() => {})}>
+      {data.name?data.name : 'Misafir' }
+    </div>
+    <div className="rating">{data.rating}</div>
+  </div>);
 }
